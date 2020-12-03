@@ -1,36 +1,30 @@
-SET time_zone = "-03:00";
-
-
-CREATE DATABASE IF NOT EXISTS eclasses CHARACTER SET utf8mb4 COLLATE utf8mb4_uniide_ci;
-USE eclasses;
-
 
 -- Table UF
 
-DROP TABLE IF EXISTS `UF`;
-CREATE TABLE IF NOT EXISTS `UF`
+DROP TABLE IF EXISTS UF;
+CREATE TABLE IF NOT EXISTS UF
 (
-  "id-uf" Integer NOT NULL AUTO_INCREMENT,
+  "id-uf" SERIAL NOT NULL,
   "nome" Character varying(40) NOT NULL,
   "uf" Character varying(2) NOT NULL
 );
 
 -- Table municipio
 
-DROP TABLE IF EXISTS `municipio`;
-CREATE TABLE IF NOT EXISTS `municipio`
+DROP TABLE IF EXISTS municipio;
+CREATE TABLE IF NOT EXISTS municipio
 (
-  "id-municipio" Integer NOT NULL AUTO_INCREMENT,
+  "id-municipio" SERIAL NOT NULL,
   "codigo" Integer NOT NULL,
   "nome" Character varying(50) NOT NULL,
   "uf" Character varying(2) NOT NULL
 );
 
 
-DROP TABLE IF EXISTS `aluno`;
-CREATE TABLE IF NOT EXISTS `aluno`
+DROP TABLE IF EXISTS aluno;
+CREATE TABLE IF NOT EXISTS aluno
 (
-  "id-aluno" Bigint NOT NULL AUTO_INCREMENT,
+  "id-aluno" BIGSERIAL NOT NULL,
   "email-aluno" Character varying(255) NOT NULL UNIQUE,
   "senha" Character varying(255) NOT NULL,
   "nome" Character varying(255) NOT NULL,
@@ -47,10 +41,10 @@ CREATE TABLE IF NOT EXISTS `aluno`
 
 
 
-DROP TABLE IF EXISTS `professor`;
-CREATE TABLE IF NOT EXISTS `professor`
+DROP TABLE IF EXISTS professor;
+CREATE TABLE IF NOT EXISTS professor
 (
-  "id-prof" Bigint NOT NULL AUTO_INCREMENT,
+  "id-prof" BIGSERIAL NOT NULL,
   "email-prof" Character varying(255) NOT NULL UNIQUE,
   "senha" Character varying(255) NOT NULL,
   "nome" Character varying(255) NOT NULL,
@@ -71,19 +65,19 @@ CREATE TABLE IF NOT EXISTS `professor`
 
 -- Table preferencia-localizacao
 
-DROP TABLE IF EXISTS `preferencia-localizacao`;
-CREATE TABLE IF NOT EXISTS `preferencia-localizacao`
+DROP TABLE IF EXISTS preferenciaLocalizacao;
+CREATE TABLE IF NOT EXISTS preferenciaLocalizacao
 (
-  "id-preferencia-local" Integer NOT NULL AUTO_INCREMENT,
+  "id-preferencia-local" SERIAL NOT NULL,
   "descricao" Character varying(50) NOT NULL
 );
 
 -- Table materias
 
-DROP TABLE IF EXISTS `materias`;
-CREATE TABLE IF NOT EXISTS `materias`
+DROP TABLE IF EXISTS materias;
+CREATE TABLE IF NOT EXISTS materias
 (
-  "id-materia" Integer NOT NULL AUTO_INCREMENT,
+  "id-materia" SERIAL NOT NULL,
   "nome" Character varying(50) NOT NULL,
   "desc-outros" Character varying(50)
 );
@@ -91,8 +85,8 @@ CREATE TABLE IF NOT EXISTS `materias`
 
 -- Table aluno-preferencias-materias
 
-DROP TABLE IF EXISTS `aluno-preferencias-materias`;
-CREATE TABLE IF NOT EXISTS `aluno-preferencias-materias`;
+DROP TABLE IF EXISTS alunoPreferenciasMaterias;
+CREATE TABLE IF NOT EXISTS alunoPreferenciasMaterias
 (
   "id-aluno" Bigint NOT NULL,
   "id-materia" Integer NOT NULL
@@ -101,10 +95,10 @@ CREATE TABLE IF NOT EXISTS `aluno-preferencias-materias`;
 
 -- Table admin
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `admin`
+DROP TABLE IF EXISTS admin;
+CREATE TABLE IF NOT EXISTS admin
 (
-  "id-admin" Bigint NOT NULL AUTO_INCREMENT,
+  "id-admin" SERIAL NOT NULL,
   "usuario" Character varying(30) NOT NULL,
   "senha" Character varying(255) NOT NULL
 );
@@ -112,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `admin`
 
 -- Table agenda-aluno
 
-DROP TABLE IF EXISTS `agenda-aluno`;
-CREATE TABLE IF NOT EXISTS `agenda-aluno`
+DROP TABLE IF EXISTS agendaAluno;
+CREATE TABLE IF NOT EXISTS agendaAluno
 (
   "dia" Date NOT NULL,
   "texto" Character varying(511) NOT NULL,
@@ -123,8 +117,8 @@ CREATE TABLE IF NOT EXISTS `agenda-aluno`
 
 -- Table agenda-prof
 
-DROP TABLE IF EXISTS `agenda-prof`;
-CREATE TABLE IF NOT EXISTS `agenda-prof`
+DROP TABLE IF EXISTS agendaProf;
+CREATE TABLE IF NOT EXISTS agendaProf
 (
   "dia" Date NOT NULL,
   "texto" Character varying(511) NOT NULL,
@@ -133,10 +127,10 @@ CREATE TABLE IF NOT EXISTS `agenda-prof`
 
 
 -- Table mensagem
-DROP TABLE IF EXISTS `mensagem`;
-CREATE TABLE IF NOT EXISTS `mensagem`
+DROP TABLE IF EXISTS mensagem;
+CREATE TABLE IF NOT EXISTS mensagem
 (
-  "id-mensagem" Bigint NOT NULL AUTO_INCREMENT,
+  "id-mensagem" BIGSERIAL NOT NULL,
   "texto" Character varying(255) NOT NULL,
   "id-aluno" Bigint NOT NULL,
   "id-prof" Bigint NOT NULL,
@@ -164,9 +158,9 @@ Insert INTO materias (nome) values ('Outro');
 
 -- Insert preferencia-localizacao
 
-Insert INTO preferencia-localizacao (descricao) values ('Na minha cidade');
-Insert INTO preferencia-localizacao (descricao) values ('No meu estado');
-Insert INTO preferencia-localizacao (descricao) values ('Em qualquer lugar');
+Insert INTO preferenciaLocalizacao (descricao) values ('Na minha cidade');
+Insert INTO preferenciaLocalizacao (descricao) values ('No meu estado');
+Insert INTO preferenciaLocalizacao (descricao) values ('Em qualquer lugar');
 
 
 
@@ -174,33 +168,33 @@ Insert INTO preferencia-localizacao (descricao) values ('Em qualquer lugar');
 
 
 
-Insert into UF (nome, abreviacao) values ('Acre', 'AC');
-Insert into UF (nome, abreviacao) values ('Alagoas', 'AL');
-Insert into UF (nome, abreviacao) values ('Amapá', 'AP');
-Insert into UF (nome, abreviacao) values ('Amazonas', 'AM');
-Insert into UF (nome, abreviacao) values ('Bahia', 'BA');
-Insert into UF (nome, abreviacao) values ('Ceará', 'CE');
-Insert into UF (nome, abreviacao) values ('Distrito Federal', 'DF');
-Insert into UF (nome, abreviacao) values ('Espírito Santo', 'ES');
-Insert into UF (nome, abreviacao) values ('Goiás', 'GO');
-Insert into UF (nome, abreviacao) values ('Maranhão', 'MA');
-Insert into UF (nome, abreviacao) values ('Mato Grosso', 'MT');
-Insert into UF (nome, abreviacao) values ('Mato Grosso do Sul', 'MS');
-Insert into UF (nome, abreviacao) values ('Minas Gerais', 'MG');
-Insert into UF (nome, abreviacao) values ('Pará', 'PA');
-Insert into UF (nome, abreviacao) values ('Paraíba', 'PB');
-Insert into UF (nome, abreviacao) values ('Paraná', 'PR');
-Insert into UF (nome, abreviacao) values ('Pernambuco', 'PE');
-Insert into UF (nome, abreviacao) values ('Piauí', 'PI');
-Insert into UF (nome, abreviacao) values ('Rio de Janeiro', 'RJ');
-Insert into UF (nome, abreviacao) values ('Rio Grande do Norte', 'RN');
-Insert into UF (nome, abreviacao) values ('Rio Grande do Sul', 'RS');
-Insert into UF (nome, abreviacao) values ('Rondônia', 'RO');
-Insert into UF (nome, abreviacao) values ('Roraima', 'RR');
-Insert into UF (nome, abreviacao) values ('Santa Catarina', 'SC');
-Insert into UF (nome, abreviacao) values ('São Paulo', 'SP');
-Insert into UF (nome, abreviacao) values ('Sergipe', 'SE');
-Insert into UF (nome, abreviacao) values ('Tocantins', 'TO');
+Insert into UF (nome, uf) values ('Acre', 'AC');
+Insert into UF (nome, uf) values ('Alagoas', 'AL');
+Insert into UF (nome, uf) values ('Amapá', 'AP');
+Insert into UF (nome, uf) values ('Amazonas', 'AM');
+Insert into UF (nome, uf) values ('Bahia', 'BA');
+Insert into UF (nome, uf) values ('Ceará', 'CE');
+Insert into UF (nome, uf) values ('Distrito Federal', 'DF');
+Insert into UF (nome, uf) values ('Espírito Santo', 'ES');
+Insert into UF (nome, uf) values ('Goiás', 'GO');
+Insert into UF (nome, uf) values ('Maranhão', 'MA');
+Insert into UF (nome, uf) values ('Mato Grosso', 'MT');
+Insert into UF (nome, uf) values ('Mato Grosso do Sul', 'MS');
+Insert into UF (nome, uf) values ('Minas Gerais', 'MG');
+Insert into UF (nome, uf) values ('Pará', 'PA');
+Insert into UF (nome, uf) values ('Paraíba', 'PB');
+Insert into UF (nome, uf) values ('Paraná', 'PR');
+Insert into UF (nome, uf) values ('Pernambuco', 'PE');
+Insert into UF (nome, uf) values ('Piauí', 'PI');
+Insert into UF (nome, uf) values ('Rio de Janeiro', 'RJ');
+Insert into UF (nome, uf) values ('Rio Grande do Norte', 'RN');
+Insert into UF (nome, uf) values ('Rio Grande do Sul', 'RS');
+Insert into UF (nome, uf) values ('Rondônia', 'RO');
+Insert into UF (nome, uf) values ('Roraima', 'RR');
+Insert into UF (nome, uf) values ('Santa Catarina', 'SC');
+Insert into UF (nome, uf) values ('São Paulo', 'SP');
+Insert into UF (nome, uf) values ('Sergipe', 'SE');
+Insert into UF (nome, uf) values ('Tocantins', 'TO');
 
 
 
@@ -5777,10 +5771,3 @@ Insert into Municipio (Codigo, Nome, Uf) values ('5222054','Vicentinópolis', 'G
 Insert into Municipio (Codigo, Nome, Uf) values ('5222203','Vila Boa', 'GO');
 Insert into Municipio (Codigo, Nome, Uf) values ('5222302','Vila Propício', 'GO');
 Insert into Municipio (Codigo, Nome, Uf) values ('5300108','Brasília', 'DF');
-
-
-
-
-
-
-
