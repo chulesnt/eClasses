@@ -6,19 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
 
     <title>eClasses - Home</title>
 </head>
 
 <body>
-    <h1 class="bg-primary">Home</h1>
+    <header class="bg-primary">
+        <div class="container">
+            <div class="row">
+                <h2>Home</h2>
+            </div>
+        </div>
+    </header>
 
-    <h4>Olá, bem vindo ao eClasses!</h4>
-    <p>Somos um serviço dedicado a achar o melhor professor particular para suprir suas necessidades.
-        Faça seu cadastro agora!</p>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-8">
+                    <h4>Olá, bem vindo ao eClasses!</h4>
+                    <p>Somos um serviço dedicado a achar o melhor professor particular para suprir suas necessidades.
+                        Faça seu cadastro agora!</p>
+
+                    <div class="container">
+                        <div class="row">
+                            <button class="btn btn-primary col-12 col-sm-3" id="btn-cad-al"
+                                onclick="alert('Cadastro de aluno')">Cadastrar aluno</button>
+                            <button class="btn btn-primary col-12 col-sm-3" id="btn-cad-prof"
+                                onclick="alert('Cadastro de professor')">Cadastrar professor</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary col-12 col-sm-2" id="btn-login"
+                                onclick="alert('Login')">Login</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
 
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/script.js"></script>
 
 </body>
 
