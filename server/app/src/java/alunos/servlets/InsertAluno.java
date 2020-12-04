@@ -34,7 +34,8 @@ public class InsertAluno extends HttpServlet {
 			out.println("email: " + email);
 
 			try {
-				boolean sucesso = r.insert(email, "123", "nome", "1", "1", "1", "1", "1", "false", "");
+				out.println("aaa");
+				boolean sucesso = r.insert(email, "123", "nome", "1", "1", "1", "1", "1", "false", "11/11/2020");
 				if(sucesso) out.println("Inserido com sucesso");
 				else out.println("Não foi possível inserir");
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException | SQLException | ParseException ex) {

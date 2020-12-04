@@ -27,7 +27,7 @@ public class AlunosRepository {
 		dataFim = f.parse(data);
 		dataFimAssinatura = new java.sql.Date(dataFim.getTime());
 		
-		PreparedStatement ps = c.prepareStatement("INSERT INTO aluno (\"email-aluno\", senha, nome, \"id-municipio\", \"id-uf\", \"preferencia-preco\", \"id-preferencia-local\", \"preferencia-numero-alunos\", assinante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		PreparedStatement ps = c.prepareStatement("INSERT INTO aluno (\"email-aluno\", senha, nome, \"id-municipio\", \"id-uf\", \"preferencia-preco\", \"id-preferencia-local\", \"preferencia-numero-alunos\", assinante, \"data-fim-assinatura\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		ps.setString(1, email);
 		ps.setString(2, senha);
 		ps.setString(3, nome);
@@ -37,7 +37,7 @@ public class AlunosRepository {
 		ps.setInt(7, Integer.parseInt(idPreferenciaLocal));
 		ps.setInt(8, Integer.parseInt(preferenciaNumeroAlunos));
 		ps.setBoolean(9, Boolean.parseBoolean(assinante));
-		ps.setDate(9, dataFimAssinatura);
+		ps.setDate(10, dataFimAssinatura);
 		
 		return ps.executeUpdate() != 0;
 	}
