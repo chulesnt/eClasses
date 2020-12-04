@@ -8,41 +8,43 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.Conector;
+import utils.Headers;
 
-@WebServlet(name = "InsertAluno", urlPatterns = {"/aluno/insert"})
-public class InsertAluno extends HttpServlet {
+@WebServlet(name = "CadastroAluno", urlPatterns = {"/aluno/cadastro"})
+public class CadastroAluno extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		Connection c;
+		Headers.XMLHeaders(req, res);
+		PrintWriter out = res.getWriter();
 		try {
 			c = Conector.getConnection();
-			PrintWriter out = res.getWriter();
-			out.println("Conexão: " + c);
 			AlunosRepository r = new AlunosRepository(c);
-
 			String email = req.getParameter("email");
-			
-			out.println("email: " + email);
+			String nome = req.getParameter("nome");
+			String senha = req.getParameter("senha");
+			String uf = req.getParameter("idUf");
+			String municipio = req.getParameter("idMunicipio");
+
 
 			try {
-				out.println("aaa");
-				boolean sucesso = r.insert(email, "123", "nome", "1", "1", "1", "1", "1", "false", "11/11/2020");
-				if(sucesso) out.println("Inserido com sucesso");
-				else out.println("Não foi possível inserir");
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException | SQLException | ParseException ex) {
-				Logger.getLogger(InsertAluno.class.getName()).log(Level.SEVERE, null, ex);
+				boolean sucesso = r.insert(email, senha, nome, municipio, uf);
+				if(sucesso) out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
+				else out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException | ParseException ex) {
+				res.setStatus(422);
+				out.println("<erro><mensagem>Erro interno</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
-			Logger.getLogger(InsertAluno.class.getName()).log(Level.SEVERE, null, ex);
+			res.setStatus(500);
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 	}
 
