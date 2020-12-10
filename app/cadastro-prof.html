@@ -19,17 +19,80 @@
                     <h2>Cadastro de Professor</h2>
                 </div>
                 <div class="col-1">
-                    <a href="index.html" id="btn-voltar">Voltar</a>
+                    <a href="index.html"><img src="img/btn-voltar.png" id="btn-voltar" class="mt-1"></a>
                 </div>
             </div>
         </div>
     </header>
 
     <main>
+        <div class="container">
+            <div class="row">
+                <!-- Form de cadastro -->
+                <div class="col-12 col-sm-6">
+                    <form>
+                        <div class="form-group row">
+                            <label for="nome-prof" class="col-md-3 col-form-label">Nome</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="nome-prof" name="nome-prof">
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="email" class="col-md-3 col-form-label">E-mail</label>
+                            <div class="col-md-9">
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="senha" class="col-md-3 col-form-label">Senha</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" id="senha" name="senha">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="confirma-senha" class="col-md-3 col-form-label">Confirmar senha</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" id="confirma-senha" name="confirma-senha">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="municipio" name="municipio">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estado" class="col-md-3 col-form-label">UF</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="estado" name="estado">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="materia" class="col-md-3 col-form-label">Matéria</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="materia" name="materia">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="ml-auto col-md-3">
+                                <button type="submit" class="btn btn-primary"
+                                    onclick="alert('Cadastro')">Cadastrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="bg-secondary fixed-bottom">
+    <footer class="bg-secondary ">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-4">
