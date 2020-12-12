@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.Conector;
 import utils.Headers;
+import utils.autenticador.Autenticador;
+import utils.autenticador.Cargos;
 
-@WebServlet(name = "CadastroAluno", urlPatterns = {"/aluno/cadastro"})
-public class CadastroAluno extends HttpServlet {
+@WebServlet(name = "EditarAluno", urlPatterns = {"/aluno/editar"})
+public class EditarAluno extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -27,20 +29,30 @@ public class CadastroAluno extends HttpServlet {
 		try {
 			c = Conector.getConnection();
 			AlunosRepository r = new AlunosRepository(c);
-			String email = req.getParameter("email");
-			String nome = req.getParameter("nome");
-			String senha = req.getParameter("senha");
-			String uf = req.getParameter("idUf");
-			String municipio = req.getParameter("idMunicipio");
+			Autenticador x = new Autenticador(req, res);
+			if (x.getCargoLogado() == Cargos.ALUNO) {
+				Long idAluno = (Long) x.getIdLogado();
+				String id = Long.toString(idAluno);
+				String nome = req.getParameter("nome");
+				String uf = req.getParameter("idUf");
+				String municipio = req.getParameter("idMunicipio");
+				String preferenciaPreco = req.getParameter("preferenciaPreco");
+				String preferenciaLocal = req.getParameter("preferenciaLocal");
+				String preferenciaNumeroAlunos = req.getParameter("preferenciaNumeroAlunos");
+				String assinante = req.getParameter("assinante");
+				String dataFimAssinatura = req.getParameter("dataFimAssinatura");
 
-
-			try {
-				boolean sucesso = r.cadastrar(email, senha, nome, municipio, uf);
-				if(sucesso) out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
-				else out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException | ParseException ex) {
-				res.setStatus(422);
-				out.println("<erro><mensagem>Erro interno</mensagem></erro>");
+				try {
+					boolean sucesso = r.editar(id, nome, municipio, uf, preferenciaPreco, preferenciaLocal, preferenciaNumeroAlunos, assinante, dataFimAssinatura);
+					if(sucesso) out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");
+					else out.println("<erro><mensagem>Alteração falhou</mensagem></erro>");
+				} catch (ParseException ex) {
+					res.setStatus(422);
+					out.println("<erro><mensagem>Erro interno</mensagem></erro>");
+				}
+			} else {
+				res.setStatus(403);
+				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
