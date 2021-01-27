@@ -69,22 +69,22 @@ public class ProfessoresRepository {
 		return false;
 	}
 	
-	public boolean editar(String idAluno, String nome, String idMunicipio, String idUf, String preferenciaPreco, String preferenciaLocal, String preferenciaNumeroAlunos, String assinante, String dataFimAssinatura) throws SQLException, ParseException {
+	public boolean editar(String idProf, String nome, String idMunicipio, String idUf, String desc, String titulo, String premium, String preco, String	idMateria, String numAMin, String numAMax, String dataPremium) throws SQLException, ParseException {
 		int adcs = 0;
 		int cont = 1;
-		boolean[] pars = new boolean[8];
+		boolean[] pars = new boolean[11];
 		
 		
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataUtil = null;
 		java.sql.Date dataSql = null;
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 11; i++) {
 			pars[i] = false;
 		}
 		
 		
-		String query = "UPDATE aluno SET";
+		String query = "UPDATE professor SET";
 		if (!"".equals(nome)) {
 			query += " nome= ?";
 			adcs++;
@@ -103,48 +103,77 @@ public class ProfessoresRepository {
 				query += ",";
 			}
 			query += " \"id-uf\"= ?";
+			adcs++;
 			pars[2] = true;
 		}
-		if (!"".equals(preferenciaPreco)) {
+		if (!"".equals(desc)) {
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " \"preferencia-preco\"= ?";
+			query += " \"descricao_apresentacao\"= ?";
+			adcs++;
 			pars[3] = true;
 		}
-		if (!"".equals(preferenciaLocal)) {
+		if (!"".equals(titulo)) {
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " \"id-preferencia-local\"= ?";
+			query += " \"titulo_apresentacao\"= ?";
+			adcs++;
 			pars[4] = true;
 		}
-		if (!"".equals(preferenciaNumeroAlunos)) {
+		if (!"".equals(premium)) {
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " \"preferencia-numero-alunos\"= ?";
+			query += " \"premium\"= ?";
+			adcs++;
 			pars[5] = true;
 		}
-		if (!"".equals(assinante)) {
+		if (!"".equals(preco)) {
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " assinante= ?";
+			query += " \"preco-hora\"= ?";
+			adcs++;
 			pars[6] = true;
 		}
-		if (!"".equals(dataFimAssinatura)) {
-			dataUtil = formato.parse(dataFimAssinatura);
+		if (!"".equals(idMateria)) {
+			if (adcs > 0) {
+				query += ",";
+			}
+			query += " \"id-materia\"= ?";
+			adcs++;
+			pars[7] = true;
+		}
+		if (!"".equals(numAMin)) {
+			if (adcs > 0) {
+				query += ",";
+			}
+			query += " \"numero-alunos-min\"= ?";
+			adcs++;
+			pars[8] = true;
+		}
+		if (!"".equals(numAMax)) {
+			if (adcs > 0) {
+				query += ",";
+			}
+			query += " \"numero-alunos-max\"= ?";
+			adcs++;
+			pars[9] = true;
+		}
+		if (!"".equals(dataPremium)) {
+			dataUtil = formato.parse(dataPremium);
 			dataSql = new java.sql.Date(dataUtil.getTime());
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " \"data-fim-assinatura\"= ?";
-			pars[7] = true;
+			query += " \"data-fim-premium\"= ?";
+			pars[10] = true;
 		}
 		
 
-		query += " WHERE \"id-aluno\" = ?";
+		query += " WHERE \"id-prof\" = ?";
 
 		
 		
@@ -164,28 +193,42 @@ public class ProfessoresRepository {
 			cont++;
 		}
 		if (pars[3]) {
-			ps.setFloat(cont, Float.parseFloat(preferenciaPreco));
+			ps.setString(cont, desc);
 			cont++;
 		}
 		if (pars[4]) {
-			ps.setInt(cont, Integer.parseInt(preferenciaLocal));
+			ps.setString(cont, titulo);
 			cont++;
 		}
 		if (pars[5]) {
-			ps.setInt(cont, Integer.parseInt(preferenciaNumeroAlunos));
+			ps.setBoolean(cont, Boolean.parseBoolean(premium));
 			cont++;
 		}
 		if (pars[6]) {
-			ps.setBoolean(cont, Boolean.parseBoolean(assinante));
+			ps.setFloat(cont, Float.parseFloat(preco));
 			cont++;
 		}
 		if (pars[7]) {
+			ps.setInt(cont, Integer.parseUnsignedInt(idMateria));
+			cont++;
+		}
+		if (pars[8]) {
+			ps.setInt(cont, Integer.parseUnsignedInt(numAMin));
+			cont++;
+		}
+		if (pars[9]) {
+			ps.setInt(cont, Integer.parseUnsignedInt(numAMax));
+			cont++;
+		}
+		if (pars[10]) {
 			ps.setDate(cont, dataSql);
 			cont++;
 		}
 		
+		
+		
 
-		ps.setInt(cont, Integer.parseUnsignedInt(idAluno));
+		ps.setInt(cont, Integer.parseUnsignedInt(idProf));
 
 		int sucesso = ps.executeUpdate();
 

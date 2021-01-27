@@ -89,6 +89,7 @@ public class AlunosRepository {
 				query += ",";
 			}
 			query += " \"id-uf\"= ?";
+			adcs++;
 			pars[2] = true;
 		}
 		if (!"".equals(preferenciaPreco)) {
@@ -96,6 +97,7 @@ public class AlunosRepository {
 				query += ",";
 			}
 			query += " \"preferencia-preco\"= ?";
+			adcs++;
 			pars[3] = true;
 		}
 		if (!"".equals(preferenciaLocal)) {
@@ -103,6 +105,7 @@ public class AlunosRepository {
 				query += ",";
 			}
 			query += " \"id-preferencia-local\"= ?";
+			adcs++;
 			pars[4] = true;
 		}
 		if (!"".equals(preferenciaNumeroAlunos)) {
@@ -110,6 +113,7 @@ public class AlunosRepository {
 				query += ",";
 			}
 			query += " \"preferencia-numero-alunos\"= ?";
+			adcs++;
 			pars[5] = true;
 		}
 		if (!"".equals(assinante)) {
@@ -117,6 +121,7 @@ public class AlunosRepository {
 				query += ",";
 			}
 			query += " assinante= ?";
+			adcs++;
 			pars[6] = true;
 		}
 		if (!"".equals(dataFimAssinatura)) {
