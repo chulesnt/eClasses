@@ -38,7 +38,7 @@ public class LogarAluno extends HttpServlet {
 			out.println("<sucesso><mensagem>Logado com sucesso como " + aut.getCargoLogado() + "</mensagem></sucesso>");
 		} else {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Não foi possível logar</mensagem></erro>");
+			out.println("<erro><mensagem>Senha incorreta</mensagem></erro>");
 		}
 	}
 
@@ -56,14 +56,9 @@ public class LogarAluno extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			processRequest(request, response);
-		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (SQLException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidKeySpecException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+			response.setStatus(400);
+			response.getWriter().println("<erro><mensagem>Erro interno</mensagem></erro>");
 		}
 	}
 
@@ -80,14 +75,9 @@ public class LogarAluno extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			processRequest(request, response);
-		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (SQLException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidKeySpecException ex) {
-			Logger.getLogger(LogarAluno.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+			response.setStatus(400);
+			response.getWriter().println("<erro><mensagem>Erro interno</mensagem></erro>");
 		}
 	}
 
