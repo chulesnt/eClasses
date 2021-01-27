@@ -2,6 +2,10 @@ main {
     margin: 70px 0px;
 }
 
+.img-inicio {
+    width: 18em;
+}
+
 .btn {
     margin: 10px;
 }
