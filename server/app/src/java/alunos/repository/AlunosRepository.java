@@ -40,14 +40,15 @@ public class AlunosRepository {
 		return ps.executeUpdate() != 0;
 	}
 	
-	public boolean logar(HttpServletRequest req, HttpServletResponse res, String id, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
-		Long idLong = Long.parseLong(id);
+	public boolean logar(HttpServletRequest req, HttpServletResponse res, String email, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
 		Autenticador aut = new Autenticador(req, res);
-		String str = "SELECT * FROM aluno WHERE \"id-aluno\" = ?";
-		PreparedStatement st = c.prepareStatement(str);
-		st.setLong(1, idLong);
-		ResultSet rs = st.executeQuery();
+		
+		PreparedStatement pt = c.prepareStatement("SELECT * FROM aluno WHERE \"email-aluno\" = ?");
+		pt.setString(1, email);
+		ResultSet rs = pt.executeQuery();
 		rs.next();
+		Long idLong = rs.getLong("id-aluno");
+		
 		if (Hasher.validar(senha, rs.getString("senha"))) {
 			aut.logar(idLong, Cargos.ALUNO, false);
 			return true;
@@ -176,7 +177,7 @@ public class AlunosRepository {
 		}
 		
 
-		ps.setInt(cont, Integer.parseUnsignedInt(idAluno));
+		ps.setLong(cont, Long.parseLong(idAluno));
 
 		int sucesso = ps.executeUpdate();
 

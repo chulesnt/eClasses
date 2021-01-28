@@ -54,14 +54,15 @@ public class ProfessoresRepository {
 		return ps.executeUpdate() != 0;
 	}
 	
-	public boolean logar(HttpServletRequest req, HttpServletResponse res, String id, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
-		Long idLong = Long.parseLong(id);
+	public boolean logar(HttpServletRequest req, HttpServletResponse res, String email, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
 		Autenticador aut = new Autenticador(req, res);
-		String str = "SELECT * FROM professor WHERE \"id-prof\" = ?";
-		PreparedStatement st = c.prepareStatement(str);
-		st.setLong(1, idLong);
-		ResultSet rs = st.executeQuery();
+		
+		PreparedStatement pt = c.prepareStatement("SELECT * FROM professor WHERE \"email-prof\" = ?");
+		pt.setString(1, email);
+		ResultSet rs = pt.executeQuery();
 		rs.next();
+		Long idLong = rs.getLong("id-prof");
+		
 		if (Hasher.validar(senha, rs.getString("senha"))) {
 			aut.logar(idLong, Cargos.PROFESSOR, false);
 			return true;
@@ -73,6 +74,7 @@ public class ProfessoresRepository {
 		int adcs = 0;
 		int cont = 1;
 		boolean[] pars = new boolean[11];
+		
 		
 		
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -228,7 +230,7 @@ public class ProfessoresRepository {
 		
 		
 
-		ps.setInt(cont, Integer.parseUnsignedInt(idProf));
+		ps.setLong(cont, Long.parseLong(idProf));
 
 		int sucesso = ps.executeUpdate();
 

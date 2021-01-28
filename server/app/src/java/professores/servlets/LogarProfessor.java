@@ -29,16 +29,17 @@ public class LogarProfessor extends HttpServlet {
 		Headers.XMLHeaders(req, res);
 		ProfessoresRepository r = new ProfessoresRepository(c);
 		Autenticador aut = new Autenticador(req, res);
-
+		
+		
+		String email = req.getParameter("email");
 		String senha = req.getParameter("senha");
-		String id = req.getParameter("id");
-
-		if(r.logar(req, res, id, senha)){
+		
+		if(r.logar(req, res, email, senha)){
 			res.setStatus(200);
 			out.println("<sucesso><mensagem>Logado com sucesso como " + aut.getCargoLogado() + "</mensagem></sucesso>");
 		} else {
 			res.setStatus(400);
-			out.println("<erro><mensagem>Senha incorreta</mensagem></erro>");
+			out.println("<erro><mensagem>Senha ou email incorretos</mensagem></erro>");
 		}
 		
 	}
@@ -55,11 +56,14 @@ public class LogarProfessor extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		try {
 			processRequest(request, response);
-		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+		} catch (ClassNotFoundException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
 			response.setStatus(400);
 			response.getWriter().println("<erro><mensagem>Erro interno</mensagem></erro>");
+		} catch (SQLException ex) {
+			out.println("<erro><mensagem>Senha ou email incorretos</mensagem></erro>");
 		}
 	}
 
@@ -74,11 +78,14 @@ public class LogarProfessor extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		try {
 			processRequest(request, response);
-		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+		} catch (ClassNotFoundException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
 			response.setStatus(400);
 			response.getWriter().println("<erro><mensagem>Erro interno</mensagem></erro>");
+		} catch (SQLException ex) {
+			out.println("<erro><mensagem>Senha ou email incorretos</mensagem></erro>");
 		}
 	}
 
