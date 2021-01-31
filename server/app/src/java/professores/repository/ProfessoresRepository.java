@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.util.Date;
-import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -234,6 +233,18 @@ public class ProfessoresRepository {
 
 		int sucesso = ps.executeUpdate();
 
+		return sucesso != 0;
+	}
+	
+	public boolean alterarSenha(Long id, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {		
+		String hashSenha = null;
+		hashSenha = Hasher.hash(senha);
+		String query = "UPDATE professor SET senha= ? WHERE \"id-prof\" = ?";
+
+		PreparedStatement ps = c.prepareStatement(query);
+		ps.setString(1, hashSenha);
+		ps.setLong(2, id);
+		int sucesso = ps.executeUpdate();
 		return sucesso != 0;
 	}
 	
