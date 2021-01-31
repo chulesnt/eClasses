@@ -45,8 +45,12 @@ public class EditarProfessor extends HttpServlet {
 
 				try {
 					boolean sucesso = r.editar(id, nome, municipio, uf, desc, titulo, premium, preco, idMateria, numAMin, numAMax, dataPremium);
-					if(sucesso) out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");
-					else out.println("<erro><mensagem>Alteração falhou</mensagem></erro>");
+					if(sucesso) {
+						res.setStatus(200);
+						out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");
+					} else { 
+						out.println("<erro><mensagem>Alteração falhou</mensagem></erro>");
+					}
 				} catch (ParseException ex) {
 					res.setStatus(422);
 					out.println("<erro><mensagem>Erro interno</mensagem></erro>");

@@ -37,8 +37,12 @@ public class CadastrarProfessor extends HttpServlet {
 
 			try {
 				boolean sucesso = r.cadastrar(email, senha, nome, municipio, uf, materia);
-				if(sucesso) out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
-				else out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
+				if(sucesso) {
+					res.setStatus(200);
+					out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
+				} else {
+					out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
+				}
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException | ParseException ex) {
 				res.setStatus(422);
 				out.println("<erro><mensagem>Erro interno</mensagem></erro>");

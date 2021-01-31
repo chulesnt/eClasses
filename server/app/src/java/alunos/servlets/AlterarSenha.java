@@ -31,10 +31,12 @@ public class AlterarSenha extends HttpServlet {
 			Autenticador x = new Autenticador(req, res);
 			String senha = req.getParameter("senha");
 			if (x.getCargoLogado() == Cargos.ALUNO) {
-				if (r.alterarSenha((Long) x.getIdLogado(), senha))
+				if (r.alterarSenha((Long) x.getIdLogado(), senha)) {
+					res.setStatus(200);
 					out.println("<sucesso><mensagem>Senha alterada com sucesso</mensagem></sucesso>");
-				else
-					out.println("<erro><mensagem>Não foi possível alterar a senha</mensagem></erro>");
+				} else {
+					out.println("<erro><mensagem>Não foi possivel alterar a senha</mensagem></erro>");
+				}
 			} else {
 				res.setStatus(403);
 				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
