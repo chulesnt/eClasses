@@ -9,8 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import professores.model.ProfessorModel;
 import utils.Hasher;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
@@ -203,5 +206,56 @@ public class AlunosRepository {
 		return rs.getBoolean("assinante");
 	}
 	
+	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos) throws SQLException{
+		List profs = new LinkedList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		if(idPrefLocal == 1){
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-municipio\" = ?");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			ps.setInt(3, idMunicipio);
+			
+			rs = ps.executeQuery();
+		} else if(idPrefLocal == 2){
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-uf\" = ?");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			ps.setInt(3, idUf);
+			
+			rs = ps.executeQuery();
+		} else{
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ?");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			
+			rs = ps.executeQuery();
+		}
+		while(rs.next()){
+			ProfessorModel pm = new ProfessorModel(
+					rs.getLong("id-prof"),
+					rs.getString("email-prof"),
+					rs.getString("senha"),
+					rs.getString("nome"),
+					rs.getString("descricao_apresentacao"),
+					rs.getString("titulo_apresentacao"),
+					rs.getBoolean("premium"),
+					rs.getDouble("avaliacao"),
+					rs.getDouble("preco-hora"),
+					rs.getInt("numero-avaliacoes"),
+					rs.getInt("id-municipio"),
+					rs.getInt("id-uf"),
+					rs.getInt("id-materia"),
+					rs.getInt("numero-alunos-min"),
+					rs.getInt("numero-alunos-max"),
+					rs.getDate("data-fim-premium")
+			);
+			profs.add(pm);
+		}
+		rs.close();
+		ps.close();
+		return profs;
+	}
 	
 }
