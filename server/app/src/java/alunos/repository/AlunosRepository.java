@@ -195,5 +195,13 @@ public class AlunosRepository {
 		return sucesso != 0;
 	}
 	
+	public boolean checarAssinante(Long idAluno) throws SQLException {
+		PreparedStatement ps = c.prepareStatement("SELECT assinante from aluno WHERE \"id-aluno\" = ?");
+		ps.setLong(1, idAluno);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getBoolean("assinante");
+	}
+	
 	
 }

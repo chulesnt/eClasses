@@ -38,6 +38,13 @@ CREATE TABLE IF NOT EXISTS aluno
 );
 
 
+DROP TABLE IF EXISTS alunoAvaliaProf;
+CREATE TABLE IF NOT EXISTS alunoAvaliaProf
+(
+  "id-aluno" Bigint NOT NULL,
+  "id-prof" Bigint NOT NULL,
+  "avaliacao" Integer NOT NULL
+);
 
 
 

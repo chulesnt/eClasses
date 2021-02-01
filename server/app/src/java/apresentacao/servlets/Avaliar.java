@@ -17,8 +17,8 @@ import utils.Headers;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
 
-@WebServlet(name = "Comentar", urlPatterns = {"/apresentacao/comentar"})
-public class Comentar extends HttpServlet {
+@WebServlet(name = "Avaliar", urlPatterns = {"/apresentacao/avaliar"})
+public class Avaliar extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -33,21 +33,15 @@ public class Comentar extends HttpServlet {
 
 
 			String idProf = req.getParameter("idProf");
-			String data = req.getParameter("data");
-			String comentario = req.getParameter("comentario");
+			String nota = req.getParameter("nota");
 			Long idAluno = (Long) aut.getIdLogado();
 
 			if (aut.getCargoLogado() == Cargos.ALUNO && a.checarAssinante(idAluno)){
-				try {
-					if(r.comentar(idAluno, idProf, comentario, data)){
-						res.setStatus(200);
-						out.println("<sucesso><mensagem>Comentario publicado com sucesso</mensagem></sucesso>");
-					} else {
-						out.println("<erro><mensagem>Falha ao publicar comentario</mensagem></erro>");
-					}
-				} catch (ParseException ex) {
-					res.setStatus(422);
-					out.println("<erro><mensagem>Erro interno</mensagem></erro>");
+				if(r.avaliar(idAluno, idProf, nota) && r.atualizarAvaliacao(idProf, nota)){
+					res.setStatus(200);
+					out.println("<sucesso><mensagem>Avaliacao submetida</mensagem></sucesso>");
+				} else {
+					out.println("<erro><mensagem>Ocorreu um erro, confira se voce ja avaliou este professor</mensagem></erro>");
 				}
 			} else {
 				res.setStatus(403);
