@@ -27,10 +27,11 @@ public class ConsultarPorId extends HttpServlet {
 			Connection c = Conector.getConnection();
 			AlunosRepository r = new AlunosRepository(c);
 			xml = r.consultarPorId(id);
+			res.setStatus(200);
 			out.println(xml);
 		} catch (SQLException | ClassNotFoundException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 	}
 

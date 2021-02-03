@@ -45,7 +45,7 @@ public class GerarFeed extends HttpServlet {
 				ResultSet rs = ps.executeQuery();
 				if(!rs.next()){
 					res.setStatus(400);
-					out.println("<erro><mensagem>Aluno nao encontrado</mensagem></erro>");
+					out.println("<erro><mensagem>Aluno não encontrado</mensagem></erro>");
 					return;
 				}
 				prefPreco = rs.getDouble("preferencia-preco");
@@ -87,11 +87,11 @@ public class GerarFeed extends HttpServlet {
 				out.println("</feed>");
 			} else{
 				res.setStatus(403);
-				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
+				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 	}
 

@@ -33,15 +33,15 @@ public class ExcluirMensagem extends HttpServlet {
 			if(aut.getCargoLogado() != null){
 				if(mr.excluirMensagem(idMensagem)){
 					res.setStatus(200);
-					out.println("<sucesso><mensagem>Mensagem excluida com sucesso</mensagem></sucesso>");
+					out.println("<sucesso><mensagem>Mensagem excluída com sucesso</mensagem></sucesso>");
 				} else out.println("<erro><mensagem>Falha ao excluir mensagem</mensagem></erro>");
 			} else{
 				res.setStatus(403);
-				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
+				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 		
 	}
