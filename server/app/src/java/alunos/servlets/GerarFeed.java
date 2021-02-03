@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import professores.model.ProfessorModel;
 import utils.Conector;
 import utils.Headers;
+import utils.autenticador.Autenticador;
+import utils.autenticador.Cargos;
 
 @WebServlet(name = "GerarFeed", urlPatterns = {"/aluno/feed"})
 public class GerarFeed extends HttpServlet {
@@ -28,48 +30,62 @@ public class GerarFeed extends HttpServlet {
 		try {
 			c = Conector.getConnection();
 			AlunosRepository ar = new AlunosRepository(c);
+			Autenticador aut = new Autenticador(req, res);
 			double prefPreco = 0;
-			int idPrefLocal = 0, idMunicipio = 0, idUf = 0, prefAlunos = 0;
-			
-			String idAluno = req.getParameter("idAluno");
+			int idPrefLocal = 0, idMunicipio = 0, idUf = 0, prefAlunos = 0, idMateria = 0;
 		
-			PreparedStatement ps = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
-			ps.setLong(1, Long.parseLong(idAluno));
-			
-			ResultSet rs = ps.executeQuery();
-			if(!rs.next()){
-				res.setStatus(400);
-				out.println("<erro><mensagem>Aluno nao encontrado</mensagem></erro>");
+			if(aut.getCargoLogado() == Cargos.ALUNO){
+				String idAluno = String.valueOf(aut.getIdLogado());
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
+				ps.setLong(1, Long.parseLong(idAluno));
+
+				ResultSet rs = ps.executeQuery();
+				if(!rs.next()){
+					res.setStatus(400);
+					out.println("<erro><mensagem>Aluno nao encontrado</mensagem></erro>");
+					return;
+				}
+				prefPreco = rs.getDouble("preferencia-preco");
+				idPrefLocal = rs.getInt("id-preferencia-local");
+				idMunicipio = rs.getInt("id-municipio");
+				idUf = rs.getInt("id-uf");
+				prefAlunos = rs.getInt("preferencia-numero-alunos");
+				
+				ps = c.prepareStatement("SELECT \"id-materia\" FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
+				ps.setLong(1, Long.parseLong(idAluno));
+				
+				rs = ps.executeQuery();
+				rs.next();
+				idMateria = rs.getInt("id-materia");
+
+				List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos, idMateria);
+				out.println("<feed>");
+				for(int i = 0; i < r.size(); i++){
+					out.println("<professor>");
+					out.println("<idProf>" + r.get(i).getIdProf() + "</idProf>");
+					out.println("<emailProf>" + r.get(i).getEmailProf() + "</emailProf>");
+					out.println("<senha>" + r.get(i).getSenha() + "</senha>");
+					out.println("<nome>" + r.get(i).getNome() + "</nome>");
+					out.println("<descricaoApresentacao>" + r.get(i).getDescricaoApresentacao() + "</descricaoApresentacao>");
+					out.println("<tituloApresentacao>" + r.get(i).getTituloApresentacao() + "</tituloApresentacao>");
+					out.println("<premium>" + r.get(i).isPremium() + "</premium>");
+					out.println("<avaliacao>" + r.get(i).getAvaliacao() + "</avaliacao>");
+					out.println("<precoHora>" + r.get(i).getPrecoHora() + "</precoHora>");
+					out.println("<numeroAvaliacoes>" + r.get(i).getNumeroAvaliacoes() + "</numeroAvaliacoes>");
+					out.println("<idMunicipio>" + r.get(i).getIdMunicipio() + "</idMunicipio>");
+					out.println("<idUf>" + r.get(i).getIdUf() + "</idUf>");
+					out.println("<idMateria>" + r.get(i).getIdMateria() + "</idMateria>");
+					out.println("<numeroAlunosMin>" + r.get(i).getNumeroAlunosMin() + "</numeroAlunosMin>");
+					out.println("<numeroAlunosMax>" + r.get(i).getNumeroAlunosMax() + "</numeroAlunosMax>");
+					out.println("<dataFimPremium>" + r.get(i).getDataFimPremium() + "</dataFimPremium>");
+					out.println("</professor>");
+				}
+				out.println("</feed>");
+			} else{
+				res.setStatus(403);
+				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
 			}
-			prefPreco = rs.getDouble("preferencia-preco");
-			idPrefLocal = rs.getInt("id-preferencia-local");
-			idMunicipio = rs.getInt("id-municipio");
-			idUf = rs.getInt("id-uf");
-			prefAlunos = rs.getInt("preferencia-numero-alunos");
-			
-			List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos);
-			out.println("<feed>");
-			for(int i = 0; i < r.size(); i++){
-				out.println("<professor>");
-				out.println("<idProf>" + r.get(i).getIdProf() + "</idProf>");
-				out.println("<emailProf>" + r.get(i).getEmailProf() + "</emailProf>");
-				out.println("<senha>" + r.get(i).getSenha() + "</senha>");
-				out.println("<nome>" + r.get(i).getNome() + "</nome>");
-				out.println("<descricaoApresentacao>" + r.get(i).getDescricaoApresentacao() + "</descricaoApresentacao>");
-				out.println("<tituloApresentacao>" + r.get(i).getTituloApresentacao() + "</tituloApresentacao>");
-				out.println("<premium>" + r.get(i).isPremium() + "</premium>");
-				out.println("<avaliacao>" + r.get(i).getAvaliacao() + "</avaliacao>");
-				out.println("<precoHora>" + r.get(i).getPrecoHora() + "</precoHora>");
-				out.println("<numeroAvaliacoes>" + r.get(i).getNumeroAvaliacoes() + "</numeroAvaliacoes>");
-				out.println("<idMunicipio>" + r.get(i).getIdMunicipio() + "</idMunicipio>");
-				out.println("<idUf>" + r.get(i).getIdUf() + "</idUf>");
-				out.println("<idMateria>" + r.get(i).getIdMateria() + "</idMateria>");
-				out.println("<numeroAlunosMin>" + r.get(i).getNumeroAlunosMin() + "</numeroAlunosMin>");
-				out.println("<numeroAlunosMax>" + r.get(i).getNumeroAlunosMax() + "</numeroAlunosMax>");
-				out.println("<dataFimPremium>" + r.get(i).getDataFimPremium() + "</dataFimPremium>");
-				out.println("</professor>");
-			}
-			out.println("</feed>");
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");

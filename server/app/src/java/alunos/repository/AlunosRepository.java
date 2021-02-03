@@ -206,29 +206,32 @@ public class AlunosRepository {
 		return rs.getBoolean("assinante");
 	}
 	
-	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos) throws SQLException{
+	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos, int idMateria) throws SQLException{
 		List profs = new LinkedList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		if(idPrefLocal == 1){
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-municipio\" = ?");
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-municipio\" = ? AND \"id-materia\" = ?");
 			ps.setDouble(1, prefPreco);
 			ps.setInt(2, prefAlunos);
 			ps.setInt(3, idMunicipio);
+			ps.setInt(4, idMateria);
 			
 			rs = ps.executeQuery();
 		} else if(idPrefLocal == 2){
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-uf\" = ?");
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-uf\" = ? AND \"id-materia\" = ?");
 			ps.setDouble(1, prefPreco);
 			ps.setInt(2, prefAlunos);
 			ps.setInt(3, idUf);
+			ps.setInt(4, idMateria);
 			
 			rs = ps.executeQuery();
 		} else{
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ?");
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-materia\" = ?");
 			ps.setDouble(1, prefPreco);
 			ps.setInt(2, prefAlunos);
+			ps.setInt(4, idMateria);
 			
 			rs = ps.executeQuery();
 		}
