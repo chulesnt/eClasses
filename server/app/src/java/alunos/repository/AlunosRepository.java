@@ -206,6 +206,36 @@ public class AlunosRepository {
 		return rs.getBoolean("assinante");
 	}
 	
+	public String consultarPorId(String id) throws SQLException {
+		String xml = "<aluno>";
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
+		Long idParsed = Long.parseLong(id);
+		ps.setLong(1, idParsed);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		xml += "<id>" + idParsed + "</id>";
+		xml += "<nome>" + rs.getString("nome") + "</nome>";
+		xml += "<email>" + rs.getString("email-aluno") + "</email>";
+		xml += "<id-municipio>" + rs.getInt("id-municipio") + "</id-municipio>";
+		xml += "<id-uf>" + rs.getInt("id-uf") + "</id-uf>";
+		xml += "<preferencia-preco>" + rs.getFloat("preferencia-preco") + "</preferencia-preco>";
+		xml += "<id-preferencia-local>" + rs.getInt("id-preferencia-local") + "</id-preferencia-local>";
+		xml += "<preferencia-numero-alunos>" + rs.getInt("preferencia-numero-alunos") + "</preferencia-numero-alunos>";
+		xml += "<assinante>" + rs.getBoolean("assinante") + "</assinante>";
+		xml += "<data-fim-assinatura>" + rs.getDate("data-fim-assinatura") + "</data-fim-assinatura>";
+		
+		ps = c.prepareStatement("SELECT * FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
+		ps.setLong(1, idParsed);
+		rs = ps.executeQuery();
+		xml += "<materias>";
+		while(rs.next()) {
+			xml += "<id-materia>" + rs.getInt("id-materia") + "</id-materia>";
+		}
+		xml += "</materias>";
+		xml += "</aluno>";
+		return xml;
+	}
+	
 	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos, List idMaterias) throws SQLException{
 		String idMateriasStr = String.join(",", idMaterias);
 		List profs = new LinkedList<>();
