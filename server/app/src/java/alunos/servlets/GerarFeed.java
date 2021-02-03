@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,8 @@ public class GerarFeed extends HttpServlet {
 			AlunosRepository ar = new AlunosRepository(c);
 			Autenticador aut = new Autenticador(req, res);
 			double prefPreco = 0;
-			int idPrefLocal = 0, idMunicipio = 0, idUf = 0, prefAlunos = 0, idMateria = 0;
+			int idPrefLocal = 0, idMunicipio = 0, idUf = 0, prefAlunos = 0;
+			List idMaterias = new ArrayList();
 		
 			if(aut.getCargoLogado() == Cargos.ALUNO){
 				String idAluno = String.valueOf(aut.getIdLogado());
@@ -56,10 +58,11 @@ public class GerarFeed extends HttpServlet {
 				ps.setLong(1, Long.parseLong(idAluno));
 				
 				rs = ps.executeQuery();
-				rs.next();
-				idMateria = rs.getInt("id-materia");
+				while(rs.next()){
+					idMaterias.add(String.valueOf(rs.getInt("id-materia")));
+				}
 
-				List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos, idMateria);
+				List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos, idMaterias);
 				out.println("<feed>");
 				for(int i = 0; i < r.size(); i++){
 					out.println("<professor>");
