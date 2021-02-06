@@ -270,6 +270,18 @@ public class ProfessoresRepository {
 		xml += "<numero-alunos-min>" + rs.getInt("numero-alunos-min") + "</numero-alunos-min>";
 		xml += "<numero-alunos-max>" + rs.getInt("numero-alunos-max") + "</numero-alunos-max>";
 		xml += "<data-fim-premium>" + rs.getDate("data-fim-premium") + "</data-fim-premium>";
+		
+		ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND comentario = ?");
+		ps.setLong(1, idParsed);
+		ps.setBoolean(2, true);
+		rs = ps.executeQuery();
+		xml += "<comentarios>";
+		while(rs.next()) {
+			xml += "<id-aluno>" + rs.getLong("id-aluno") + "</id-aluno>";
+			xml += "<texto>" + rs.getString("texto") + "</texto>";
+			xml += "<data>" + rs.getTimestamp("data-horario").getTime() + "</data>";
+		}
+		xml += "</comentarios>";
 
 		xml += "</professor>";
 		return xml;
