@@ -9,8 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import professores.model.ProfessorModel;
@@ -204,6 +206,48 @@ public class AlunosRepository {
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		return rs.getBoolean("assinante");
+	}
+	
+	public boolean alterarMaterias(Long idAluno, Map<String, String> materias) throws SQLException {
+		PreparedStatement ps;
+		boolean match;
+		int size = materias.size();
+		
+		ps = c.prepareStatement("SELECT * FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
+		ps.setLong(1, idAluno);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			match = false;
+			for (int i = 1; i < size+1; i++) {
+				if (materias.get("materia"+i) != null) {
+					if (Integer.parseInt(materias.get("materia"+i)) == rs.getInt("id-materia")) {
+						materias.remove("materia"+i);
+						match = true;
+						break;
+					}
+				}
+			}
+			if (!match) {
+				ps = c.prepareStatement("DELETE FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ? AND \"id-materia\" = ?");
+				ps.setLong(1, idAluno);
+				ps.setInt(2, rs.getInt("id-materia"));
+				if(ps.executeUpdate() == 0)
+					return false;
+			}
+		}
+		for (int i = 1; i < size+1; i++) {
+			if (materias.get("materia"+i) != null) {
+				String materia = materias.get("materia"+i);
+				int materiaParsed = Integer.parseInt(materia);
+				ps = c.prepareStatement("INSERT INTO alunopreferenciasmaterias (\"id-aluno\", \"id-materia\") VALUES (?, ?)");
+				ps.setLong(1, idAluno);
+				ps.setInt(2, materiaParsed);
+				if(ps.executeUpdate() == 0)
+					return false;
+			}
+		}
+		return true;
+
 	}
 	
 	public String consultarPorId(String id) throws SQLException {
