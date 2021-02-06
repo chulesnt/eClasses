@@ -275,5 +275,12 @@ public class ProfessoresRepository {
 		return xml;
 	}
 	
+	public boolean inserirFoto(String idProf, String foto) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("UPDATE professor SET foto = ? WHERE \"id-prof\" = ?");
+		Long idParsed = Long.parseLong(idProf);
+		ps.setString(1, foto);
+		ps.setLong(2, idParsed);
+		return ps.executeUpdate() != 0;
+	}
 	
 }
