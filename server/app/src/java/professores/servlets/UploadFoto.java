@@ -33,7 +33,7 @@ public class UploadFoto extends HttpServlet {
 			c = Conector.getConnection();
 			ProfessoresRepository pr = new ProfessoresRepository(c);
 			
-			String idProf = null, email = null, nome = null, fileName = null;
+			String idProf = null, fileName = null;
 			
 			if (ServletFileUpload.isMultipartContent(req)) {
             try {
@@ -42,26 +42,15 @@ public class UploadFoto extends HttpServlet {
 				for (FileItem item : multiparts) {
                     if ("idProf".equals(item.getFieldName())) {
 						idProf = item.getString();
-						Long idParsed = Long.parseLong(idProf);
-						System.out.println("idparsed: " + idParsed);
-						
-						PreparedStatement ps = c.prepareStatement("SELECT \"email-prof\", nome FROM professor WHERE \"id-prof\" = ?");
-						ps.setLong(1, idParsed);
-						ResultSet rs = ps.executeQuery();
-						rs.next();
-						email = rs.getString("email-prof");
-						nome = rs.getString("nome");
                     }
                 }
 				
                 for (FileItem item : multiparts) {
                     if (!item.isFormField() && "foto".equals(item.getFieldName())) {
-						fileName = nome + "-" + email + ".jpg";
-						System.out.println(fileName);
+						fileName = "upload" + idProf + ".jpg";
 						File img = new File(req.getServletContext().getRealPath("uploads")+ File.separator + fileName);
-						if(img.exists()){
-							img.delete();
-						} else img.createNewFile();
+						if(img.exists()) img.delete();
+						System.out.println(img);
                         item.write(img);
 						if(pr.inserirFoto(idProf, fileName)){
 							res.setStatus(200);
