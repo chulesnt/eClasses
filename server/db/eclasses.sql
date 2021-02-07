@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS professor
   "id-materia" Integer NOT NULL,
   "numero-alunos-min" Integer,
   "numero-alunos-max" Integer,
-  "data-fim-premium" Date
+  "data-fim-premium" Date,
+  "foto" Character varying(255)
 );
 
 

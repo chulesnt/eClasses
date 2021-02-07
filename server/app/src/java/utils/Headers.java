@@ -17,7 +17,7 @@ public class Headers {
 
 	public static void XMLHeaders(HttpServletRequest request, HttpServletResponse response) {
 		DefaultHeader(request, response);
-		response.addHeader("Content-Type", "application/xml; charset=utf-8");
+		response.addHeader("Content-Type", "application/xml;");
 	}
 
 }

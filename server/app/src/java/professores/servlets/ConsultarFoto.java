@@ -1,54 +1,58 @@
-package alunos.servlets;
+package professores.servlets;
 
-import alunos.repository.AlunosRepository;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.Conector;
-import utils.Headers;
 
-@WebServlet(name = "CadastroAluno", urlPatterns = {"/aluno/cadastrar"})
-public class CadastroAluno extends HttpServlet {
+@WebServlet(name = "ConsultarFoto", urlPatterns = {"/foto/consultar"})
+public class ConsultarFoto extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		Connection c;
-		Headers.XMLHeaders(req, res);
-		PrintWriter out = res.getWriter();
+		
+		String foto = null;
+		String idProf = req.getParameter("idProf");
+		Long idParsed = Long.parseLong(idProf);
+		
+		PreparedStatement ps;
 		try {
 			c = Conector.getConnection();
-			AlunosRepository r = new AlunosRepository(c);
-			String email = req.getParameter("email");
-			String nome = req.getParameter("nome");
-			String senha = req.getParameter("senha");
-			String uf = req.getParameter("idUf");
-			String municipio = req.getParameter("idMunicipio");
+			
+			ps = c.prepareStatement("SELECT foto FROM professor WHERE \"id-prof\" = ?");
+			ps.setLong(1, idParsed);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			foto = rs.getString("foto");
+			
+			String path = req.getServletContext().getRealPath("uploads")+ File.separator;
 
+			File files = new File(path);
+			res.setContentType("image/png");
 
-			try {
-				boolean sucesso = r.cadastrar(email, senha, nome, municipio, uf);
-				if(sucesso) {
-					res.setStatus(200);
-					out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
-				} else {
-					out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
+			for (String file : files.list()) {
+				if(file.equals(foto)){
+					File f = new File(path + file);
+					BufferedImage bi = ImageIO.read(f);
+					OutputStream out = res.getOutputStream();
+					ImageIO.write(bi, "png", out);
+					out.close();
 				}
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException | ParseException ex) {
-				res.setStatus(422);
-				out.println("<erro><mensagem>Erro interno</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Esse email já está cadastrado</mensagem></erro>");
 		}
 	}
 

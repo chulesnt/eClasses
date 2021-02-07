@@ -3,11 +3,11 @@ package alunos.servlets;
 import alunos.repository.AlunosRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +18,8 @@ import utils.Headers;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
 
-@WebServlet(name = "EditarAluno", urlPatterns = {"/aluno/editar"})
-public class EditarAluno extends HttpServlet {
+@WebServlet(name = "AlterarMaterias", urlPatterns = {"/aluno/materias"})
+public class AlterarMaterias extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -32,27 +32,19 @@ public class EditarAluno extends HttpServlet {
 			Autenticador x = new Autenticador(req, res);
 			if (x.getCargoLogado() == Cargos.ALUNO) {
 				Long idAluno = (Long) x.getIdLogado();
-				String id = Long.toString(idAluno);
-				String nome = req.getParameter("nome");
-				String uf = req.getParameter("idUf");
-				String municipio = req.getParameter("idMunicipio");
-				String preferenciaPreco = req.getParameter("preferenciaPreco");
-				String preferenciaLocal = req.getParameter("preferenciaLocal");
-				String preferenciaNumeroAlunos = req.getParameter("preferenciaNumeroAlunos");
-				String assinante = req.getParameter("assinante");
-				String dataFimAssinatura = req.getParameter("dataFimAssinatura");
-
-				try {
-					boolean sucesso = r.editar(id, nome, municipio, uf, preferenciaPreco, preferenciaLocal, preferenciaNumeroAlunos, assinante, dataFimAssinatura);
-					if(sucesso) {
-						res.setStatus(200);
-						out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");
-					} else { 
-						out.println("<erro><mensagem>Alteração falhou</mensagem></erro>");
-					}
-				} catch (ParseException ex) {
-					res.setStatus(422);
-					out.println("<erro><mensagem>Erro interno</mensagem></erro>");
+				Map<String, String> materias = new LinkedHashMap<>();
+				for (int i = 1; 1 > 0; i++) {
+					if (req.getParameter("materia"+i) != null) 
+						materias.put("materia"+i, req.getParameter("materia"+i));
+					else
+						break;
+				}
+				boolean sucesso = r.alterarMaterias(idAluno, materias);
+				if(sucesso) {
+					res.setStatus(200);
+					out.println("<sucesso><mensagem>Matérias alteradas com sucesso</mensagem></sucesso>");
+				} else { 
+					out.println("<erro><mensagem>Alteração de matérias falhou</mensagem></erro>");
 				}
 			} else {
 				res.setStatus(403);

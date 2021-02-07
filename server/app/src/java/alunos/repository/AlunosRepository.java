@@ -9,8 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import professores.model.ProfessorModel;
 import utils.Hasher;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
@@ -203,5 +208,129 @@ public class AlunosRepository {
 		return rs.getBoolean("assinante");
 	}
 	
+	public boolean alterarMaterias(Long idAluno, Map<String, String> materias) throws SQLException {
+		PreparedStatement ps;
+		boolean match;
+		int size = materias.size();
+		
+		ps = c.prepareStatement("SELECT * FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
+		ps.setLong(1, idAluno);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			match = false;
+			for (int i = 1; i < size+1; i++) {
+				if (materias.get("materia"+i) != null) {
+					if (Integer.parseInt(materias.get("materia"+i)) == rs.getInt("id-materia")) {
+						materias.remove("materia"+i);
+						match = true;
+						break;
+					}
+				}
+			}
+			if (!match) {
+				ps = c.prepareStatement("DELETE FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ? AND \"id-materia\" = ?");
+				ps.setLong(1, idAluno);
+				ps.setInt(2, rs.getInt("id-materia"));
+				if(ps.executeUpdate() == 0)
+					return false;
+			}
+		}
+		for (int i = 1; i < size+1; i++) {
+			if (materias.get("materia"+i) != null) {
+				String materia = materias.get("materia"+i);
+				int materiaParsed = Integer.parseInt(materia);
+				ps = c.prepareStatement("INSERT INTO alunopreferenciasmaterias (\"id-aluno\", \"id-materia\") VALUES (?, ?)");
+				ps.setLong(1, idAluno);
+				ps.setInt(2, materiaParsed);
+				if(ps.executeUpdate() == 0)
+					return false;
+			}
+		}
+		return true;
+
+	}
+	
+	public String consultarPorId(String id) throws SQLException {
+		String xml = "<aluno>";
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
+		Long idParsed = Long.parseLong(id);
+		ps.setLong(1, idParsed);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		xml += "<id>" + idParsed + "</id>";
+		xml += "<nome>" + rs.getString("nome") + "</nome>";
+		xml += "<email>" + rs.getString("email-aluno") + "</email>";
+		xml += "<id-municipio>" + rs.getInt("id-municipio") + "</id-municipio>";
+		xml += "<id-uf>" + rs.getInt("id-uf") + "</id-uf>";
+		xml += "<preferencia-preco>" + rs.getFloat("preferencia-preco") + "</preferencia-preco>";
+		xml += "<id-preferencia-local>" + rs.getInt("id-preferencia-local") + "</id-preferencia-local>";
+		xml += "<preferencia-numero-alunos>" + rs.getInt("preferencia-numero-alunos") + "</preferencia-numero-alunos>";
+		xml += "<assinante>" + rs.getBoolean("assinante") + "</assinante>";
+		xml += "<data-fim-assinatura>" + rs.getDate("data-fim-assinatura") + "</data-fim-assinatura>";
+		
+		ps = c.prepareStatement("SELECT * FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
+		ps.setLong(1, idParsed);
+		rs = ps.executeQuery();
+		xml += "<materias>";
+		while(rs.next()) {
+			xml += "<id-materia>" + rs.getInt("id-materia") + "</id-materia>";
+		}
+		xml += "</materias>";
+		xml += "</aluno>";
+		return xml;
+	}
+	
+	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos, List idMaterias) throws SQLException{
+		String idMateriasStr = String.join(",", idMaterias);
+		List profs = new LinkedList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		if(idPrefLocal == 1){
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-municipio\" = ? AND \"id-materia\" IN (" + idMateriasStr + ")");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			ps.setInt(3, idMunicipio);
+			
+			rs = ps.executeQuery();
+		} else if(idPrefLocal == 2){
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-uf\" = ? AND \"id-materia\" IN (" + idMateriasStr + ")");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			ps.setInt(3, idUf);
+			
+			rs = ps.executeQuery();
+		} else{
+			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-materia\" IN (" + idMateriasStr + ")");
+			ps.setDouble(1, prefPreco);
+			ps.setInt(2, prefAlunos);
+			
+			rs = ps.executeQuery();
+		}
+		while(rs.next()){
+			ProfessorModel pm = new ProfessorModel(
+					rs.getLong("id-prof"),
+					rs.getString("email-prof"),
+					rs.getString("senha"),
+					rs.getString("nome"),
+					rs.getString("descricao_apresentacao"),
+					rs.getString("titulo_apresentacao"),
+					rs.getBoolean("premium"),
+					rs.getDouble("avaliacao"),
+					rs.getDouble("preco-hora"),
+					rs.getInt("numero-avaliacoes"),
+					rs.getInt("id-municipio"),
+					rs.getInt("id-uf"),
+					rs.getInt("id-materia"),
+					rs.getInt("numero-alunos-min"),
+					rs.getInt("numero-alunos-max"),
+					rs.getDate("data-fim-premium")
+			);
+			profs.add(pm);
+		}
+		rs.close();
+		ps.close();
+		return profs;
+	}
 	
 }

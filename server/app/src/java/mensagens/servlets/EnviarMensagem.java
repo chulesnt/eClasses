@@ -1,10 +1,8 @@
-package alunos.servlets;
+package mensagens.servlets;
 
 import alunos.repository.AlunosRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,48 +11,57 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mensagens.repository.MensagensRepository;
 import utils.Conector;
 import utils.Headers;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
 
-@WebServlet(name = "EditarAluno", urlPatterns = {"/aluno/editar"})
-public class EditarAluno extends HttpServlet {
+@WebServlet(name = "EnviarMensagem", urlPatterns = {"/mensagens/enviar"})
+public class EnviarMensagem extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+				throws ServletException, IOException {
+		PrintWriter out = res.getWriter();
 		Connection c;
 		Headers.XMLHeaders(req, res);
-		PrintWriter out = res.getWriter();
+
 		try {
 			c = Conector.getConnection();
-			AlunosRepository r = new AlunosRepository(c);
-			Autenticador x = new Autenticador(req, res);
-			if (x.getCargoLogado() == Cargos.ALUNO) {
-				Long idAluno = (Long) x.getIdLogado();
-				String id = Long.toString(idAluno);
-				String nome = req.getParameter("nome");
-				String uf = req.getParameter("idUf");
-				String municipio = req.getParameter("idMunicipio");
-				String preferenciaPreco = req.getParameter("preferenciaPreco");
-				String preferenciaLocal = req.getParameter("preferenciaLocal");
-				String preferenciaNumeroAlunos = req.getParameter("preferenciaNumeroAlunos");
-				String assinante = req.getParameter("assinante");
-				String dataFimAssinatura = req.getParameter("dataFimAssinatura");
+			MensagensRepository mr = new MensagensRepository(c);
+			AlunosRepository ar = new AlunosRepository(c);
+			Autenticador aut = new Autenticador(req, res);
 
+			String texto = req.getParameter("texto");
+			String data = req.getParameter("data");
+			
+			if(aut.getCargoLogado() == Cargos.ALUNO){
 				try {
-					boolean sucesso = r.editar(id, nome, municipio, uf, preferenciaPreco, preferenciaLocal, preferenciaNumeroAlunos, assinante, dataFimAssinatura);
-					if(sucesso) {
+					String idAluno = String.valueOf(aut.getIdLogado());
+					String idProf = req.getParameter("idProf");
+					if(mr.criarMensagem(texto, idAluno, idProf, true, data)){
 						res.setStatus(200);
-						out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");
-					} else { 
-						out.println("<erro><mensagem>Alteração falhou</mensagem></erro>");
+						out.println("<sucesso><mensagem>Mensagem enviada com sucesso</mensagem></sucesso>");
 					}
+					else out.println("<erro><mensagem>Falha ao enviar mensagem</mensagem></erro>");
 				} catch (ParseException ex) {
 					res.setStatus(422);
 					out.println("<erro><mensagem>Erro interno</mensagem></erro>");
 				}
-			} else {
+			} else if(aut.getCargoLogado() == Cargos.PROFESSOR){
+				try {
+					String idAluno = req.getParameter("idAluno");
+					String idProf = (String) aut.getIdLogado();
+					if(mr.criarMensagem(texto, idAluno, idProf, false, data)){
+						res.setStatus(200);
+						out.println("<sucesso><mensagem>Mensagem enviada com sucesso</mensagem></sucesso>");
+					}
+					else out.println("<erro><mensagem>Falha ao enviar mensagem</mensagem></erro>");
+				} catch (ParseException ex) {
+					res.setStatus(422);
+					out.println("<erro><mensagem>Erro interno</mensagem></erro>");
+				}
+			} else{
 				res.setStatus(403);
 				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
@@ -62,6 +69,7 @@ public class EditarAluno extends HttpServlet {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
+		
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

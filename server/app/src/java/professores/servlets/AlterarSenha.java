@@ -35,11 +35,11 @@ public class AlterarSenha extends HttpServlet {
 					res.setStatus(200);
 					out.println("<sucesso><mensagem>Senha alterada com sucesso</mensagem></sucesso>");
 				} else {
-					out.println("<erro><mensagem>Não foi possivel alterar a senha</mensagem></erro>");
+					out.println("<erro><mensagem>Não foi possível alterar a senha</mensagem></erro>");
 				}
 			} else {
 				res.setStatus(403);
-				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
+				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);

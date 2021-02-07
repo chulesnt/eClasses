@@ -248,5 +248,51 @@ public class ProfessoresRepository {
 		return sucesso != 0;
 	}
 	
+	public String consultarPorId(String id) throws SQLException {
+		String xml = "<professor>";
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM professor WHERE \"id-prof\" = ?");
+		Long idParsed = Long.parseLong(id);
+		ps.setLong(1, idParsed);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		xml += "<id>" + idParsed + "</id>";
+		xml += "<nome>" + rs.getString("nome") + "</nome>";
+		xml += "<email>" + rs.getString("email-prof") + "</email>";
+		xml += "<id-municipio>" + rs.getInt("id-municipio") + "</id-municipio>";
+		xml += "<id-uf>" + rs.getInt("id-uf") + "</id-uf>";
+		xml += "<descricao-apresentacao>" + rs.getString("descricao_apresentacao") + "</descricao-apresentacao>";
+		xml += "<titulo-apresentacao>" + rs.getString("titulo_apresentacao") + "</titulo-apresentacao>";
+		xml += "<avaliacao>" + rs.getFloat("avaliacao") + "</avaliacao>";
+		xml += "<premium>" + rs.getBoolean("premium") + "</premium>";
+		xml += "<numero-avaliacoes>" + rs.getInt("numero-avaliacoes") + "</numero-avaliacoes>";
+		xml += "<preco-hora>" + rs.getFloat("preco-hora") + "</preco-hora>";
+		xml += "<id-materia>" + rs.getInt("id-materia") + "</id-materia>";
+		xml += "<numero-alunos-min>" + rs.getInt("numero-alunos-min") + "</numero-alunos-min>";
+		xml += "<numero-alunos-max>" + rs.getInt("numero-alunos-max") + "</numero-alunos-max>";
+		xml += "<data-fim-premium>" + rs.getDate("data-fim-premium") + "</data-fim-premium>";
+		
+		ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND comentario = ?");
+		ps.setLong(1, idParsed);
+		ps.setBoolean(2, true);
+		rs = ps.executeQuery();
+		xml += "<comentarios>";
+		while(rs.next()) {
+			xml += "<id-aluno>" + rs.getLong("id-aluno") + "</id-aluno>";
+			xml += "<texto>" + rs.getString("texto") + "</texto>";
+			xml += "<data>" + rs.getTimestamp("data-horario").getTime() + "</data>";
+		}
+		xml += "</comentarios>";
+
+		xml += "</professor>";
+		return xml;
+	}
+	
+	public boolean inserirFoto(String idProf, String foto) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("UPDATE professor SET foto = ? WHERE \"id-prof\" = ?");
+		Long idParsed = Long.parseLong(idProf);
+		ps.setString(1, foto);
+		ps.setLong(2, idParsed);
+		return ps.executeUpdate() != 0;
+	}
 	
 }

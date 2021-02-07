@@ -29,3 +29,28 @@ footer {
 .card {
     padding: 0px;
 }
+
+.bloco1 {
+    background-color: aquamarine;
+}
+
+.bloco2 {
+    background-color: rgb(32, 141, 214);
+}
+
+#perfil {
+    height: 180px;
+}
+
+.preco {
+    font-size: 150%;
+}
+
+.estrela{
+    height: 40px;
+}
+
+.bloco1, .bloco2{
+    justify-content: center;
+    text-align: center;
+}

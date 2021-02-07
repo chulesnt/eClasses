@@ -1,54 +1,36 @@
-package alunos.servlets;
+package listas.servlets;
 
-import alunos.repository.AlunosRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import listas.repository.ListasRepository;
 import utils.Conector;
 import utils.Headers;
 
-@WebServlet(name = "CadastroAluno", urlPatterns = {"/aluno/cadastrar"})
-public class CadastroAluno extends HttpServlet {
+@WebServlet(name = "ListarUf", urlPatterns = {"/listar/uf"})
+public class ListarUf extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		Connection c;
-		Headers.XMLHeaders(req, res);
+		
 		PrintWriter out = res.getWriter();
+		Headers.XMLHeaders(req, res);
 		try {
-			c = Conector.getConnection();
-			AlunosRepository r = new AlunosRepository(c);
-			String email = req.getParameter("email");
-			String nome = req.getParameter("nome");
-			String senha = req.getParameter("senha");
-			String uf = req.getParameter("idUf");
-			String municipio = req.getParameter("idMunicipio");
-
-
-			try {
-				boolean sucesso = r.cadastrar(email, senha, nome, municipio, uf);
-				if(sucesso) {
-					res.setStatus(200);
-					out.println("<sucesso><mensagem>Cadastro realizado com sucesso</mensagem></sucesso>");
-				} else {
-					out.println("<erro><mensagem>Cadastro falhou</mensagem></erro>");
-				}
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException | ParseException ex) {
-				res.setStatus(422);
-				out.println("<erro><mensagem>Erro interno</mensagem></erro>");
-			}
-		} catch (ClassNotFoundException | SQLException ex) {
+			String xml;
+			Connection c = Conector.getConnection();
+			ListasRepository r = new ListasRepository(c);
+			xml = r.listarUf();
+			res.setStatus(200);
+			out.println(xml);
+		} catch (SQLException | ClassNotFoundException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Esse email já está cadastrado</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 	}
 
