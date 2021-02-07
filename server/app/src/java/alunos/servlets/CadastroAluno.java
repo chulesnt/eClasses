@@ -48,7 +48,7 @@ public class CadastroAluno extends HttpServlet {
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Esse email já está cadastrado</mensagem></erro>");
 		}
 	}
 

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/aluno/cadastroAluno.css">
 
     <title>eClasses - Cadastro de Aluno</title>
 </head>
@@ -16,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-11">
-                    <h2>Cadastro de Aluno</h2>
+                    <h2>eClasses</h2>
                 </div>
                 <div class="col-1">
                     <a href="index.html"><img src="img/btn-voltar.png" id="btn-voltar" class="mt-1"></a>
@@ -26,69 +27,68 @@
     </header>
 
     <main>
-        <div class="container">
+        <div class="container form1">
+          <h2 class="tituloform">Cadastro de aluno</h2>
             <div class="row">
                 <!-- Form de cadastro -->
                 <div class="col-12 col-sm-6">
-                    <form>
-                        <div class="form-group row">
-                            <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="nome-aluno" name="nome-aluno">
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-3 col-form-label">E-mail</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="email" name="email">
-                            </div>
-                        </div>
+                  <div class="toast toastErro">
+                  </div>
 
-                        <div class="form-group row">
-                            <label for="senha" class="col-md-3 col-form-label">Senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="senha" name="senha">
-                            </div>
-                        </div>
+                  <div class="toast toastSucesso">
+                  </div>
 
-                        <div class="form-group row">
-                            <label for="confirma-senha" class="col-md-3 col-form-label">Confirmar senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="confirma-senha" name="confirma-senha">
-                            </div>
+                    <div class="form-group row">
+                        <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="nome-aluno" name="nome-aluno" maxlength="40">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="estado" class="col-md-3 col-form-label">UF</label>
-                            <div class="col-md-3">
-                                <select id="estado" name="estado">
-                                    <option value="ex0" selected> </option>
-                                    <option value="ex1">Minas Gerais</option>
-                                    <option value="ex2">São Paulo</option>
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-md-3 col-form-label">E-mail</label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" id="email" name="email" maxlength="50">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
-                            <div class="col-md-3">
-                                <select id="municipio" name="municipio">
-                                    <option value="ex0" selected> </option>
-                                    <option value="ex1">Belo Horizonte</option>
-                                    <option value="ex2">Betim</option>
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="senha" class="col-md-3 col-form-label">Senha</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="senha" name="senha">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <a href="login.html">Já tem uma conta? Entre agora!</a>
-                            <div class="ml-auto col-md-3">
-                                <button type="submit" class="btn btn-primary"
-                                    onclick="alert('Cadastro')">Cadastrar</button>
-                            </div>
+                    <div class="form-group row">
+                        <label for="confirma-senha" class="col-md-3 col-form-label">Confirmar senha</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="confirma-senha" name="confirma-senha">
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="estado" class="col-md-3 col-form-label">UF</label>
+                        <div class="col-md-3">
+                            <select id="estado" name="estado" onchange="carregarMunicipio()">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                        <div class="col-md-3">
+                            <select id="municipio" name="municipio">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <a href="login.html">Já tem uma conta? Entre agora!</a>
+                        <div class="ml-auto col-md-3">
+                            <button class="btn btn-primary" onclick="inserir()">Cadastrar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,11 +106,22 @@
         </div>
     </footer>
 
+    <script>
+    let selUf = document.querySelector("#estado");
+    let selMunicipio = document.querySelector("#municipio");
+      window.onload = function() {
+        carregarUf();
+      };
+
+
+
+    </script>
+    <script src="js/utils/limpaInputs.js"></script>
+    <script src="js/respostas/toastsCadastro.js"></script>
+    <script src="js/aluno/inserir.js"></script>
+    <script src="js/preencherLocais.js"></script>
+    <script src="js/carregarLocais.js"></script>
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="js/script.js"></script>
-
-</body>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script></body>
 
 </html>
