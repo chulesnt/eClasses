@@ -2,6 +2,10 @@ main {
     margin: 70px 0px;
 }
 
+#altered-main {
+    margin: 30px 0px;
+}
+
 .img-inicio {
     width: 18em;
 }
@@ -22,9 +26,14 @@ footer {
     margin-top: 35px;
 }
 
+.card {
+    padding: 0px;
+}
+
 .bloco1 {
     background-color: aquamarine;
 }
+
 .bloco2 {
     background-color: rgb(32, 141, 214);
 }
@@ -32,9 +41,11 @@ footer {
 #perfil {
     height: 180px;
 }
+
 .preco {
     font-size: 150%;
 }
+
 .estrela{
     height: 40px;
 }
