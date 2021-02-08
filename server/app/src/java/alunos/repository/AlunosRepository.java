@@ -188,16 +188,24 @@ public class AlunosRepository {
 		return sucesso != 0;
 	}
 	
-	public boolean alterarSenha(Long id, String senha) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {		
-		String hashSenha = null;
-		hashSenha = Hasher.hash(senha);
-		String query = "UPDATE aluno SET senha= ? WHERE \"id-aluno\" = ?";
-
-		PreparedStatement ps = c.prepareStatement(query);
-		ps.setString(1, hashSenha);
-		ps.setLong(2, id);
-		int sucesso = ps.executeUpdate();
-		return sucesso != 0;
+	public boolean alterarSenha(Long id, String senhaAntiga, String senhaNova) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {		
+		
+		PreparedStatement pt = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
+		pt.setLong(1, id);
+		ResultSet rs = pt.executeQuery();
+		rs.next();
+		
+		if (Hasher.validar(senhaAntiga, rs.getString("senha"))) {
+			String hashSenha = null;
+			hashSenha = Hasher.hash(senhaNova);
+			String query = "UPDATE aluno SET senha= ? WHERE \"id-aluno\" = ?";
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setString(1, hashSenha);
+			ps.setLong(2, id);
+			int sucesso = ps.executeUpdate();
+			return sucesso != 0;
+		}
+		return false;
 	}
 	
 	public boolean checarAssinante(Long idAluno) throws SQLException {

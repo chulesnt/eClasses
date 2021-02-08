@@ -29,13 +29,14 @@ public class AlterarSenha extends HttpServlet {
 			c = Conector.getConnection();
 			ProfessoresRepository r = new ProfessoresRepository(c);
 			Autenticador x = new Autenticador(req, res);
-			String senha = req.getParameter("senha");
+			String senhaAntiga = req.getParameter("senhaAntiga");
+			String senhaNova = req.getParameter("senhaNova");
 			if (x.getCargoLogado() == Cargos.PROFESSOR) {
-				if (r.alterarSenha((Long) x.getIdLogado(), senha)) {
+				if (r.alterarSenha((Long) x.getIdLogado(), senhaAntiga, senhaNova)) {
 					res.setStatus(200);
 					out.println("<sucesso><mensagem>Senha alterada com sucesso</mensagem></sucesso>");
 				} else {
-					out.println("<erro><mensagem>Não foi possível alterar a senha</mensagem></erro>");
+					out.println("<erro><mensagem>Não foi possível alterar a senha, confira se a senha atual inserida está correta</mensagem></erro>");
 				}
 			} else {
 				res.setStatus(403);
