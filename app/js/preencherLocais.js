@@ -20,3 +20,15 @@ function preencherSelectMunicipio(doc) {
     selMunicipio.appendChild(editar);
   }
 }
+
+function preencherSelectMateria(doc) {
+  var lineItems = doc.getElementsByTagName("materia");
+  for (i = 0; i < (lineItems.length); i++) {
+    if (lineItems[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue != "Outro") {
+      var editar = document.createElement("option");
+      editar.innerHTML = lineItems[i].getElementsByTagName("nome")[0].childNodes[0].nodeValue;
+      editar.value = lineItems[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+      selMateria.appendChild(editar);
+    }
+  }
+}

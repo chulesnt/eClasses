@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/login.css">
 
     <title>eClasses - Login</title>
 </head>
@@ -30,57 +31,61 @@
             <div class="row">
                 <div class="col-12 col-md-5">
                     <h4>Login como Aluno</h4>
-                    <form class="form-login container">
-                        <div class="form-group row">
-                            <label for="email-aluno" class="col-md-3 col-form-label">E-mail</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="email-aluno" name="email-aluno">
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="senha-aluno" class="col-md-3 col-form-label">Senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="senha-aluno" name="senha-aluno">
-                            </div>
-                        </div>
+                    <div class="toast toastErro">
+                    </div>
 
-                        <div class="form-group row">
-                            <a href="cadastro-aluno.html">Ainda não é cadastrado?</a>
-                            <div class="col-md-3 offset-9">
-                                <!-- mudei de botão para "a" para colocar o link para feed aluno-->
-                                <a type="submit" class="btn btn-primary"
-                                    onclick="alert('Login Aluno')" href="feed-aluno.html">Entrar</a>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="toast toastSucesso">
+                    </div>
+
+                      <div class="form-group row">
+                          <label for="email-aluno" class="col-md-3 col-form-label">E-mail</label>
+                          <div class="col-md-9">
+                              <input type="email" class="form-control" id="email-aluno" name="email-aluno">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <label for="senha-aluno" class="col-md-3 col-form-label">Senha</label>
+                          <div class="col-md-9">
+                              <input type="password" class="form-control" id="senha-aluno" name="senha-aluno">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <a href="cadastro-aluno.html">Ainda não é cadastrado?</a>
+                          <div class="col-md-3 offset-9">
+                              <!-- mudei de botão para "a" para colocar o link para feed aluno-->
+                              <a class="btn btn-primary"
+                                onclick="loginAluno()"  >Entrar</a>
+                          </div>
+                      </div>
                 </div>
 
                 <div class="col-12 col-md-5 offset-1">
                     <h4>Login como Professor</h4>
-                    <form class="form-login container">
-                        <div class="form-group row">
-                            <label for="email-prof" class="col-md-3 col-form-label">E-mail</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="email-prof" name="email-prof">
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="senha-prof" class="col-md-3 col-form-label">Senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="senha-prof" name="senha-prof">
-                            </div>
-                        </div>
+                      <div class="form-group row">
+                          <label for="email-prof" class="col-md-3 col-form-label">E-mail</label>
+                          <div class="col-md-9">
+                              <input type="email" class="form-control" id="email-prof" name="email-prof">
+                          </div>
+                      </div>
 
-                        <div class="form-group row">
-                            <a href="cadastro-prof.html">Ainda não é cadastrado?</a>
-                            <div class="col-md-3 offset-9">
-                                <button type="submit" class="btn btn-primary"
-                                    onclick="alert('Login Prof')">Entrar</button>
-                            </div>
-                        </div>
-                    </form>
+                      <div class="form-group row">
+                          <label for="senha-prof" class="col-md-3 col-form-label">Senha</label>
+                          <div class="col-md-9">
+                              <input type="password" class="form-control" id="senha-prof" name="senha-prof">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <a href="cadastro-prof.html">Ainda não é cadastrado?</a>
+                          <div class="col-md-3 offset-9">
+                              <button class="btn btn-primary"
+                                  onclick="loginProf()">Entrar</button>
+                          </div>
+                      </div>
                 </div>
             </div>
         </div>
@@ -98,10 +103,11 @@
         </div>
     </footer>
 
+    <script src="js/login.js"></script>
+    <script src="js/respostas/toastsCadastro.js"></script>
+    <script src="js/utils/limpaInputs.js"></script>
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="js/script.js"></script>
 
 </body>
 
