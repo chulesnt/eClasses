@@ -114,7 +114,7 @@
       }
     </style>
 
-    <title>eClasses - Cadastro de Aluno</title>
+    <title>eClasses</title>
 </head>
 
 <body>
@@ -122,7 +122,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-11">
-                    <h2>Apresentação de Professor</h2>
+                    <h2>eClasses</h2>
                 </div>
                 <div class="col-1">
                     <a href="index.html"><img src="img/btn-voltar.png" id="btn-voltar" class="mt-1"></a>
@@ -136,14 +136,14 @@
             <div class="row fc ap">
                 <div class="col-12 fc">
                     <img src="https://i.stack.imgur.com/dr5qp.jpg" alt="h" class="pg" style="margin-bottom:24px">
-                    <h3 id="nome" class="nome">Alice</h3>
-                    <p id="descricao-apresentacao" class="text-center">"Dori me, interimo adapare dorime, ameno ameno latire, latiremo, ameno"</p>
+                    <h3 id="nome" class="nome"></h3>
+                    <p id="descricao-apresentacao" class="text-center"></p>
                     <hr>
                     <div id="avProf" style="margin-bottom:15px"></div>
-                    <p style="margin-bottom: 15px">R$ <span id="preco-hora">6,00</span>/hora</p>
+                    <p style="margin-bottom: 15px">R$ <span id="preco-hora"></span></p>
                     <p class="fr">
                       <img src="img/local.png" alt="local" class="local">&nbsp;
-                      <span id="nome-mun">Pintópolis</span>,&nbsp;<span id="uf">MG</span>
+                      <span id="nome-mun"></span>&nbsp;<span id="uf"></span>
                     </p>
                     <hr>
                     <button class="btn btn-primary">Conversar</button>
@@ -178,7 +178,6 @@
       const me=4; // Margem entre estrelas
       const dpfp="img/padrao.jpg";
 
-      let idprof=new URLSearchParams(location.search).get("id");
 
       function xmlget(xml,nome){
         return xml.querySelector(nome).textContent;
@@ -197,13 +196,14 @@
       }
 
       function fete(url,f){
-        fetch(url)
+        fetch(url, {  method: "POST", credentials: 'include' })
         .then(re => re.arrayBuffer())
         .then(buffer => {
           let decoder = new TextDecoder("iso-8859-1");
           let text = decoder.decode(buffer);
           parser = new DOMParser();
           xml = parser.parseFromString(text, "text/xml");
+          console.log(xml);
           f(xml);
         });
       }
@@ -216,17 +216,27 @@
         return zeroAEsquerda(dt.getDate())+"/"+zeroAEsquerda(dt.getMonth()+1)+"/"+dt.getFullYear();
       }
 
-      fete("http://localhost:8080/app/consultar/logado",function (xml) {
-        let idu,cargou;
-        let erro=xml.querySelector("erro");
-        if(erro!=null && erro.querySelector("mensagem").textContent=="Nenhum usuário logado"){
-          idu=null;
-          cargou=null;
-        }
-        else{
-          idu=xmlget("id");
-          cargou=xmlget("cargo");
-        }
+
+      let idprof;
+      let URL =new URLSearchParams(location.search);
+      if (URL.get("id") != null) {
+          idprof = URL.get("id");
+      } else {
+        fete("http://localhost:8080/app/consultar/logado",function (xml) {
+          let idu, cargou;
+          let erro=xml.querySelector("erro");
+          if(erro!=null && erro.querySelector("mensagem").textContent=="Nenhum usuário logado"){
+            idu=null;
+            cargou=null;
+          } else{
+            idu=xmlget("id");
+            cargou=xmlget("cargo");
+            if (cargou.textContent == "PROFESSOR")
+              ifprof = idu;
+          }
+        })
+      }
+
 
         fete("http://localhost:8080/app/professor/consultar?id="+idprof,function (xml) {
           let ph=+xmlget(xml,"preco-hora");
@@ -259,7 +269,6 @@
             });
           }
         });
-      });
 
       function setAv(el,x){
         if(el.nota){

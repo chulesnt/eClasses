@@ -20,7 +20,6 @@ public class ConsultarAlunoAvaliaProf extends HttpServlet {
 			throws ServletException, IOException {
 		
 		PrintWriter out = res.getWriter();
-		Headers.XMLHeaders(req, res);
 		try {
 			String xml;
 			String idAluno = req.getParameter("idAluno");

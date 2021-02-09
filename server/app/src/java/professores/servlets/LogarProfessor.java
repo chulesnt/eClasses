@@ -26,7 +26,6 @@ public class LogarProfessor extends HttpServlet {
 		
 		PrintWriter out = res.getWriter();
 		Connection c = Conector.getConnection();
-		Headers.XMLHeaders(req, res);
 		ProfessoresRepository r = new ProfessoresRepository(c);
 		Autenticador aut = new Autenticador(req, res);
 		

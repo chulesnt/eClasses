@@ -20,7 +20,6 @@ public class ConsultarPreferenciaLocalizacao extends HttpServlet {
 			throws ServletException, IOException {
 		
 		PrintWriter out = res.getWriter();
-		Headers.XMLHeaders(req, res);
 		try {
 			String xml;
 			String id = req.getParameter("id");

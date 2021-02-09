@@ -27,7 +27,6 @@ public class UploadFoto extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
 		Connection c;
-		Headers.XMLHeaders(req, res);
 		
 		try {
 			c = Conector.getConnection();

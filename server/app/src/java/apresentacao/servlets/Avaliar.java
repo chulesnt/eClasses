@@ -24,7 +24,6 @@ public class Avaliar extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
 		Connection c;
-		Headers.XMLHeaders(req, res);
 		try {
 			c = Conector.getConnection();
 			ApresentacaoRepository r = new ApresentacaoRepository(c);
@@ -39,17 +38,17 @@ public class Avaliar extends HttpServlet {
 			if (aut.getCargoLogado() == Cargos.ALUNO && a.checarAssinante(idAluno)){
 				if(r.avaliar(idAluno, idProf, nota) && r.atualizarAvaliacao(idProf, nota)){
 					res.setStatus(200);
-					out.println("<sucesso><mensagem>Avaliacao submetida</mensagem></sucesso>");
+					out.println("<sucesso><mensagem>Avaliação submetida</mensagem></sucesso>");
 				} else {
 					out.println("<erro><mensagem>Ocorreu um erro, confira se voce ja avaliou este professor</mensagem></erro>");
 				}
 			} else {
 				res.setStatus(403);
-				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
+				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 		
 	}

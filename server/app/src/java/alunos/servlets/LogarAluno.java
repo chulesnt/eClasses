@@ -24,7 +24,6 @@ public class LogarAluno extends HttpServlet {
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
 		Connection c = Conector.getConnection();
-		Headers.XMLHeaders(req, res);
 		AlunosRepository r = new AlunosRepository(c);
 		Autenticador aut = new Autenticador(req, res);
 		

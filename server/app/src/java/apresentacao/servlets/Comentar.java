@@ -24,7 +24,6 @@ public class Comentar extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
 		Connection c;
-		Headers.XMLHeaders(req, res);
 		try {
 			c = Conector.getConnection();
 			ApresentacaoRepository r = new ApresentacaoRepository(c);
@@ -51,11 +50,11 @@ public class Comentar extends HttpServlet {
 				}
 			} else {
 				res.setStatus(403);
-				out.println("<erro><mensagem>Voce nao tem permissao para fazer isso</mensagem></erro>");
+				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interacao com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 		
 	}

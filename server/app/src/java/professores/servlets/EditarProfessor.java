@@ -22,7 +22,6 @@ public class EditarProfessor extends HttpServlet {
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		Connection c;
-		Headers.XMLHeaders(req, res);
 		PrintWriter out = res.getWriter();
 		try {
 			c = Conector.getConnection();

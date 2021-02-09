@@ -21,21 +21,13 @@ public class ConsultarLogado extends HttpServlet {
 			throws ServletException, IOException {
 		
 		PrintWriter out = res.getWriter();
-		Headers.XMLHeaders(req, res);
 		Autenticador aut = new Autenticador(req, res);
-		try {
-			String xml;
-			Connection c = Conector.getConnection();
-			if (aut.getCargoLogado() != null) {
-				res.setStatus(200);
-				out.println("<usuario><id>"+ aut.getIdLogado() + "</id><cargo>"+ aut.getCargoLogado() + "</cargo></usuario>");
-			} else {
-				res.setStatus(400);
-				out.println("<erro><mensagem>Nenhum usuário logado</mensagem></erro>");
-			}
-		} catch (SQLException | ClassNotFoundException ex) {
-			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
+		if (aut.getCargoLogado() != null) {
+			res.setStatus(200);
+			out.println("<usuario><id>"+ aut.getIdLogado() + "</id><cargo>"+ aut.getCargoLogado() + "</cargo></usuario>");
+		} else {
+			res.setStatus(400);
+			out.println("<erro><mensagem>Nenhum usuário logado</mensagem></erro>");
 		}
 	}
 
