@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -322,10 +321,6 @@ public class AlunosRepository {
 		}
 		if(idPrefLocal == 2){
 			ps.setInt(counter, idUf);
-			counter++;
-		}
-		if(!idMaterias.isEmpty()){
-			ps.setString(counter, idMateriasStr);
 			counter++;
 		}
 		if(prefPreco > 0){
