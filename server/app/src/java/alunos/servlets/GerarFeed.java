@@ -38,6 +38,8 @@ public class GerarFeed extends HttpServlet {
 		
 			if(aut.getCargoLogado() == Cargos.ALUNO){
 				String idAluno = String.valueOf(aut.getIdLogado());
+				String orderBy = req.getParameter("orderBy");
+				String order = req.getParameter("order");
 				
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM aluno WHERE \"id-aluno\" = ?");
 				ps.setLong(1, Long.parseLong(idAluno));
@@ -62,7 +64,7 @@ public class GerarFeed extends HttpServlet {
 					idMaterias.add(String.valueOf(rs.getInt("id-materia")));
 				}
 
-				List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos, idMaterias);
+				List<ProfessorModel> r = ar.gerarFeed(prefPreco, idPrefLocal, idMunicipio, idUf, prefAlunos, idMaterias, orderBy, order);
 				out.println("<feed>");
 				for(int i = 0; i < r.size(); i++){
 					out.println("<professor>");
@@ -91,7 +93,7 @@ public class GerarFeed extends HttpServlet {
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
-			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
+			out.println("<erro><mensagem>Erro na interação com o servidor + " + ex + "</mensagem></erro>");
 		}
 	}
 

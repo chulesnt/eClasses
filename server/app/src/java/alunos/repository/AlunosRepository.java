@@ -288,33 +288,55 @@ public class AlunosRepository {
 		return xml;
 	}
 	
-	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos, List idMaterias) throws SQLException{
+	public List gerarFeed(double prefPreco, int idPrefLocal, int idMunicipio, int idUf, int prefAlunos, List idMaterias, String orderBy, String order) throws SQLException{
 		String idMateriasStr = String.join(",", idMaterias);
 		List profs = new LinkedList<>();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		String query = "SELECT * FROM professor WHERE true ";
+		int counter = 1;
 		
 		if(idPrefLocal == 1){
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-municipio\" = ? AND \"id-materia\" IN (" + idMateriasStr + ")");
-			ps.setDouble(1, prefPreco);
-			ps.setInt(2, prefAlunos);
-			ps.setInt(3, idMunicipio);
-			
-			rs = ps.executeQuery();
+			query += "AND \"id-municipio\" = ? ";
 		} else if(idPrefLocal == 2){
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-uf\" = ? AND \"id-materia\" IN (" + idMateriasStr + ")");
-			ps.setDouble(1, prefPreco);
-			ps.setInt(2, prefAlunos);
-			ps.setInt(3, idUf);
-			
-			rs = ps.executeQuery();
-		} else{
-			ps = c.prepareStatement("SELECT * FROM professor WHERE \"preco-hora\" < ? AND \"numero-alunos-max\" <= ? AND \"id-materia\" IN (" + idMateriasStr + ")");
-			ps.setDouble(1, prefPreco);
-			ps.setInt(2, prefAlunos);
-			
-			rs = ps.executeQuery();
+			query += "AND \"id-uf\" = ? ";
 		}
+		if(!idMaterias.isEmpty()){
+			query += "AND \"id-materia\" IN (" + idMateriasStr + ") ";
+		}
+		if(prefPreco > 0.0){
+			query += "AND \"preco-hora\" < ? ";
+		}
+		if(prefAlunos > 0){
+			query += "AND \"numero-alunos-max\" <= ? ";
+		}
+		if(orderBy != null){
+			query += "ORDER BY \"" + orderBy + "\" ";
+			if(order != null) query += order;
+		}
+		System.out.println(query);
+		ps = c.prepareStatement(query);
+		if(idPrefLocal == 1){
+			ps.setInt(counter, idMunicipio);
+			counter++;
+		}
+		if(idPrefLocal == 2){
+			ps.setInt(counter, idUf);
+			counter++;
+		}
+		if(!idMaterias.isEmpty()){
+			ps.setString(counter, idMateriasStr);
+			counter++;
+		}
+		if(prefPreco > 0){
+			ps.setDouble(counter, prefPreco);
+			counter++;
+		}
+		if(prefAlunos > 0){
+			ps.setInt(counter, prefAlunos);
+			counter++;
+		}
+		rs = ps.executeQuery();
 		while(rs.next()){
 			ProfessorModel pm = new ProfessorModel(
 					rs.getLong("id-prof"),
