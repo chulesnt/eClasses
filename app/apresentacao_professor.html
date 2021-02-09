@@ -229,8 +229,8 @@
             idu=null;
             cargou=null;
           } else{
-            idu=xmlget("id");
-            cargou=xmlget("cargo");
+            idu=xmlget(xml, "id");
+            cargou=xmlget(xml, "cargo");
             if (cargou.textContent == "PROFESSOR")
               ifprof = idu;
           }
