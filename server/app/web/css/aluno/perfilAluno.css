@@ -36,3 +36,34 @@
 .green {
   color: green;
 }
+
+.small {
+  width: 30%;
+}
+
+.large {
+  width: 50%;
+}
+
+.afast {
+  margin-top: 10%;
+}
+
+.centralize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#add {
+  margin-left: 2.5%;
+}
+
+.linha {
+  margin-bottom: 7%;
+}
+
+.delet {
+  border: none;
+  margin-right: 8px;
+}

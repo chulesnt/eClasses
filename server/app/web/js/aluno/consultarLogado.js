@@ -82,7 +82,7 @@ function consultarLogado() {
             campoPreco.innerHTML += convertComma(precoParsed.toString());
             campoNumeroAlunos.innerHTML = aluno.getElementsByTagName("preferencia-numero-alunos")[0].childNodes[0].nodeValue;
 
-            let idPrefLocal = aluno.getElementsByTagName("id-preferencia-local")[0].childNodes[0].nodeValue;
+            idPrefLocal = aluno.getElementsByTagName("id-preferencia-local")[0].childNodes[0].nodeValue;
             url = "http://localhost:8080/app/consultar/preferencialocal?id="+idPrefLocal;
             fetch(url, { method: "POST", credentials: 'include' })
               .then(resposta => resposta.arrayBuffer())
@@ -107,8 +107,9 @@ function consultarLogado() {
                   parser = new DOMParser();
                   xmlDoc = parser.parseFromString(text, "text/xml");
                   nomeMateria = xmlDoc.getElementsByTagName("materia")[0].getElementsByTagName("nome")[0].childNodes[0].nodeValue;
+                  listaMaterias.push(nomeMateria);
                   let dd = document.createElement("dd");
-                  dd.classList.add("col-12");
+                  dd.classList.add("col-6");
                   dd.classList.add("deletavelPreferencias");
                   dd.classList.add("materias");
                   dd.innerHTML = nomeMateria;

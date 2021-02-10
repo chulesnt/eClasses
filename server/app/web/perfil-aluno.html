@@ -146,11 +146,75 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a class="btn btn-secondary col-12 col-md-5" onclick="alert('Edição Preferências')">Editar
+                            <a data-toggle="modal" href="#modalPreferencias" id="abrirPreferencias" class="btn btn-secondary col-12 col-md-5" onclick="">Editar
                                 preferências</a>
                         </div>
                     </div>
                 </div>
+
+
+
+                <div class="modal fade larger" id="modalPreferencias" tabindex="-1" role="dialog" aria-labelledby="modalPreferencias" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar preferencias</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label for="precoAlt" class="col-3 col-form-label">Preço limite</label>
+                            <div class="col-3">
+                                <input step="0.01" min="0" type="number" class="form-control" id="precoAlt" name="precoAlt">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="localidade" class="col-md-3 col-form-label">Localidade</label>
+                            <div class="col-md-3">
+                                <select id="localidadeAlt" name="localidade">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="numeroAlunosAlt" class="col-5 col-form-label">Nº máximo de alunos</label>
+                            <div class="col-sm-3">
+                                <input min="1" type="number" class="form-control" id="numeroAlunosAlt" name="numeroAlunosAlt">
+                            </div>
+                        </div>
+
+                        <p class="col-12 center afast"><strong>Materias</strong></p>
+                        <div class="form-group row">
+                            <div class="col-5 centralize">
+                              <select id="materiasAlt" name="materias">
+                              </select><button id="add">+</button>
+                            </div>
+                            <div  class="col-7 centralize">
+                              <ul id="listarMaterias">
+                              </ul>
+                            </div>
+                        </div>
+
+
+                      </div>
+                      <div class="modal-footer">
+
+                        <p id="respostaPerfil" class="floatL displayNone"></p>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
             </div>
 
             <div class="row">
@@ -177,6 +241,7 @@
       let idAluno;
       let idUf;
       let idMunicipio;
+      let idPrefLocal;
 
       let campoNome = document.querySelector("#nome");
       let campoEmail = document.querySelector("#email");
@@ -187,14 +252,91 @@
       let campoPreco = document.querySelector("#preco");
       let campoLocalidade = document.querySelector("#local");
       let campoNumeroAlunos = document.querySelector("#numero-alunos");
+      let listaMaterias = [];
+      let listaIDM = [];
 
       let nomeAlt = document.querySelector("#nomeAlt");
       let selUf = document.querySelector("#estadoAlt");
       let selMunicipio = document.querySelector("#municipioAlt");
 
+
+      let numeroAlunosAlt = document.querySelector("#numeroAlunosAlt");
+      let precoAlt = document.querySelector("#precoAlt");
+      let localidadeAlt = document.querySelector("#localidadeAlt");
+      let selMateria = document.querySelector("#materiasAlt");
+      let exibirMaterias = document.querySelector("#listarMaterias");
+      let deletButtons;
+
+
       document.querySelector("#botaoAlterar").addEventListener("click", function() { alterarSenha() });
       document.querySelector("#editarPerfil").addEventListener("click", function() {prepararEdicaoPerfil()});
       document.querySelector("#botaoEditar").addEventListener("click", function() {editarPerfil()});
+      document.querySelector("#abrirPreferencias").addEventListener("click", abrirPreferencias);
+      document.querySelector("#add").addEventListener("click", addMateria);
+
+      function add() {
+        deletButtons = document.querySelectorAll(".delet");
+        for (let i = 0; i < deletButtons.length; i++) {
+          deletButtons[i].addEventListener("click",function(){ removeElement(event); }, false);
+        }
+      }
+
+      function removeElement(event) {
+        console.log(listaIDM);
+        let index = listaIDM.indexOf(event.currentTarget.parentNode.id);
+        listaIDM.splice(index, 1);
+        let removivel = event.currentTarget.parentNode;
+        event.currentTarget.parentNode.parentNode.removeChild(removivel);
+      }
+
+      function addMateria() {
+        if (!listaIDM.includes(selMateria.value)) {
+          listaIDM.push(selMateria.value);
+          var button = document.createElement("button");
+          button.classList.add("delet");
+          button.classList.add("btn-outline-danger");
+          button.innerHTML = "x";
+          var editar = document.createElement("li");
+          editar.classList.add("linha");
+          editar.appendChild(button);
+          editar.innerHTML += selMateria.options[selMateria.selectedIndex].text;
+          exibirMaterias.appendChild(editar);
+          deletButtons = document.querySelectorAll(".delet");
+          add();
+        }
+      }
+
+      function abrirPreferencias() {
+        precoAlt.value = parseFloat(campoPreco.innerHTML.replace("R$ ", ""));
+        numeroAlunosAlt.value = campoNumeroAlunos.innerHTML;
+        carregarPreferenciaLocal();
+        carregarMaterias();
+        exibirMaterias.innerHTML = "";
+        listaIDM.length = 0;
+            setTimeout(function(){
+              document.getElementById("id-pref-local-"+idPrefLocal).selected = true;
+              for(let i = 0; i < selMateria.options.length; i++) {
+                for(let j = 0; j < listaMaterias.length; j++) {
+                  if (selMateria.options[i].innerHTML == listaMaterias[j]) {
+                    listaIDM.push(selMateria.options[i].value);
+                    var button = document.createElement("button");
+                    button.classList.add("delet");
+                    button.classList.add("btn-outline-danger");
+                    button.innerHTML = "x";
+                    var editar = document.createElement("li");
+                    editar.classList.add("linha");
+                    editar.id = selMateria.options[i].value;
+                    editar.appendChild(button);
+                    editar.innerHTML += listaMaterias[j];
+                    exibirMaterias.appendChild(editar);
+                    deletButtons = document.querySelector(".delet");
+                  }
+                }
+              }
+              add();
+            }, 500);
+      }
+
 
 
 

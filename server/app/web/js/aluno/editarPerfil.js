@@ -7,7 +7,7 @@ function prepararEdicaoPerfil() {
   }, 300);
   setTimeout(function(){
     document.getElementById("id-municipio-"+idMunicipio).selected = true;
-  }, 600);
+  }, 700);
 }
 
 
