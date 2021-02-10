@@ -2,6 +2,7 @@ function consultarLogado() {
   let allDados = document.querySelectorAll(".deletavelDados");
   let allPrefs = document.querySelectorAll(".deletavelPreferencias");
   campoPreco.innerHTML = "R$ ";
+  listaMaterias.length =0;
 
   for (let i = 0; i < allDados.length; i++) {
     listaDados.removeChild(allDados[i]);

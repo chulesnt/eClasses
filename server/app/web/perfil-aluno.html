@@ -203,10 +203,10 @@
                       </div>
                       <div class="modal-footer">
 
-                        <p id="respostaPerfil" class="floatL displayNone"></p>
+                        <p id="respostaPreferencias" class="floatL displayNone"></p>
 
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+                        <button type="button" class="btn btn-primary" id="botaoPreferencias">Editar</button>
 
                       </div>
                     </div>
@@ -271,74 +271,9 @@
       document.querySelector("#botaoAlterar").addEventListener("click", function() { alterarSenha() });
       document.querySelector("#editarPerfil").addEventListener("click", function() {prepararEdicaoPerfil()});
       document.querySelector("#botaoEditar").addEventListener("click", function() {editarPerfil()});
-      document.querySelector("#abrirPreferencias").addEventListener("click", abrirPreferencias);
-      document.querySelector("#add").addEventListener("click", addMateria);
-
-      function add() {
-        deletButtons = document.querySelectorAll(".delet");
-        for (let i = 0; i < deletButtons.length; i++) {
-          deletButtons[i].addEventListener("click",function(){ removeElement(event); }, false);
-        }
-      }
-
-      function removeElement(event) {
-        console.log(listaIDM);
-        let index = listaIDM.indexOf(event.currentTarget.parentNode.id);
-        listaIDM.splice(index, 1);
-        let removivel = event.currentTarget.parentNode;
-        event.currentTarget.parentNode.parentNode.removeChild(removivel);
-      }
-
-      function addMateria() {
-        if (!listaIDM.includes(selMateria.value)) {
-          listaIDM.push(selMateria.value);
-          var button = document.createElement("button");
-          button.classList.add("delet");
-          button.classList.add("btn-outline-danger");
-          button.innerHTML = "x";
-          var editar = document.createElement("li");
-          editar.classList.add("linha");
-          editar.appendChild(button);
-          editar.innerHTML += selMateria.options[selMateria.selectedIndex].text;
-          exibirMaterias.appendChild(editar);
-          deletButtons = document.querySelectorAll(".delet");
-          add();
-        }
-      }
-
-      function abrirPreferencias() {
-        precoAlt.value = parseFloat(campoPreco.innerHTML.replace("R$ ", ""));
-        numeroAlunosAlt.value = campoNumeroAlunos.innerHTML;
-        carregarPreferenciaLocal();
-        carregarMaterias();
-        exibirMaterias.innerHTML = "";
-        listaIDM.length = 0;
-            setTimeout(function(){
-              document.getElementById("id-pref-local-"+idPrefLocal).selected = true;
-              for(let i = 0; i < selMateria.options.length; i++) {
-                for(let j = 0; j < listaMaterias.length; j++) {
-                  if (selMateria.options[i].innerHTML == listaMaterias[j]) {
-                    listaIDM.push(selMateria.options[i].value);
-                    var button = document.createElement("button");
-                    button.classList.add("delet");
-                    button.classList.add("btn-outline-danger");
-                    button.innerHTML = "x";
-                    var editar = document.createElement("li");
-                    editar.classList.add("linha");
-                    editar.id = selMateria.options[i].value;
-                    editar.appendChild(button);
-                    editar.innerHTML += listaMaterias[j];
-                    exibirMaterias.appendChild(editar);
-                    deletButtons = document.querySelector(".delet");
-                  }
-                }
-              }
-              add();
-            }, 500);
-      }
-
-
-
+      document.querySelector("#abrirPreferencias").addEventListener("click", function() {abrirPreferencias()});
+      document.querySelector("#botaoPreferencias").addEventListener("click", function() {reqPreferencias()});
+      document.querySelector("#add").addEventListener("click", function() {addMateria()});
 
 
       window.onload = function() {
