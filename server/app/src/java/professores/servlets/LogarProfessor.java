@@ -40,6 +40,7 @@ public class LogarProfessor extends HttpServlet {
 			res.setStatus(400);
 			out.println("<erro><mensagem>Senha ou email incorretos</mensagem></erro>");
 		}
+		c.close();
 		
 	}
 

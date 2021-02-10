@@ -13,8 +13,12 @@ function loginProf() {
       let text = decoder.decode(buffer);
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(text, "text/xml");
-      produzirToastServer(xmlDoc);
-      limpaInputs();
+      if (xmlDoc.getElementsByTagName("erro").length == 0) {
+        location.href = "apresentacao_professor.html";
+      } else {
+        produzirToastServer(xmlDoc);
+        limpaInputs();
+      }
     });
   }
 }
@@ -34,8 +38,12 @@ function loginAluno() {
       let text = decoder.decode(buffer);
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(text, "text/xml");
-      produzirToastServer(xmlDoc);
-      limpaInputs();
+      if (xmlDoc.getElementsByTagName("erro").length == 0) {
+        location.href = "perfil-aluno.html";
+      } else {
+        produzirToastServer(xmlDoc);
+        limpaInputs();
+      }
     });
   }
 }

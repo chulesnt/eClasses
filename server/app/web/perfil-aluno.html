@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/aluno/perfilAluno.css">
 
     <title>eClasses</title>
 </head>
@@ -26,27 +27,106 @@
         <div class="container">
             <div class="row">
                 <div class="card col-12 col-md-6">
-                    <h3 class="card-header bg-primary text-white">
-                        João Silva
+                    <h3 id="nome" class="card-header bg-primary text-white">
+
                     </h3>
                     <div class="card-body">
-                        <dl class="row">
+                        <dl id="listaDados" class="row">
                             <dt class="col-6">E-mail</dt>
-                            <dd class="col-6">joaosilva123@gmail.com</dd>
+                            <dd class="col-6" id="email"></dd>
+                            <dt class="col-6">UF</dt>
+                            <dd class="col-6" id="uf"></dd>
                             <dt class="col-6">Município</dt>
-                            <dd class="col-6">Belo Horizonte</dd>
-                            <dt class="col-6">Estado</dt>
-                            <dd class="col-6">Minas Gerais</dd>
+                            <dd class="col-6" id="municipio"></dd>
+                            <dt class="col-6">Assinante</dt>
+                            <dd class="col-6" id="assinante"></dd>
                         </dl>
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a class="btn btn-secondary col-12 col-md-3" onclick="alert('Edição Perfil')">Editar
+                            <a id="editarPerfil" data-toggle="modal" href="#modalAluno" class="btn btn-secondary col-12 col-md-3" onclick="">Editar
                                 perfil</a>
-                            <a class="btn btn-outline-danger col-12 col-md-3 ml-auto"
-                                onclick="alert('Alterar senha')">Alterar senha</a>
+                            <a data-toggle="modal" href="#modalSenha" class="btn btn-outline-danger ml-auto"
+                                onclick="">Alterar senha</a>
                         </div>
                     </div>
+                </div>
+
+
+                <div class="modal fade" id="modalAluno" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="nomeAlt" name="nome-aluno">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estado" class="col-md-3 col-form-label">UF</label>
+                            <div class="col-md-3">
+                                <select id="estadoAlt" name="estado" onchange="carregarMunicipio()">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                            <div class="col-md-3">
+                                <select id="municipioAlt" name="municipio">
+                                </select>
+                            </div>
+                        </div>
+
+
+                      </div>
+                      <div class="modal-footer">
+
+                        <p id="respostaPerfil" class="floatL displayNone"></p>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="modalSenha" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="password" id="senha1" placeholder="Senha atual" class="onlyCenter">
+                        <input type="password" id="senha2" placeholder="Nova senha" class="onlyCenter">
+                        <input type="password" id="senha3" placeholder="Repita a nova senha" class="onlyCenter">
+                      </div>
+                      <div class="modal-footer">
+
+                        <p id="respostaSenha" class="floatL displayNone"></p>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="botaoAlterar">Alterar</button>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="card col-12 col-md-5 offset-md-1">
@@ -54,13 +134,14 @@
                         Preferências
                     </h3>
                     <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-6">Preço</dt>
-                            <dd class="col-6">R$30 - R$70</dd>
-                            <dt class="col-6">Local</dt>
-                            <dd class="col-6">Bairro Cidade Nova</dd>
-                            <dt class="col-6">Nº alunos</dt>
-                            <dd class="col-6">4</dd>
+                        <dl id="listaPreferencias" class="row">
+                            <dt class="col-6">Preço limite</dt>
+                            <dd class="col-6" id="preco">R$ </dd>
+                            <dt class="col-6">Localidade</dt>
+                            <dd class="col-6" id="local"></dd>
+                            <dt class="col-6">Nº máximo de alunos</dt>
+                            <dd class="col-6" id="numero-alunos"></dd>
+                            <dt class="col-12 center">Materias</dt>
                         </dl>
                     </div>
                     <div class="card-footer">
@@ -90,10 +171,48 @@
         </div>
     </footer>
 
+    <script>
+      let listaDados = document.querySelector("#listaDados");
+      let listaPreferencias = document.querySelector("#listaPreferencias");
+      let idAluno;
+      let idUf;
+      let idMunicipio;
+
+      let campoNome = document.querySelector("#nome");
+      let campoEmail = document.querySelector("#email");
+      let campoUf = document.querySelector("#uf");
+      let campoMunicipio = document.querySelector("#municipio");
+      let campoAssinante = document.querySelector("#assinante");
+
+      let campoPreco = document.querySelector("#preco");
+      let campoLocalidade = document.querySelector("#local");
+      let campoNumeroAlunos = document.querySelector("#numero-alunos");
+
+      let nomeAlt = document.querySelector("#nomeAlt");
+      let selUf = document.querySelector("#estadoAlt");
+      let selMunicipio = document.querySelector("#municipioAlt");
+
+      document.querySelector("#botaoAlterar").addEventListener("click", function() { alterarSenha() });
+      document.querySelector("#editarPerfil").addEventListener("click", function() {prepararEdicaoPerfil()});
+      document.querySelector("#botaoEditar").addEventListener("click", function() {editarPerfil()});
+
+
+
+
+      window.onload = function() {
+        consultarLogado();
+      };
+
+    </script>
+    <script src="js/aluno/editarPerfil.js"></script>
+    <script src="js/aluno/consultarLogado.js"></script>
+    <script src="js/aluno/alterarSenha.js"></script>
+    <script src="js/utils/convertions.js"></script>
+    <script src="js/preencherLocais.js"></script>
+    <script src="js/carregarLocais.js"></script>
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="js/script.js"></script>
 
 </body>
 

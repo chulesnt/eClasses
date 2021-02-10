@@ -28,6 +28,7 @@ public class ConsultarPreferenciaLocalizacao extends HttpServlet {
 			xml = r.consultarPreferenciaLocalizacao(id);
 			res.setStatus(200);
 			out.println(xml);
+			c.close();
 		} catch (SQLException | ClassNotFoundException ex) {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");

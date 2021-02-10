@@ -1,0 +1,38 @@
+.col-6 {
+  margin-bottom: 3%;
+}
+
+.center {
+  text-align: center;
+  margin-bottom: 2%;
+  margin-top: 4%;
+}
+
+.materias {
+  text-align: center;
+}
+
+.onlyCenter {
+  margin: auto;
+  display: block;
+  width: 70%;
+  padding: 3px;
+  padding-left: 7px;
+  margin-bottom: 3%;
+}
+
+.displayNone {
+  display: none;
+}
+
+.floatL {
+  margin-right: 8%;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}

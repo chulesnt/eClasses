@@ -66,6 +66,7 @@ public class UploadFoto extends HttpServlet {
             res.setStatus(400);
             out.println("<erro><mensagem>Tipo da requisicao invalido</mensagem></erro>");
         }
+		c.close();
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
