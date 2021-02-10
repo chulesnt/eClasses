@@ -1,22 +1,31 @@
 function gerarFeed(){
 	let s = document.querySelectorAll("select");
+	console.log(s[0].value, s[1].value);
 	let url = "http://localhost:8080/app/aluno/feed?orderBy=" + s[0].value + "&order=" + s[1].value;
 	fetch(url, {  method: "POST", credentials: 'include' })
-	.then(resposta => resposta.arrayBuffer())
+	.then(resposta => {
+		if(resposta.status == 403){
+			alert("Você não tem permissão para fazer isso. Faça login como aluno.")
+			window.location.replace("http://localhost:8080/app/login.html")
+		}
+		else return resposta.arrayBuffer();
+	})
 	.then(buffer => {
 		let decoder = new TextDecoder("iso-8859-1");
 		let text = decoder.decode(buffer);
 		parser = new DOMParser();
 		xmlDoc = parser.parseFromString(text, "text/xml");
 		xmlArr = xmlDoc.querySelectorAll("professor");
+		console.log(xmlArr);
 		criarDivs(xmlArr);
 	});
 }
 
 function criarDivs(xml){
+	let d = document.querySelector(".feed-container");
+	let str = "";
+	console.log(xml.length);
 	if(xml.length > 0){
-		let d = document.querySelector(".feed-container");
-		let str = "";
 		d.innerHTML = "Carregando...";
 		for(let i = 0; i < xml.length; i++){
 			str += `<div class="feed-row">
@@ -46,14 +55,16 @@ function criarDivs(xml){
 							<p>R$ ` + formatPrice(xml[i].querySelector("precoHora").textContent) + ` / hora</p>
 						</div>
 						<div style="display: flex; justify-content: flex-end; align-items: flex-end;">
-							<button class="btn btn-primary" style="margin: 0;">Visualizar professor</button>
+							<a href="http://localhost:8080/app/apresentacao_professor.html?id=` + xml[i].querySelector("idProf").textContent + `" class="btn btn-primary" style="margin: 0;">Visualizar professor</a>
 						</div>
 					</div>
 				</div>
 			</div>`
 		}
-		d.innerHTML = str;
-	} else gerarToastErro("Não há professores");
+	} else{
+		str = "<h6>Não foi encontrado nenhum professor.</h6>"
+	};
+	d.innerHTML = str;
 }
 
 function checkImage(xml, i){

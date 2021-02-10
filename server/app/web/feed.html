@@ -25,34 +25,24 @@
 
     <main>
         <div class="top-container">
-            <h6 style="margin-right: 10px;">Ordenar por:</h6>
-            <select>
+            <h6>Ordenar por:</h6>
+            <select onchange="gerarFeed()" name="orderBy">
                 <option value="avaliacao" selected>Avaliação</option>
                 <option value="preco-hora">Preço</option>
             </select>
-            <select>
+            <select onchange="gerarFeed()" name="order">
                 <option value="desc" selected>Maior ao menor</option>
                 <option value="asc">Menor ao maior</option>
             </select>
-            <button class="btn btn-primary" onclick="gerarFeed()">Gerar</button>
         </div>
         <div class="feed-container d-flex flex-column"></div>
     </main>
-    <!-- <footer class="bg-secondary fixed-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <b>Desenvolvido por:</b>
-                    <p>Matheus Guimarães | Pedro Augusto Gandra | Pedro Henrique Pereira | Samuel Pedro Fernandes |
-                        Thiago Lepesqueur | Vitor Fitzherbert</p>
-                </div>
-            </div>
-        </div>
-    </footer> -->
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/aluno/feed.js"></script>
 
+    <script>
+        gerarFeed()
+    </script>
 </body>
-
 </html>
