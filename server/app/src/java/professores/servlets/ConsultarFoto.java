@@ -51,6 +51,7 @@ public class ConsultarFoto extends HttpServlet {
 					out.close();
 				}
 			}
+			c.close();
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
 		}

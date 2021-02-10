@@ -39,6 +39,7 @@ public class LogarAluno extends HttpServlet {
 			res.setStatus(400);
 			out.println("<erro><mensagem>Senha ou email incorretos</mensagem></erro>");
 		}
+		c.close();
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

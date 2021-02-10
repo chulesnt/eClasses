@@ -46,6 +46,7 @@ public class Avaliar extends HttpServlet {
 				res.setStatus(403);
 				out.println("<erro><mensagem>Você não tem permissão para fazer isso</mensagem></erro>");
 			}
+			c.close();
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");

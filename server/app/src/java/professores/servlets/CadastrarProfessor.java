@@ -46,6 +46,7 @@ public class CadastrarProfessor extends HttpServlet {
 				res.setStatus(422);
 				out.println("<erro><mensagem>Erro interno</mensagem></erro>");
 			}
+			c.close();
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
