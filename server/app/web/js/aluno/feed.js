@@ -1,6 +1,5 @@
 function gerarFeed(){
 	let s = document.querySelectorAll("select");
-	console.log(s[0].value, s[1].value);
 	let url = "http://localhost:8080/app/aluno/feed?orderBy=" + s[0].value + "&order=" + s[1].value;
 	fetch(url, {  method: "POST", credentials: 'include' })
 	.then(resposta => {
@@ -16,7 +15,6 @@ function gerarFeed(){
 		parser = new DOMParser();
 		xmlDoc = parser.parseFromString(text, "text/xml");
 		xmlArr = xmlDoc.querySelectorAll("professor");
-		console.log(xmlArr);
 		criarDivs(xmlArr);
 	});
 }
@@ -24,7 +22,6 @@ function gerarFeed(){
 function criarDivs(xml){
 	let d = document.querySelector(".feed-container");
 	let str = "";
-	console.log(xml.length);
 	if(xml.length > 0){
 		d.innerHTML = "Carregando...";
 		for(let i = 0; i < xml.length; i++){
@@ -72,7 +69,6 @@ function checkImage(xml, i){
 	if(xml[i].querySelector("foto").textContent != "null"){
 		str = `<img src="foto/consultar?idProf=` + xml[i].querySelector("idProf").textContent + `">`;
 	} else str = `<img src="img/empty-profile.png">`;
-	console.log(str);
 	return str;
 }
 
