@@ -29,16 +29,23 @@ public class AlunosRepository {
 	
 	public boolean cadastrar(String email, String senha, String nome, String idMunicipio, String idUf) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException, ParseException{
 		String hashedSenha = Hasher.hash(senha);
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		date = sdf.parse("31/12/2021");
+		java.sql.Date x = new java.sql.Date(date.getTime()); 
 		
-		Boolean assinante = false;
+		Boolean assinante = true;
 		
-		PreparedStatement ps = c.prepareStatement("INSERT INTO aluno (\"email-aluno\", senha, nome, \"id-municipio\", \"id-uf\", assinante) VALUES (?, ?, ?, ?, ?, ?)");
+		PreparedStatement ps = c.prepareStatement("INSERT INTO aluno (\"email-aluno\", senha, nome, \"id-municipio\", \"id-uf\", assinante, \"id-preferencia-local\", \"data-fim-assinatura\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		ps.setString(1, email);
 		ps.setString(2, hashedSenha);
 		ps.setString(3, nome);
 		ps.setInt(4, Integer.parseInt(idMunicipio));
 		ps.setInt(5, Integer.parseInt(idUf));
 		ps.setBoolean(6, assinante);
+		ps.setInt(7, 3);
+		ps.setDate(8, x);
 		
 		return ps.executeUpdate() != 0;
 	}
