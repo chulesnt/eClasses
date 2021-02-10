@@ -1,6 +1,7 @@
 package alunos.servlets;
 
 import alunos.repository.AlunosRepository;
+import consultas.repository.ConsultasRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import professores.model.ProfessorModel;
 import utils.Conector;
-import utils.Headers;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
 
@@ -30,6 +30,7 @@ public class GerarFeed extends HttpServlet {
 		try {
 			c = Conector.getConnection();
 			AlunosRepository ar = new AlunosRepository(c);
+			ConsultasRepository cr = new ConsultasRepository(c);
 			Autenticador aut = new Autenticador(req, res);
 			double prefPreco = 0;
 			int idPrefLocal = 0, idMunicipio = 0, idUf = 0, prefAlunos = 0;
@@ -77,12 +78,13 @@ public class GerarFeed extends HttpServlet {
 					out.println("<avaliacao>" + r.get(i).getAvaliacao() + "</avaliacao>");
 					out.println("<precoHora>" + r.get(i).getPrecoHora() + "</precoHora>");
 					out.println("<numeroAvaliacoes>" + r.get(i).getNumeroAvaliacoes() + "</numeroAvaliacoes>");
-					out.println("<idMunicipio>" + r.get(i).getIdMunicipio() + "</idMunicipio>");
-					out.println("<idUf>" + r.get(i).getIdUf() + "</idUf>");
-					out.println("<idMateria>" + r.get(i).getIdMateria() + "</idMateria>");
+					out.println("<municipio>" + cr.getMunicipio(r.get(i).getIdMunicipio()) + "</municipio>");
+					out.println("<uf>" + cr.getUf(r.get(i).getIdUf()) + "</uf>");
+					out.println("<materia>" + cr.getMateria(r.get(i).getIdMateria()) + "</materia>");
 					out.println("<numeroAlunosMin>" + r.get(i).getNumeroAlunosMin() + "</numeroAlunosMin>");
 					out.println("<numeroAlunosMax>" + r.get(i).getNumeroAlunosMax() + "</numeroAlunosMax>");
 					out.println("<dataFimPremium>" + r.get(i).getDataFimPremium() + "</dataFimPremium>");
+					out.println("<foto>" + r.get(i).getFoto() + "</foto>");
 					out.println("</professor>");
 				}
 				out.println("</feed>");

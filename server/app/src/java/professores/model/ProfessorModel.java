@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class ProfessorModel {
 	private long idProf;
-	private String emailProf, senha, nome, descricaoApresentacao, tituloApresentacao;
+	private String emailProf, senha, nome, descricaoApresentacao, tituloApresentacao, foto;
 	private boolean premium;
 	private double avaliacao, precoHora;
 	private int numeroAvaliacoes, idMunicipio, idUf, idMateria, numeroAlunosMin, numeroAlunosMax;
 	private Date dataFimPremium;
 
-	public ProfessorModel(long idProf, String emailProf, String senha, String nome, String descricaoApresentacao, String tituloApresentacao, boolean premium, double avaliacao, double precoHora, int numeroAvaliacoes, int idMunicipio, int idUf, int idMateria, int numeroAlunosMin, int numeroAlunosMax, Date dataFimPremium) {
+	public ProfessorModel(long idProf, String emailProf, String senha, String nome, String descricaoApresentacao, String tituloApresentacao, boolean premium, double avaliacao, double precoHora, int numeroAvaliacoes, int idMunicipio, int idUf, int idMateria, int numeroAlunosMin, int numeroAlunosMax, Date dataFimPremium, String foto) {
 		this.idProf = idProf;
 		this.emailProf = emailProf;
 		this.senha = senha;
@@ -27,6 +27,7 @@ public class ProfessorModel {
 		this.numeroAlunosMin = numeroAlunosMin;
 		this.numeroAlunosMax = numeroAlunosMax;
 		this.dataFimPremium = dataFimPremium;
+		this.foto = foto;
 	}
 	
 	public long getIdProf() {
@@ -155,6 +156,14 @@ public class ProfessorModel {
 
 	public void setDataFimPremium(Date dataFimPremium) {
 		this.dataFimPremium = dataFimPremium;
+	}
+	
+	public String getFoto(){
+		return foto;
+	}
+	
+	public void setFoto(String foto){
+		this.foto = foto;
 	}
 	
 }

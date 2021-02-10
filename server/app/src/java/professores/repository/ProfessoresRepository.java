@@ -278,6 +278,7 @@ public class ProfessoresRepository {
 		xml += "<numero-alunos-min>" + rs.getInt("numero-alunos-min") + "</numero-alunos-min>";
 		xml += "<numero-alunos-max>" + rs.getInt("numero-alunos-max") + "</numero-alunos-max>";
 		xml += "<data-fim-premium>" + rs.getDate("data-fim-premium") + "</data-fim-premium>";
+		xml += "<foto>" + rs.getString("foto") + "</foto>";
 		
 		ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND comentario = ?");
 		ps.setLong(1, idParsed);

@@ -22,6 +22,14 @@ public class ConsultasRepository {
 	}
 	
 	
+	public String getUf(int id) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM uf WHERE \"id-uf\" = ?");
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getString("uf");
+	}
+	
 	public String consultarUf(String id) throws SQLException {
 		String xml = "<uf>";
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM uf WHERE \"id-uf\" = ?");
@@ -37,6 +45,14 @@ public class ConsultasRepository {
 		return xml;
 	}
 	
+	public String getMunicipio(int id) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM municipio WHERE \"id-municipio\" = ?");
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getString("nome");
+	}
+	
 	public String consultarMunicipio(String id) throws SQLException {
 		String xml = "<municipio>";
 		PreparedStatement ps = c.prepareStatement("SELECT * FROM municipio WHERE \"id-municipio\" = ?");
@@ -50,6 +66,14 @@ public class ConsultasRepository {
 
 		xml += "</municipio>";
 		return xml;
+	}
+	
+	public String getMateria(int id) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM materias WHERE \"id-materia\" = ?");
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getString("nome");
 	}
 	
 	public String consultarMateria(String id) throws SQLException {

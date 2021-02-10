@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,19 +38,25 @@ public class ConsultarFoto extends HttpServlet {
 			rs.next();
 			foto = rs.getString("foto");
 			
-			String path = req.getServletContext().getRealPath("uploads")+ File.separator;
+			if(foto != null){
+				String path = req.getServletContext().getRealPath("uploads")+ File.separator;
 
-			File files = new File(path);
-			res.setContentType("image/png");
+				File files = new File(path);
+				res.setContentType("image/png");
 
-			for (String file : files.list()) {
-				if(file.equals(foto)){
-					File f = new File(path + file);
-					BufferedImage bi = ImageIO.read(f);
-					OutputStream out = res.getOutputStream();
-					ImageIO.write(bi, "png", out);
-					out.close();
+				for (String file : files.list()) {
+					if(file.equals(foto)){
+						File f = new File(path + file);
+						BufferedImage bi = ImageIO.read(f);
+						OutputStream out = res.getOutputStream();
+						ImageIO.write(bi, "png", out);
+						out.close();
+					}
 				}
+			} else{
+				PrintWriter out = res.getWriter();
+				res.setContentType("text");
+				out.println("error");
 			}
 		} catch (ClassNotFoundException | SQLException ex) {
 			res.setStatus(500);

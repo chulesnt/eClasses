@@ -349,7 +349,8 @@ public class AlunosRepository {
 					rs.getInt("id-materia"),
 					rs.getInt("numero-alunos-min"),
 					rs.getInt("numero-alunos-max"),
-					rs.getDate("data-fim-premium")
+					rs.getDate("data-fim-premium"),
+					rs.getString("foto")
 			);
 			profs.add(pm);
 		}
