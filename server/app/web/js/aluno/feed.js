@@ -48,7 +48,7 @@ function criarDivs(xml){
 							</div>
 						</div>
 						<div style="display: flex; justify-content: flex-end; align-items: flex-start; flex-direction: column;">
-							<p><img src="img/pessoa.png" class="icon">` + xml[i].querySelector("numeroAlunosMin").textContent + ` - ` + xml[i].querySelector("numeroAlunosMax").textContent + `</p>
+							<p><img src="img/pessoa.png" class="icon">` + formatAlunos(xml[i].querySelector("numeroAlunosMin").textContent, xml[i].querySelector("numeroAlunosMax").textContent) + `</p>
 							<p><img src="img/livros.png" class="icon"><span id="matSpan">` + xml[i].querySelector("materia").textContent + `</span></p>
 						</div>
 						<div style="display: flex; justify-content: flex-start; align-items: flex-end;">
@@ -98,4 +98,9 @@ function generateAvaliacoes(str){
 	if(i == 0) return "Nenhuma avaliação";
 	else if(i == 1) return i + " avaliação";
 	else return i + " avaliações";
+}
+
+function formatAlunos(min, max){
+	if(min == '0' && max == '0') return "-"
+	else return min + " - " + max;
 }
