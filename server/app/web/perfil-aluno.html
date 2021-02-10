@@ -44,12 +44,89 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a class="btn btn-secondary col-12 col-md-3" onclick="alert('Edição Perfil')">Editar
+                            <a id="editarPerfil" data-toggle="modal" href="#modalAluno" class="btn btn-secondary col-12 col-md-3" onclick="">Editar
                                 perfil</a>
-                            <a class="btn btn-outline-danger col-12 col-md-3 ml-auto"
-                                onclick="alert('Alterar senha')">Alterar senha</a>
+                            <a data-toggle="modal" href="#modalSenha" class="btn btn-outline-danger ml-auto"
+                                onclick="">Alterar senha</a>
                         </div>
                     </div>
+                </div>
+
+
+                <div class="modal fade" id="modalAluno" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="nomeAlt" name="nome-aluno">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estado" class="col-md-3 col-form-label">UF</label>
+                            <div class="col-md-3">
+                                <select id="estadoAlt" name="estado" onchange="carregarMunicipio()">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                            <div class="col-md-3">
+                                <select id="municipioAlt" name="municipio">
+                                </select>
+                            </div>
+                        </div>
+
+
+                      </div>
+                      <div class="modal-footer">
+
+                        <p id="respostaPerfil" class="floatL displayNone"></p>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="modalSenha" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="password" id="senha1" placeholder="Senha atual" class="onlyCenter">
+                        <input type="password" id="senha2" placeholder="Nova senha" class="onlyCenter">
+                        <input type="password" id="senha3" placeholder="Repita a nova senha" class="onlyCenter">
+                      </div>
+                      <div class="modal-footer">
+
+                        <p id="respostaSenha" class="floatL displayNone"></p>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="botaoAlterar">Alterar</button>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="card col-12 col-md-5 offset-md-1">
@@ -98,6 +175,8 @@
       let listaDados = document.querySelector("#listaDados");
       let listaPreferencias = document.querySelector("#listaPreferencias");
       let idAluno;
+      let idUf;
+      let idMunicipio;
 
       let campoNome = document.querySelector("#nome");
       let campoEmail = document.querySelector("#email");
@@ -109,120 +188,25 @@
       let campoLocalidade = document.querySelector("#local");
       let campoNumeroAlunos = document.querySelector("#numero-alunos");
 
-      function consultarLogado() {
+      let nomeAlt = document.querySelector("#nomeAlt");
+      let selUf = document.querySelector("#estadoAlt");
+      let selMunicipio = document.querySelector("#municipioAlt");
 
-        let url = "http://localhost:8080/app/consultar/logado";
-        fetch(url, { method: "POST", credentials: 'include' })
-          .then(resposta => resposta.arrayBuffer())
-          .then(buffer => {
-            let decoder = new TextDecoder("iso-8859-1");
-            let text = decoder.decode(buffer);
-            parser = new DOMParser();
-            xmlDoc = parser.parseFromString(text, "text/xml");
-            var cargo = xmlDoc.getElementsByTagName("usuario")[0].getElementsByTagName("cargo")[0].childNodes[0].nodeValue;
-            idAluno = xmlDoc.getElementsByTagName("usuario")[0].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+      document.querySelector("#botaoAlterar").addEventListener("click", function() { alterarSenha() });
+      document.querySelector("#editarPerfil").addEventListener("click", function() {prepararEdicaoPerfil()});
+      document.querySelector("#botaoEditar").addEventListener("click", function() {editarPerfil()});
 
-            if (cargo != "ALUNO") {
-              location.href = "login.html";
-            } else {
 
-              url = "http://localhost:8080/app/aluno/consultar?id="+idAluno;
-              fetch(url, { method: "POST", credentials: 'include' })
-                .then(resposta => resposta.arrayBuffer())
-                .then(buffer => {
-                  let decoder = new TextDecoder("iso-8859-1");
-                  let text = decoder.decode(buffer);
-                  parser = new DOMParser();
-                  xmlDoc = parser.parseFromString(text, "text/xml");
-                  var aluno = xmlDoc.getElementsByTagName("aluno")[0];
-                  campoNome.innerHTML = aluno.getElementsByTagName("nome")[0].childNodes[0].nodeValue;
-                  campoEmail.innerHTML = aluno.getElementsByTagName("email")[0].childNodes[0].nodeValue;
-                  if (aluno.getElementsByTagName("assinante")[0].childNodes[0].nodeValue == "true") {
-                    campoAssinante.innerHTML = "Sim";
-                    let dt = document.createElement("dt");
-                    dt.classList.add("col-6");
-                    dt.innerHTML = "Data do fim da assinatura";
-                    listaDados.appendChild(dt);
-                    let dd = document.createElement("dd");
-                    dd.classList.add("col-6");
-                    dd.innerHTML = conversionData1(aluno.getElementsByTagName("data-fim-assinatura")[0].childNodes[0].nodeValue);
-                    listaDados.appendChild(dd);
-                  } else
-                    campoAssinante.innerHTML = "Não";
-                  let idUf = aluno.getElementsByTagName("id-uf")[0].childNodes[0].nodeValue;
-                  let idMunicipio = aluno.getElementsByTagName("id-municipio")[0].childNodes[0].nodeValue;
 
-                  url = "http://localhost:8080/app/consultar/uf?id="+idUf;
-                  fetch(url, { method: "POST", credentials: 'include' })
-                    .then(resposta => resposta.arrayBuffer())
-                    .then(buffer => {
-                      let decoder = new TextDecoder("iso-8859-1");
-                      let text = decoder.decode(buffer);
-                      parser = new DOMParser();
-                      xmlDoc = parser.parseFromString(text, "text/xml");
-                      campoUf.innerHTML = xmlDoc.getElementsByTagName("uf")[0].getElementsByTagName("sigla")[0].childNodes[0].nodeValue;
-                  });
-
-                  url = "http://localhost:8080/app/consultar/municipio?id="+idMunicipio;
-                  fetch(url, { method: "POST", credentials: 'include' })
-                    .then(resposta => resposta.arrayBuffer())
-                    .then(buffer => {
-                      let decoder = new TextDecoder("iso-8859-1");
-                      let text = decoder.decode(buffer);
-                      parser = new DOMParser();
-                      xmlDoc = parser.parseFromString(text, "text/xml");
-                      campoMunicipio.innerHTML = xmlDoc.getElementsByTagName("municipio")[0].getElementsByTagName("nome")[0].childNodes[0].nodeValue;
-                  });
-
-                  let preco = aluno.getElementsByTagName("preferencia-preco")[0].childNodes[0].nodeValue;
-                  let precoParsed = parseFloat(preco);
-                  precoParsed = precoParsed.toFixed(2);
-                  campoPreco.innerHTML += convertComma(precoParsed.toString());
-                  campoNumeroAlunos.innerHTML = aluno.getElementsByTagName("preferencia-numero-alunos")[0].childNodes[0].nodeValue;
-
-                  let idPrefLocal = aluno.getElementsByTagName("id-preferencia-local")[0].childNodes[0].nodeValue;
-                  url = "http://localhost:8080/app/consultar/preferencialocal?id="+idPrefLocal;
-                  fetch(url, { method: "POST", credentials: 'include' })
-                    .then(resposta => resposta.arrayBuffer())
-                    .then(buffer => {
-                      let decoder = new TextDecoder("iso-8859-1");
-                      let text = decoder.decode(buffer);
-                      parser = new DOMParser();
-                      xmlDoc = parser.parseFromString(text, "text/xml");
-                      campoLocalidade.innerHTML = xmlDoc.getElementsByTagName("preferencia-localizacao")[0].getElementsByTagName("descricao")[0].childNodes[0].nodeValue;
-                  });
-
-                  let lineMaterias = aluno.getElementsByTagName("id-materia");
-                  for (let i = 0; i < lineMaterias.length; i++) {
-                    let nomeMateria;
-
-                    url = "http://localhost:8080/app/consultar/materia?id="+lineMaterias[i].childNodes[0].nodeValue;
-                    fetch(url, { method: "POST", credentials: 'include' })
-                      .then(resposta => resposta.arrayBuffer())
-                      .then(buffer => {
-                        let decoder = new TextDecoder("iso-8859-1");
-                        let text = decoder.decode(buffer);
-                        parser = new DOMParser();
-                        xmlDoc = parser.parseFromString(text, "text/xml");
-                        nomeMateria = xmlDoc.getElementsByTagName("materia")[0].getElementsByTagName("nome")[0].childNodes[0].nodeValue;
-                        let dd = document.createElement("dd");
-                        dd.classList.add("col-12");
-                        dd.classList.add("materias");
-                        dd.innerHTML = nomeMateria;
-                        listaPreferencias.appendChild(dd);
-                    });
-                  }
-
-                });
-            }
-        });
-      }
 
       window.onload = function() {
         consultarLogado();
       };
 
     </script>
+    <script src="js/aluno/editarPerfil.js"></script>
+    <script src="js/aluno/consultarLogado.js"></script>
+    <script src="js/aluno/alterarSenha.js"></script>
     <script src="js/utils/convertions.js"></script>
     <script src="js/preencherLocais.js"></script>
     <script src="js/carregarLocais.js"></script>
