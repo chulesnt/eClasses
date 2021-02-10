@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mensagens.repository.MensagensRepository;
 import utils.Conector;
-import utils.Headers;
 import utils.autenticador.Autenticador;
 import utils.autenticador.Cargos;
 
@@ -50,7 +49,7 @@ public class EnviarMensagem extends HttpServlet {
 			} else if(aut.getCargoLogado() == Cargos.PROFESSOR){
 				try {
 					String idAluno = req.getParameter("idAluno");
-					String idProf = (String) aut.getIdLogado();
+					String idProf = String.valueOf(aut.getIdLogado());
 					if(mr.criarMensagem(texto, idAluno, idProf, false, data)){
 						res.setStatus(200);
 						out.println("<sucesso><mensagem>Mensagem enviada com sucesso</mensagem></sucesso>");

@@ -14,8 +14,8 @@ import mensagens.model.MensagensModel;
 import mensagens.repository.MensagensRepository;
 import utils.Conector;
 
-@WebServlet(name = "ExibirMensagens", urlPatterns = {"/mensagens/exibir"})
-public class ExibirMensagens extends HttpServlet {
+@WebServlet(name = "MensagensRecebidasAluno", urlPatterns = {"/mensagens/recebidas/aluno"})
+public class MensagensRecebidasAluno extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -26,10 +26,9 @@ public class ExibirMensagens extends HttpServlet {
 			c = Conector.getConnection();
 			MensagensRepository mr = new MensagensRepository(c);
 		
-			String idAluno = req.getParameter("idAluno");
-			String idProf = req.getParameter("idProf");
+			String id = req.getParameter("id");
 			
-			List<MensagensModel> r = mr.exibirMensagens(idAluno, idProf);
+			List<MensagensModel> r = mr.mensagensRecebidasAluno(id);
 			out.println("<mensagens>");
 			for(int i = 0; i < r.size(); i++){
 				out.println("<mensagem>");
@@ -47,7 +46,6 @@ public class ExibirMensagens extends HttpServlet {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
-		
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

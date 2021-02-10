@@ -74,4 +74,108 @@ public class MensagensRepository {
 		ps.close();
 		return mensagens;
 	}
+	
+	public List mensagensEnviadasProfessor(String idProf) throws SQLException{
+		List mensagens = new LinkedList<>();
+		
+		Long idProfParsed = Long.parseLong(idProf);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND \"aluno-enviou\" = false AND comentario = false ORDER BY \"data-horario\"");
+		ps.setLong(1, idProfParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			MensagensModel msg = new MensagensModel(
+					rs.getLong("id-mensagem"),
+					rs.getLong("id-aluno"),
+					rs.getLong("id-prof"),
+					rs.getString("texto"),
+					rs.getBoolean("aluno-enviou"),
+					rs.getBoolean("comentario"),
+					rs.getTimestamp("data-horario")
+			);
+			mensagens.add(msg);
+		}
+		rs.close();
+		ps.close();
+		return mensagens;
+	}
+	
+	public List mensagensRecebidasProfessor(String idProf) throws SQLException{
+		List mensagens = new LinkedList<>();
+		
+		Long idProfParsed = Long.parseLong(idProf);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND \"aluno-enviou\" = true AND comentario = false ORDER BY \"data-horario\"");
+		ps.setLong(1, idProfParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			MensagensModel msg = new MensagensModel(
+					rs.getLong("id-mensagem"),
+					rs.getLong("id-aluno"),
+					rs.getLong("id-prof"),
+					rs.getString("texto"),
+					rs.getBoolean("aluno-enviou"),
+					rs.getBoolean("comentario"),
+					rs.getTimestamp("data-horario")
+			);
+			mensagens.add(msg);
+		}
+		rs.close();
+		ps.close();
+		return mensagens;
+	}
+	
+	public List mensagensEnviadasAluno(String idAluno) throws SQLException{
+		List mensagens = new LinkedList<>();
+		
+		Long idAlunoParsed = Long.parseLong(idAluno);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-aluno\" = ? AND \"aluno-enviou\" = true AND comentario = false ORDER BY \"data-horario\"");
+		ps.setLong(1, idAlunoParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			MensagensModel msg = new MensagensModel(
+					rs.getLong("id-mensagem"),
+					rs.getLong("id-aluno"),
+					rs.getLong("id-prof"),
+					rs.getString("texto"),
+					rs.getBoolean("aluno-enviou"),
+					rs.getBoolean("comentario"),
+					rs.getTimestamp("data-horario")
+			);
+			mensagens.add(msg);
+		}
+		rs.close();
+		ps.close();
+		return mensagens;
+	}
+	
+	public List mensagensRecebidasAluno(String idAluno) throws SQLException{
+		List mensagens = new LinkedList<>();
+		
+		Long idAlunoParsed = Long.parseLong(idAluno);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-aluno\" = ? AND \"aluno-enviou\" = false AND comentario = false ORDER BY \"data-horario\"");
+		ps.setLong(1, idAlunoParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			MensagensModel msg = new MensagensModel(
+					rs.getLong("id-mensagem"),
+					rs.getLong("id-aluno"),
+					rs.getLong("id-prof"),
+					rs.getString("texto"),
+					rs.getBoolean("aluno-enviou"),
+					rs.getBoolean("comentario"),
+					rs.getTimestamp("data-horario")
+			);
+			mensagens.add(msg);
+		}
+		rs.close();
+		ps.close();
+		return mensagens;
+	}
 }

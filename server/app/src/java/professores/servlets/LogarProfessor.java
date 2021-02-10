@@ -6,8 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import professores.repository.ProfessoresRepository;
 import utils.Conector;
-import utils.Headers;
 import utils.autenticador.Autenticador;
 
 @WebServlet(name = "LogarProfessor", urlPatterns = {"/professor/logar"})

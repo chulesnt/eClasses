@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mensagens.servlets;
 
 import java.io.IOException;
@@ -14,8 +19,8 @@ import mensagens.model.MensagensModel;
 import mensagens.repository.MensagensRepository;
 import utils.Conector;
 
-@WebServlet(name = "ExibirMensagens", urlPatterns = {"/mensagens/exibir"})
-public class ExibirMensagens extends HttpServlet {
+@WebServlet(name = "MensagensEnviadasProfessor", urlPatterns = {"/mensagens/enviadas/professor"})
+public class MensagensEnviadasProfessor extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -26,10 +31,9 @@ public class ExibirMensagens extends HttpServlet {
 			c = Conector.getConnection();
 			MensagensRepository mr = new MensagensRepository(c);
 		
-			String idAluno = req.getParameter("idAluno");
-			String idProf = req.getParameter("idProf");
+			String id = req.getParameter("id");
 			
-			List<MensagensModel> r = mr.exibirMensagens(idAluno, idProf);
+			List<MensagensModel> r = mr.mensagensEnviadasProfessor(id);
 			out.println("<mensagens>");
 			for(int i = 0; i < r.size(); i++){
 				out.println("<mensagem>");
@@ -47,7 +51,6 @@ public class ExibirMensagens extends HttpServlet {
 			res.setStatus(500);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
-		
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
