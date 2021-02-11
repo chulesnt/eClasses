@@ -363,6 +363,18 @@
                 </div>
             </div>
 
+            <form action="http://localhost:8080/app/foto/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label for="na2" class="col-md-3 col-form-label">Trocar foto</label>
+                <div class="col-md-6">
+                    <input type="file" id="tf">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" id="funciona">Trocar</button>
+                </div>
+            </div>
+            </form>
+
           </div>
           <div class="modal-footer" style="position:relative">
 
@@ -393,13 +405,18 @@
       const sc=document.querySelector("#seuCom");
       const pg=document.querySelector("#pg");
       const btnConv=document.querySelector("#conversar");
-      const forms=document.querySelectorAll("#modalProf input,#modalProf select,#modalProf textarea");
+      const forms=document.querySelectorAll("#modalProf input:not(#tf),#modalProf select,#modalProf textarea");
       const btnEd=document.querySelector("#botaoEditar");
       const ts=document.querySelector("#respostaPerfil");
       const tc=document.querySelector("#respCom");
       const inMin=document.querySelector("#numAMin");
       const inMax=document.querySelector("#numAMax");
       const ew=document.querySelector("#ew");
+      const porFavor=document.querySelector("#funciona");
+
+      porFavor.addEventListener("click",function (e) {
+        e.preventDefault();
+      })
 
       let selUf = document.querySelector("#idUf");
       let selMun = document.querySelector("#idMunicipio");
