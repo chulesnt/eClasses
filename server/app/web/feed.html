@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/all.css">
+
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/aluno/feedAluno.css">
     <link rel="stylesheet" href="css/menu.css">
@@ -18,25 +20,21 @@
     <header class="bg-primary">
         <div class="container">
             <div class="row">
-              <div class="col-5">
-                  <h2>eClasses</h2>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='feed.html'">Feed</button>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='perfil-aluno.html'">Perfil</button>
-              </div>
-              <div class="col-4 divmenu">
-                <button class="btn-primary menu black" onclick="handleChatButtonClick()">✉</button>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
-              </div>
+                <div class="col-5">
+                    <h2>eClasses</h2>
+                </div>
+
+                <div class="mr-auto btns-nav">
+                    <a href="#" class="item-nav"><i class="fa fa-search fa-lg"></i> Feed</a>
+                    <a href="perfil-aluno.html" class="item-nav"><i class="fa fa-user fa-lg"></i> Perfil</a>
+                    <a href="#" class="item-nav" onclick="handleChatButtonClick()"><i class="fa fa-envelope fa-lg"></i>
+                        Mensagens</a>
+                </div>
+
+                <a class="btns-nav" href="index.html"><i class="fa fa-sign-out-alt fa-lg"></i> Sair</a>
+
+
             </div>
-
-
-        </div>
 
     </header>
 
@@ -57,28 +55,28 @@
         <div class="msg-background" onclick="closeAll()" style="display: none;"></div>
 
         <div class="msg-container" style="display: none;">
-          <div class="msg-header">
-            <img src="img/voltar.png" onclick="handleChatButtonClick()">
-            <div class='msg-photo'>
+            <div class="msg-header">
+                <img src="img/voltar.png" onclick="handleChatButtonClick()">
+                <div class='msg-photo'>
+                </div>
+                <h4>Professor Nome</h4>
             </div>
-            <h4>Professor Nome</h4>
-          </div>
-          <div class="msg-content">
+            <div class="msg-content">
 
-          </div>
-          <div class="msg-input-container">
-            <input type="text" class="msg-input" placeholder="Insira sua mensagem">
-            <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
-          </div>
+            </div>
+            <div class="msg-input-container">
+                <input type="text" class="msg-input" placeholder="Insira sua mensagem">
+                <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
+            </div>
         </div>
 
         <div class="chat-container" style="display: none;">
-          <h2>Conversas</h2>
-          <div class="chat-item" onclick=`() => {console.log("cu")}`>
-            <div class='msg-photo'>
+            <h2>Conversas</h2>
+            <div class="chat-item" onclick=`()=> {console.log("cu")}`>
+                <div class='msg-photo'>
+                </div>
+                <h6>Professor Nome</h6>
             </div>
-            <h6>Professor Nome</h6>
-          </div>
         </div>
         <!-- Parte das Mensagens -->
     </main>
@@ -91,4 +89,5 @@
         gerarFeed()
     </script>
 </body>
+
 </html>

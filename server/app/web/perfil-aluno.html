@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/all.css">
+
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/aluno/perfilAluno.css">
     <link rel="stylesheet" href="css/menu.css">
@@ -20,18 +22,15 @@
                 <div class="col-5">
                     <h2>eClasses</h2>
                 </div>
-                <div class="col-1 divmenu">
-        					<button class="btn-primary menu black" onclick="location.href='feed.html'">Feed</button>
-        				</div>
-                <div class="col-1 divmenu">
-        					<button class="btn-primary menu black" onclick="location.href='perfil-aluno.html'">Perfil</button>
-        				</div>
-                <div class="col-4 divmenu">
-        					<button class="btn-primary menu" onclick="handleChatButtonClick()">✉</button>
-        				</div>
-                <div class="col-1 divmenu">
-        					<button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
-        				</div>
+
+                <div class="mr-auto btns-nav">
+                    <a href="feed.html" class="item-nav"><i class="fa fa-search fa-lg"></i> Feed</a>
+                    <a href="#" class="item-nav"><i class="fa fa-user fa-lg"></i> Perfil</a>
+                    <a href="#" class="item-nav" onclick="handleChatButtonClick()"><i class="fa fa-envelope fa-lg"></i>
+                        Mensagens</a>
+                </div>
+
+                <a class="btns-nav item-nav" href="index.html"><i class="fa fa-sign-out-alt fa-lg"></i> Sair</a>
             </div>
         </div>
     </header>
@@ -57,7 +56,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a id="editarPerfil" data-toggle="modal" href="#modalAluno" class="btn btn-secondary col-12 col-md-3" onclick="">Editar
+                            <a id="editarPerfil" data-toggle="modal" href="#modalAluno"
+                                class="btn btn-secondary col-12 col-md-3" onclick="">Editar
                                 perfil</a>
                             <a data-toggle="modal" href="#modalSenha" class="btn btn-outline-danger ml-auto"
                                 onclick="">Alterar senha</a>
@@ -66,80 +66,82 @@
                 </div>
 
 
-                <div class="modal fade" id="modalAluno" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
+                <div class="modal fade" id="modalAluno" tabindex="-1" role="dialog" aria-labelledby="modalAluno"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
 
-                        <div class="form-group row">
-                            <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="nomeAlt" name="nome-aluno">
+                                <div class="form-group row">
+                                    <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="nomeAlt" name="nome-aluno">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="estado" class="col-md-3 col-form-label">UF</label>
+                                    <div class="col-md-3">
+                                        <select id="estadoAlt" name="estado" onchange="carregarMunicipio()">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                                    <div class="col-md-3">
+                                        <select id="municipioAlt" name="municipio">
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <p id="respostaPerfil" class="floatL displayNone"></p>
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="estado" class="col-md-3 col-form-label">UF</label>
-                            <div class="col-md-3">
-                                <select id="estadoAlt" name="estado" onchange="carregarMunicipio()">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
-                            <div class="col-md-3">
-                                <select id="municipioAlt" name="municipio">
-                                </select>
-                            </div>
-                        </div>
-
-
-                      </div>
-                      <div class="modal-footer">
-
-                        <p id="respostaPerfil" class="floatL displayNone"></p>
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
-
-                      </div>
                     </div>
-                  </div>
                 </div>
 
 
 
-                <div class="modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="modalSenha" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <input type="password" id="senha1" placeholder="Senha atual" class="onlyCenter">
-                        <input type="password" id="senha2" placeholder="Nova senha" class="onlyCenter">
-                        <input type="password" id="senha3" placeholder="Repita a nova senha" class="onlyCenter">
-                      </div>
-                      <div class="modal-footer">
+                <div class="modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="modalSenha"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="password" id="senha1" placeholder="Senha atual" class="onlyCenter">
+                                <input type="password" id="senha2" placeholder="Nova senha" class="onlyCenter">
+                                <input type="password" id="senha3" placeholder="Repita a nova senha" class="onlyCenter">
+                            </div>
+                            <div class="modal-footer">
 
-                        <p id="respostaSenha" class="floatL displayNone"></p>
+                                <p id="respostaSenha" class="floatL displayNone"></p>
 
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="botaoAlterar">Alterar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="botaoAlterar">Alterar</button>
 
-                      </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
 
                 <div class="card col-12 col-md-5 offset-md-1">
@@ -159,7 +161,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a data-toggle="modal" href="#modalPreferencias" id="abrirPreferencias" class="btn btn-secondary col-12 col-md-5" onclick="">Editar
+                            <a data-toggle="modal" href="#modalPreferencias" id="abrirPreferencias"
+                                class="btn btn-secondary col-12 col-md-5" onclick="">Editar
                                 preferências</a>
                         </div>
                     </div>
@@ -167,63 +170,67 @@
 
 
 
-                <div class="modal fade larger" id="modalPreferencias" tabindex="-1" role="dialog" aria-labelledby="modalPreferencias" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar preferencias</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
+                <div class="modal fade larger" id="modalPreferencias" tabindex="-1" role="dialog"
+                    aria-labelledby="modalPreferencias" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar preferencias</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
 
-                        <div class="form-group row">
-                            <label for="precoAlt" class="col-3 col-form-label">Preço limite</label>
-                            <div class="col-3">
-                                <input step="0.01" min="0" type="number" class="form-control" id="precoAlt" name="precoAlt">
+                                <div class="form-group row">
+                                    <label for="precoAlt" class="col-3 col-form-label">Preço limite</label>
+                                    <div class="col-3">
+                                        <input step="0.01" min="0" type="number" class="form-control" id="precoAlt"
+                                            name="precoAlt">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="localidade" class="col-md-3 col-form-label">Localidade</label>
+                                    <div class="col-md-3">
+                                        <select id="localidadeAlt" name="localidade">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="numeroAlunosAlt" class="col-5 col-form-label">Nº máximo de
+                                        alunos</label>
+                                    <div class="col-sm-3">
+                                        <input min="1" type="number" class="form-control" id="numeroAlunosAlt"
+                                            name="numeroAlunosAlt">
+                                    </div>
+                                </div>
+
+                                <p class="col-12 center afast"><strong>Materias</strong></p>
+                                <div class="form-group row">
+                                    <div class="col-5 centralize">
+                                        <select id="materiasAlt" name="materias">
+                                        </select><button id="add">+</button>
+                                    </div>
+                                    <div class="col-7 centralize">
+                                        <ul id="listarMaterias">
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <p id="respostaPreferencias" class="floatL displayNone"></p>
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="botaoPreferencias">Editar</button>
+
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="localidade" class="col-md-3 col-form-label">Localidade</label>
-                            <div class="col-md-3">
-                                <select id="localidadeAlt" name="localidade">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="numeroAlunosAlt" class="col-5 col-form-label">Nº máximo de alunos</label>
-                            <div class="col-sm-3">
-                                <input min="1" type="number" class="form-control" id="numeroAlunosAlt" name="numeroAlunosAlt">
-                            </div>
-                        </div>
-
-                        <p class="col-12 center afast"><strong>Materias</strong></p>
-                        <div class="form-group row">
-                            <div class="col-5 centralize">
-                              <select id="materiasAlt" name="materias">
-                              </select><button id="add">+</button>
-                            </div>
-                            <div  class="col-7 centralize">
-                              <ul id="listarMaterias">
-                              </ul>
-                            </div>
-                        </div>
-
-
-                      </div>
-                      <div class="modal-footer">
-
-                        <p id="respostaPreferencias" class="floatL displayNone"></p>
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="botaoPreferencias">Editar</button>
-
-                      </div>
                     </div>
-                  </div>
                 </div>
 
 
@@ -234,28 +241,28 @@
             <div class="msg-background" onclick="closeAll()" style="display: none;"></div>
 
             <div class="msg-container" style="display: none;">
-              <div class="msg-header">
-                <img src="img/voltar.png" onclick="handleChatButtonClick()">
-                <div class='msg-photo'>
+                <div class="msg-header">
+                    <img src="img/voltar.png" onclick="handleChatButtonClick()">
+                    <div class='msg-photo'>
+                    </div>
+                    <h4>Professor Nome</h4>
                 </div>
-                <h4>Professor Nome</h4>
-              </div>
-              <div class="msg-content">
+                <div class="msg-content">
 
-              </div>
-              <div class="msg-input-container">
-                <input type="text" class="msg-input" placeholder="Insira sua mensagem">
-                <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
-              </div>
+                </div>
+                <div class="msg-input-container">
+                    <input type="text" class="msg-input" placeholder="Insira sua mensagem">
+                    <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
+                </div>
             </div>
 
             <div class="chat-container" style="display: none;">
-              <h2>Conversas</h2>
-              <div class="chat-item" onclick=`() => {console.log("cu")}`>
-                <div class='msg-photo'>
+                <h2>Conversas</h2>
+                <div class="chat-item" onclick=`()=> {console.log("cu")}`>
+                    <div class='msg-photo'>
+                    </div>
+                    <h6>Professor Nome</h6>
                 </div>
-                <h6>Professor Nome</h6>
-              </div>
             </div>
             <!-- Parte das Mensagens -->
 
@@ -266,49 +273,49 @@
     </main>
 
     <script>
-      let listaDados = document.querySelector("#listaDados");
-      let listaPreferencias = document.querySelector("#listaPreferencias");
-      let idAluno;
-      let idUf;
-      let idMunicipio;
-      let idPrefLocal;
+        let listaDados = document.querySelector("#listaDados");
+        let listaPreferencias = document.querySelector("#listaPreferencias");
+        let idAluno;
+        let idUf;
+        let idMunicipio;
+        let idPrefLocal;
 
-      let campoNome = document.querySelector("#nome");
-      let campoEmail = document.querySelector("#email");
-      let campoUf = document.querySelector("#uf");
-      let campoMunicipio = document.querySelector("#municipio");
-      let campoAssinante = document.querySelector("#assinante");
+        let campoNome = document.querySelector("#nome");
+        let campoEmail = document.querySelector("#email");
+        let campoUf = document.querySelector("#uf");
+        let campoMunicipio = document.querySelector("#municipio");
+        let campoAssinante = document.querySelector("#assinante");
 
-      let campoPreco = document.querySelector("#preco");
-      let campoLocalidade = document.querySelector("#local");
-      let campoNumeroAlunos = document.querySelector("#numero-alunos");
-      let listaMaterias = [];
-      let listaIDM = [];
+        let campoPreco = document.querySelector("#preco");
+        let campoLocalidade = document.querySelector("#local");
+        let campoNumeroAlunos = document.querySelector("#numero-alunos");
+        let listaMaterias = [];
+        let listaIDM = [];
 
-      let nomeAlt = document.querySelector("#nomeAlt");
-      let selUf = document.querySelector("#estadoAlt");
-      let selMunicipio = document.querySelector("#municipioAlt");
-
-
-      let numeroAlunosAlt = document.querySelector("#numeroAlunosAlt");
-      let precoAlt = document.querySelector("#precoAlt");
-      let localidadeAlt = document.querySelector("#localidadeAlt");
-      let selMateria = document.querySelector("#materiasAlt");
-      let exibirMaterias = document.querySelector("#listarMaterias");
-      let deletButtons;
+        let nomeAlt = document.querySelector("#nomeAlt");
+        let selUf = document.querySelector("#estadoAlt");
+        let selMunicipio = document.querySelector("#municipioAlt");
 
 
-      document.querySelector("#botaoAlterar").addEventListener("click", function() { alterarSenha() });
-      document.querySelector("#editarPerfil").addEventListener("click", function() {prepararEdicaoPerfil()});
-      document.querySelector("#botaoEditar").addEventListener("click", function() {editarPerfil()});
-      document.querySelector("#abrirPreferencias").addEventListener("click", function() {abrirPreferencias()});
-      document.querySelector("#botaoPreferencias").addEventListener("click", function() {reqPreferencias()});
-      document.querySelector("#add").addEventListener("click", function() {addMateria()});
+        let numeroAlunosAlt = document.querySelector("#numeroAlunosAlt");
+        let precoAlt = document.querySelector("#precoAlt");
+        let localidadeAlt = document.querySelector("#localidadeAlt");
+        let selMateria = document.querySelector("#materiasAlt");
+        let exibirMaterias = document.querySelector("#listarMaterias");
+        let deletButtons;
 
 
-      window.onload = function() {
-        consultarLogado();
-      };
+        document.querySelector("#botaoAlterar").addEventListener("click", function () { alterarSenha() });
+        document.querySelector("#editarPerfil").addEventListener("click", function () { prepararEdicaoPerfil() });
+        document.querySelector("#botaoEditar").addEventListener("click", function () { editarPerfil() });
+        document.querySelector("#abrirPreferencias").addEventListener("click", function () { abrirPreferencias() });
+        document.querySelector("#botaoPreferencias").addEventListener("click", function () { reqPreferencias() });
+        document.querySelector("#add").addEventListener("click", function () { addMateria() });
+
+
+        window.onload = function () {
+            consultarLogado();
+        };
 
     </script>
     <script src="js/mensagens.js"></script>
