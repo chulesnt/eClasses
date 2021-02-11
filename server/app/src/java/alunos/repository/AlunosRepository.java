@@ -314,7 +314,7 @@ public class AlunosRepository {
 			query += "AND \"preco-hora\" < ? ";
 		}
 		if(prefAlunos > 0){
-			query += "AND \"numero-alunos-max\" <= ? ";
+			query += "AND \"numero-alunos-min\" <= ? ";
 		}
 		if(orderBy != null){
 			query += "ORDER BY \"" + orderBy + "\" ";

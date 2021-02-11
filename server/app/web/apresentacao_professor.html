@@ -183,22 +183,46 @@
         line-height: 1;
       }
     </style>
-
+    <link rel="stylesheet" href="css/menu.css">
     <title>eClasses</title>
 </head>
 
 <body>
     <header class="bg-primary">
         <div class="container">
-            <div class="row">
-                <div class="col-11">
+
+          <div id="headerProf" class="row">
+                <div class="col-10">
                     <h2>eClasses</h2>
                 </div>
-				<div class="col-1">
-					<button class="btn-primary" onclick="handleChatButtonClick()">Mensagens</button>
-				</div>
+      				<div class="col-1 divmenu">
+      					<button class="btn-primary menu" onclick="handleChatButtonClick()">✉</button>
+      				</div>
+              <div class="col-1 divmenu">
+      					<button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
+      			</div>
+          </div>
+
+
+            <div id="headerAluno" class="row">
+              <div class="col-5">
+                  <h2>eClasses</h2>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='feed.html'">Feed</button>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='perfil-aluno.html'">Perfil</button>
+              </div>
+              <div class="col-4 divmenu">
+                <button class="btn-primary menu" onclick="handleChatButtonClick()">✉</button>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
+              </div>
             </div>
-        </div>
+
+          </div>
     </header>
 
     <main>
@@ -251,7 +275,7 @@
 			<h4>Professor Nome</h4>
 		</div>
 		<div class="msg-content">
-		
+
 		</div>
 		<div class="msg-input-container">
 			<input type="text" class="msg-input" placeholder="Insira sua mensagem">
@@ -268,7 +292,7 @@
 		</div>
 	</div>
 	<!-- Parte das Mensagens -->
-	
+
 
     <div class="modal fade" id="modalProf" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -359,6 +383,9 @@
 	<script src="js/mensagens.js"></script>
 
     <script>
+      let headerProf = document.querySelector("#headerProf");
+      let headerAluno = document.querySelector("#headerAluno");
+
       const w=22; // Largura da estrela
       const aj=1/5;
       const me=4; // Margem entre estrelas
@@ -478,6 +505,7 @@
           let text = decoder.decode(buffer);
           parser = new DOMParser();
           xml = parser.parseFromString(text, "text/xml");
+          console.log(xml);
           f(xml);
         });
       }
@@ -526,12 +554,14 @@
             document.querySelector("#faca-login-conv").classList.remove("hidden");
           }
           if(cargou=="PROFESSOR" && idprof==idu){
+            headerAluno.classList.add("none");
             btnConv.textContent="Editar perfil";
             btnConv.addEventListener("click",function () {
               $('#modalProf').modal("toggle");
             });
           }
           else{
+            headerProf.classList.add("none");
             btnConv.addEventListener("click",function () {
               console.log("mensagemm");
             });
@@ -596,7 +626,7 @@
                 fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno="+ida[i]+"&idProf="+idprof,function (x2) {
                   let elava=x2.querySelector("avaliacao");
                   let ava=elava==null? null: +elava.textContent;
-                  showComm(dpfp,na,ava,decodeURIComponent(tx[i]),dateFormat(new Date(+dt[i])),cond? 0: 1);
+                  showComm(dpfp,na,ava,tx[i],dateFormat(new Date(+dt[i])),cond? 0: 1);
                 });
               });
             }

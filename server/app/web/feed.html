@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/aluno/feedAluno.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/mensagens.css">
 
     <title>eClasses</title>
 </head>
@@ -16,11 +18,26 @@
     <header class="bg-primary">
         <div class="container">
             <div class="row">
-                <div class="col-11">
-                    <h2>eClasses</h2>
-                </div>
+              <div class="col-5">
+                  <h2>eClasses</h2>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='feed.html'">Feed</button>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='perfil-aluno.html'">Perfil</button>
+              </div>
+              <div class="col-4 divmenu">
+                <button class="btn-primary menu black" onclick="handleChatButtonClick()">✉</button>
+              </div>
+              <div class="col-1 divmenu">
+                <button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
+              </div>
             </div>
+
+
         </div>
+
     </header>
 
     <main>
@@ -36,7 +53,36 @@
             </select>
         </div>
         <div class="feed-container d-flex flex-column"></div>
+        <!-- Parte das Mensagens -->
+        <div class="msg-background" onclick="closeAll()" style="display: none;"></div>
+
+        <div class="msg-container" style="display: none;">
+          <div class="msg-header">
+            <img src="img/voltar.png" onclick="handleChatButtonClick()">
+            <div class='msg-photo'>
+            </div>
+            <h4>Professor Nome</h4>
+          </div>
+          <div class="msg-content">
+
+          </div>
+          <div class="msg-input-container">
+            <input type="text" class="msg-input" placeholder="Insira sua mensagem">
+            <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
+          </div>
+        </div>
+
+        <div class="chat-container" style="display: none;">
+          <h2>Conversas</h2>
+          <div class="chat-item" onclick=`() => {console.log("cu")}`>
+            <div class='msg-photo'>
+            </div>
+            <h6>Professor Nome</h6>
+          </div>
+        </div>
+        <!-- Parte das Mensagens -->
     </main>
+    <script src="js/mensagens.js"></script>
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/aluno/feed.js"></script>
