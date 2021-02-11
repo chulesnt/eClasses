@@ -60,6 +60,9 @@
       .local{
         height:22px;
       }
+      .mat{
+        height:24px;
+      }
       .ap{
         margin-bottom:41px;
       }
@@ -76,7 +79,7 @@
       }
       .dim{
         font-style: italic;
-        color:#9e9e9e;
+        color:#7f7f7f;
       }
       #faca-login{
         margin-bottom:36px;
@@ -104,7 +107,7 @@
         margin-bottom: 0;
       }
       #coms p:empty{
-        margin:0;
+        margin-top:7px;
       }
       .coment h4{
         font-size: 20px;
@@ -118,8 +121,11 @@
         font-size: 14px;
         margin-left: 14px;
       }
-      .env{
+      #ew{
         margin: 18px 0 40px 0;
+      }
+      #ew button{
+        margin:0 24px 0 0;
       }
       .hidden{
         display: none;
@@ -143,17 +149,20 @@
         top:50%;
         left:12px;
         transform: translateY(-50%);
-        transition: opacity 152ms linear;
         max-width:260px;
+      }
+      .torrada{
+        transition: opacity 152ms linear;
         border-radius: 6px;
-        padding: 10px 12px;
+        padding: 6px 10px;
         background-color: #efefef;
         border:1px solid #9f9f9f;
+        margin: 0;
       }
       .sucesso{
         color:#007f00;
       }
-      .erro{
+      .erro2{
         color:#9b0000;
       }
 
@@ -202,9 +211,13 @@
                       <hr>
                       <div id="avProf" style="margin-bottom:15px"></div>
                       <p style="margin-bottom: 15px">R$ <span id="preco-hora"></span>&nbsp;por hora</p>
-                      <p class="fr">
+                      <p class="fr" style="margin-bottom: 15px">
                         <img src="img/local.png" alt="local" class="local">&nbsp;
                         <span id="nome-mun"></span>,&nbsp;<span id="uf"></span>
+                      </p>
+                      <p class="fr">
+                        <img src="img/livros.png" alt="matéria" class="mat">&nbsp;
+                        <span id="nome-mat"></span>
                       </p>
                       <hr>
                       <div>
@@ -217,9 +230,10 @@
             <hr style="margin-bottom: 37px">
             <h3 style="margin-bottom: 32px">Comentários</h3>
             <div id="seuCom" class="coment"></div>
-            <div>
-              <p class="dim" id="faca-login" class="hidden">Faça login como aluno para comentar</p>
+            <p class="dim hidden" id="faca-login" class="hidden">Faça login como aluno para comentar</p>
+            <div class="fr" id="ew">
               <button class="btn btn-primary env" id="comentar">Enviar</button>
+              <p class="trans torrada" id="respCom"></p>
             </div>
             <div id="coms" class="coment fc2"></div>
         </div>
@@ -310,7 +324,7 @@
           <div class="modal-footer" style="position:relative">
 
             <div id="drp">
-              <p id="respostaPerfil" class="trans"></p>
+              <p id="respostaPerfil" class="trans torrada"></p>
             </div>
 
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -335,8 +349,10 @@
       const forms=document.querySelectorAll("#modalProf input,#modalProf select,#modalProf textarea");
       const btnEd=document.querySelector("#botaoEditar");
       const ts=document.querySelector("#respostaPerfil");
+      const tc=document.querySelector("#respCom");
       const inMin=document.querySelector("#numAMin");
       const inMax=document.querySelector("#numAMax");
+      const ew=document.querySelector("#ew");
 
       let selUf = document.querySelector("#idUf");
       let selMun = document.querySelector("#idMunicipio");
@@ -345,7 +361,7 @@
       let to;
       function torrada(el,msg,suc){
         clearTimeout(to);
-        el.innerHTML="<span class=\""+(suc? "sucesso": "erro")+"\">"+msg+"</span>";
+        el.innerHTML="<span class=\""+(suc? "sucesso": "erro2")+"\">"+msg+"</span>";
         el.classList.remove("trans");
         to=setTimeout(function () {
           el.classList.add("trans");
@@ -431,7 +447,7 @@
         pg.src="img/ha.png";
         document.querySelector("#cont").classList.add("erro");
         document.querySelector("#nome").textContent="Professor não encontrado";
-        document.querySelector("#descricao-apresentacao").textContent="gay gay voce eh gay";
+        document.querySelector("#descricao-apresentacao").innerHTML="Não era para você estar vendo isso. Mas já que você está, você pode tentar <a href='feed.html'>procurar um outro professor</a>.";
       }
 
       function fete(url,f){
@@ -449,9 +465,16 @@
       function zeroAEsquerda(x){
         return (x<10? "0": "")+x;
       }
-      function dateFormat(ts){
-        let dt=new Date(ts);
+      function dateFormat(dt){
         return zeroAEsquerda(dt.getDate())+"/"+zeroAEsquerda(dt.getMonth()+1)+"/"+dt.getFullYear();
+      }
+      function parsePedro(dt){
+        return dt.getFullYear()+"-"+
+          zeroAEsquerda(dt.getMonth()+1)+"-"+
+          zeroAEsquerda(dt.getDate())+" "+
+          zeroAEsquerda(dt.getHours())+":"+
+          zeroAEsquerda(dt.getMinutes())+":"+
+          zeroAEsquerda(dt.getSeconds());
       }
 
       function megafete(){
@@ -525,11 +548,18 @@
               htmlset(xml,"uf");
             });
 
+            let idma=xmlget(xml,"id-materia");
+            fete("http://localhost:8080/app/consultar/materia?id="+idma,function (xml) {
+              htmlset(xml,"nome","nome-mat");
+            });
+
             let ft=xmlget(xml,"foto");
             if(ft=="null"){
-              ft=dpfp;
+              pg.src=dpfp;
             }
-            pg.src=ft;
+            else{
+              pg.src="foto/consultar?idProf="+idprof;
+            }
 
             let xc=xml.querySelector("comentarios");
             let ida=xmlGetAll(xc,"id-aluno");
@@ -546,19 +576,21 @@
                 fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno="+ida[i]+"&idProf="+idprof,function (x2) {
                   let elava=x2.querySelector("avaliacao");
                   let ava=elava==null? null: +elava.textContent;
-                  showComm(dpfp,na,ava,decodeURIComponent(tx[i]),dateFormat(+dt[i]),cond? 0: 1);
+                  showComm(dpfp,na,ava,decodeURIComponent(tx[i]),dateFormat(new Date(+dt[i])),cond? 0: 1);
                 });
               });
             }
 
             let btncom=document.querySelector("#comentar");
+            let nma;
             if(podecom){
               fete("http://localhost:8080/app/aluno/consultar?id="+idu,function (xml) {
-                sc.appendChild(makeComm(dpfp,xmlget(xml,"nome"),0,null,"data atual"));
+                nma=xmlget(xml,"nome");
+                sc.appendChild(makeComm(dpfp,nma,0,null,dateFormat(new Date())));
               });
             }
             else{
-              btncom.classList.add("hidden");
+              ew.classList.add("hidden");
               const fl=document.querySelector("#faca-login");
               fl.classList.remove("hidden");
               if(cargou=="ALUNO"){
@@ -570,18 +602,22 @@
               if(cargou=="ALUNO"){
                 let nota=document.querySelector("#seuCom .div-av").av;
                 if(nota!=0){
-                  fete("http://localhost:8080/app/apresentacao/comentar?idProf="+idprof+"&data=data=2020-05-21%2007:32:33&comentario="+encodeURIComponent(document.querySelector("#seuCom textarea").value),function () {
+                  let tval=document.querySelector("#seuCom textarea").value;
+                  let dta=new Date();
+                  fete("http://localhost:8080/app/apresentacao/comentar?idProf="+idprof+"&data="+parsePedro(dta)+"&comentario="+encodeURIComponent(tval),function () {
                     fete("http://localhost:8080/app/apresentacao/avaliar?idProf="+idprof+"&nota="+nota,function () {
-
+                      seuCom.innerHTML="";
+                      ew.classList.add("hidden");
+                      showComm(dpfp,nma,nota,tval,dateFormat(dta),0);
                     });
                   });
                 }
                 else{
-                  alert("bota nota");
+                  torrada(tc,"Por favor dê uma avaliação",false);
                 }
               }
               else{
-                alert("sus");
+                torrada(tc,"wpufquwfbquefn",true);
               }
             });
           });
@@ -666,8 +702,8 @@
             let x=e.pageX-av.offsetLeft;
             let lt=w+me;
             let cheias=Math.floor(x/lt);
-            let ult=x%lt;
-            setAv(ret,x<=0? 0: Math.min(cheias+(ult>w/2)/2+1/2,5));
+            //let ult=x%lt;
+            setAv(ret,x<0? 1: Math.min(cheias+1,5));
           });
         }
 
