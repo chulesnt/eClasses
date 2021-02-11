@@ -6,182 +6,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/all.css">
+
     <link rel="stylesheet" href="css/custom.css">
-	<link rel="stylesheet" href="css/mensagens.css">
+    <link rel="stylesheet" href="css/mensagens.css">
 
     <style>
-      .fc{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .fr{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-      .fc2{
-        display: flex;
-        flex-direction: column;
-      }
-      #pg{
-        width: 128px;
-      }
-      .nome{
-        font-weight: bold;
-        font-size: 20px;
-        margin-bottom: 8px;
-      }
-      .av img{
-        width:22px;
-        position: relative;
-        z-index: 1;
-        display: block;
-      }
-      .av>div{
-        position: relative;
-      }
-      .av>div{
-        margin-right: 4px;
-      }
-      .av>div>div{
-        position: absolute;
-        top:0;
-        bottom: 0;
-        left:0;
-        background-color: #ffff00;
-      }
-      .nprof{
-        margin-right:10px;
-      }
-      .numAval{
-        margin-left: 6px;
-        font-size: 14px;
-      }
-      .local{
-        height:22px;
-      }
-      .mat{
-        height:24px;
-      }
-      .ap{
-        margin-bottom:41px;
-      }
-      .ap>*{
-        max-width: 490px;
-      }
-      .ap hr{
-        width:100%;
-        margin-top:27px;
-        margin-bottom:27px;
-      }
-      .ap p,.ap button{
-        margin:0;
-      }
-      .dim{
-        font-style: italic;
-        color:#7f7f7f;
-      }
-      #faca-login{
-        margin-bottom:36px;
-      }
+        .fc {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-      .coment .pfp{
-        width:64px;
-        margin-right:20px;
-      }
-      #seuCom textarea{
-        resize: vertical;
-        max-width: 600px;
-        height:121px;
-        padding: 0px 4px;
-        margin-top: 18px;
-      }
-      #coms{
-        margin-bottom: -36px;
-      }
-      #coms>*{
-        margin-bottom:36px;
-      }
-      #coms p{
-        margin-top:14px;
-        margin-bottom: 0;
-      }
-      #coms p:empty{
-        margin-top:7px;
-      }
-      .coment h4{
-        font-size: 20px;
-        margin:0;
-      }
-      .tc{
-        margin-bottom: 10px;
-        align-items: baseline;
-      }
-      .tc span{
-        font-size: 14px;
-        margin-left: 14px;
-      }
-      #ew{
-        margin: 18px 0 40px 0;
-      }
-      #ew button{
-        margin:0 24px 0 0;
-      }
-      .hidden{
-        display: none;
-      }
-      .trans{
-        opacity: 0;
-      }
-      .floatL{
-        float:left;
-      }
-      #drp{
-        position: absolute;
-        top:0px;
-        left:0px;
-        right:0px;
-        bottom:0px;
-        pointer-events: none
-      }
-      #respostaPerfil{
-        position: absolute;
-        top:50%;
-        left:12px;
-        transform: translateY(-50%);
-        max-width:260px;
-      }
-      .torrada{
-        transition: opacity 152ms linear;
-        border-radius: 6px;
-        padding: 6px 10px;
-        background-color: #efefef;
-        border:1px solid #9f9f9f;
-        margin: 0;
-      }
-      .sucesso{
-        color:#007f00;
-      }
-      .erro2{
-        color:#9b0000;
-      }
+        .fr {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
-      .erro>:not(#main),.erro #div{
-        display: none;
-      }
-      #modalProf textarea{
-        display: block;
-        width:342px;
-        resize: vertical;
-        height:77px;
-        padding: 2px 4px;
-      }
-      #modalProf .form-group>*{
-        display: flex;
-        align-items: center;
-        line-height: 1;
-      }
+        .fc2 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #pg {
+            width: 128px;
+        }
+
+        .nome {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .av img {
+            width: 22px;
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .av>div {
+            position: relative;
+        }
+
+        .av>div {
+            margin-right: 4px;
+        }
+
+        .av>div>div {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #ffff00;
+        }
+
+        .nprof {
+            margin-right: 10px;
+        }
+
+        .numAval {
+            margin-left: 6px;
+            font-size: 14px;
+        }
+
+        .local {
+            height: 22px;
+        }
+
+        .mat {
+            height: 24px;
+        }
+
+        .ap {
+            margin-bottom: 41px;
+        }
+
+        .ap>* {
+            max-width: 490px;
+        }
+
+        .ap hr {
+            width: 100%;
+            margin-top: 27px;
+            margin-bottom: 27px;
+        }
+
+        .ap p,
+        .ap button {
+            margin: 0;
+        }
+
+        .dim {
+            font-style: italic;
+            color: #7f7f7f;
+        }
+
+        #faca-login {
+            margin-bottom: 36px;
+        }
+
+        .coment .pfp {
+            width: 64px;
+            margin-right: 20px;
+        }
+
+        #seuCom textarea {
+            resize: vertical;
+            max-width: 600px;
+            height: 121px;
+            padding: 0px 4px;
+            margin-top: 18px;
+        }
+
+        #coms {
+            margin-bottom: -36px;
+        }
+
+        #coms>* {
+            margin-bottom: 36px;
+        }
+
+        #coms p {
+            margin-top: 14px;
+            margin-bottom: 0;
+        }
+
+        #coms p:empty {
+            margin-top: 7px;
+        }
+
+        .coment h4 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .tc {
+            margin-bottom: 10px;
+            align-items: baseline;
+        }
+
+        .tc span {
+            font-size: 14px;
+            margin-left: 14px;
+        }
+
+        #ew {
+            margin: 18px 0 40px 0;
+        }
+
+        #ew button {
+            margin: 0 24px 0 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .trans {
+            opacity: 0;
+        }
+
+        .floatL {
+            float: left;
+        }
+
+        #drp {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            pointer-events: none
+        }
+
+        #respostaPerfil {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            max-width: 260px;
+        }
+
+        .torrada {
+            transition: opacity 152ms linear;
+            border-radius: 6px;
+            padding: 6px 10px;
+            background-color: #efefef;
+            border: 1px solid #9f9f9f;
+            margin: 0;
+        }
+
+        .sucesso {
+            color: #007f00;
+        }
+
+        .erro2 {
+            color: #9b0000;
+        }
+
+        .erro>:not(#main),
+        .erro #div {
+            display: none;
+        }
+
+        #modalProf textarea {
+            display: block;
+            width: 342px;
+            resize: vertical;
+            height: 77px;
+            padding: 2px 4px;
+        }
+
+        #modalProf .form-group>* {
+            display: flex;
+            align-items: center;
+            line-height: 1;
+        }
     </style>
     <link rel="stylesheet" href="css/menu.css">
     <title>eClasses</title>
@@ -191,64 +233,61 @@
     <header class="bg-primary">
         <div class="container">
 
-          <div id="headerProf" class="row">
-                <div class="col-10">
+            <div id="headerProf" class="row">
+                <div class="col-7">
                     <h2>eClasses</h2>
                 </div>
-      				<div class="col-1 divmenu">
-      					<button class="btn-primary menu" onclick="handleChatButtonClick()">✉</button>
-      				</div>
-              <div class="col-1 divmenu">
-      					<button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
-      			</div>
-          </div>
 
+                <a href="#" class="mr-auto btns-nav item-nav" onclick="handleChatButtonClick()"><i
+                        class="fa fa-envelope fa-lg"></i> Mensagens</a>
 
-            <div id="headerAluno" class="row">
-              <div class="col-5">
-                  <h2>eClasses</h2>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='feed.html'">Feed</button>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='perfil-aluno.html'">Perfil</button>
-              </div>
-              <div class="col-4 divmenu">
-                <button class="btn-primary menu" onclick="handleChatButtonClick()">✉</button>
-              </div>
-              <div class="col-1 divmenu">
-                <button class="btn-primary menu black" onclick="location.href='index.html'">Sair</button>
-              </div>
+                <a class="btns-nav item-nav" href="index.html"><i class="fa fa-sign-out-alt fa-lg"></i> Sair</a>
             </div>
 
-          </div>
+            <div id="headerAluno" class="row">
+                <div class="col-5">
+                    <h2>eClasses</h2>
+                </div>
+
+                <div class="mr-auto btns-nav">
+                    <a href="feed.html" class="item-nav"><i class="fa fa-search fa-lg"></i> Feed</a>
+                    <a href="perfil-aluno.html" class="item-nav"><i class="fa fa-user fa-lg"></i> Perfil</a>
+                    <a href="#" class="item-nav" onclick="handleChatButtonClick()"><i class="fa fa-envelope fa-lg"></i>
+                        Mensagens</a>
+                </div>
+
+                <a class="btns-nav item-nav" href="index.html"><i class="fa fa-sign-out-alt fa-lg"></i> Sair</a>
+            </div>
+
+        </div>
     </header>
 
     <main>
         <div class="container" id="cont">
             <div class="row fc ap" id="main">
                 <div class="col-12 fc">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="h" id="pg" style="margin-bottom:24px">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                        alt="h" id="pg" style="margin-bottom:24px">
                     <h3 id="nome" class="nome"></h3>
                     <p id="descricao-apresentacao" class="text-center"></p>
                     <div id="div" class="fc">
-                      <hr>
-                      <div id="avProf" style="margin-bottom:15px"></div>
-                      <p style="margin-bottom: 15px">R$ <span id="preco-hora"></span>&nbsp;por hora</p>
-                      <p class="fr" style="margin-bottom: 15px">
-                        <img src="img/local.png" alt="local" class="local">&nbsp;
-                        <span id="nome-mun"></span>,&nbsp;<span id="uf"></span>
-                      </p>
-                      <p class="fr">
-                        <img src="img/livros.png" alt="matéria" class="mat">&nbsp;
-                        <span id="nome-mat"></span>
-                      </p>
-                      <hr>
-                      <div>
-                        <button class="btn btn-primary" id="conversar" onclick="handleMensagemButtonClick()">Conversar</button>
-                        <p class="dim hidden" id="faca-login-conv">Faça login para conversar com o professor</p>
-                      </div>
+                        <hr>
+                        <div id="avProf" style="margin-bottom:15px"></div>
+                        <p style="margin-bottom: 15px">R$ <span id="preco-hora"></span>&nbsp;por hora</p>
+                        <p class="fr" style="margin-bottom: 15px">
+                            <img src="img/local.png" alt="local" class="local">&nbsp;
+                            <span id="nome-mun"></span>,&nbsp;<span id="uf"></span>
+                        </p>
+                        <p class="fr">
+                            <img src="img/livros.png" alt="matéria" class="mat">&nbsp;
+                            <span id="nome-mat"></span>
+                        </p>
+                        <hr>
+                        <div>
+                            <button class="btn btn-primary" id="conversar"
+                                onclick="handleMensagemButtonClick()">Conversar</button>
+                            <p class="dim hidden" id="faca-login-conv">Faça login para conversar com o professor</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,580 +296,583 @@
             <div id="seuCom" class="coment"></div>
             <p class="dim hidden" id="faca-login" class="hidden">Faça login como aluno para comentar</p>
             <div class="fr" id="ew">
-              <button class="btn btn-primary env" id="comentar">Enviar</button>
-              <p class="trans torrada" id="respCom"></p>
+                <button class="btn btn-primary env" id="comentar">Enviar</button>
+                <p class="trans torrada" id="respCom"></p>
             </div>
             <div id="coms" class="coment fc2"></div>
         </div>
     </main>
 
-	<!-- Parte das Mensagens -->
-	<div class="msg-background" onclick="closeAll()" style="display: none;"></div>
+    <!-- Parte das Mensagens -->
+    <div class="msg-background" onclick="closeAll()" style="display: none;"></div>
 
-	<div class="msg-container" style="display: none;">
-		<div class="msg-header">
-			<img src="img/voltar.png" onclick="handleChatButtonClick()">
-			<div class='msg-photo'>
-			</div>
-			<h4>Professor Nome</h4>
-		</div>
-		<div class="msg-content">
+    <div class="msg-container" style="display: none;">
+        <div class="msg-header">
+            <img src="img/voltar.png" onclick="handleChatButtonClick()">
+            <div class='msg-photo'>
+            </div>
+            <h4>Professor Nome</h4>
+        </div>
+        <div class="msg-content">
 
-		</div>
-		<div class="msg-input-container">
-			<input type="text" class="msg-input" placeholder="Insira sua mensagem">
-			<img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
-		</div>
-	</div>
+        </div>
+        <div class="msg-input-container">
+            <input type="text" class="msg-input" placeholder="Insira sua mensagem">
+            <img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
+        </div>
+    </div>
 
-	<div class="chat-container" style="display: none;">
-		<h2>Conversas</h2>
-		<div class="chat-item" onclick=`() => {console.log("cu")}`>
-			<div class='msg-photo'>
-			</div>
-			<h6>Professor Nome</h6>
-		</div>
-	</div>
-	<!-- Parte das Mensagens -->
+    <div class="chat-container" style="display: none;">
+        <h2>Conversas</h2>
+        <div class="chat-item" onclick=`()=> {console.log("cu")}`>
+            <div class='msg-photo'>
+            </div>
+            <h6>Professor Nome</h6>
+        </div>
+    </div>
+    <!-- Parte das Mensagens -->
 
 
     <div class="modal fade" id="modalProf" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-            <div class="form-group row">
-                <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" id="nome" data-rec="nome" name="nome-aluno">
+                    <div class="form-group row">
+                        <label for="nome-aluno" class="col-md-3 col-form-label">Nome</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="nome" data-rec="nome" name="nome-aluno">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="desc" class="col-md-3 col-form-label">Descrição</label>
+                        <div class="col-md-9">
+                            <textarea name="desc" data-rec="descricao-apresentacao" id="descricao"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="estado" class="col-md-3 col-form-label">UF</label>
+                        <div class="col-md-9">
+                            <select id="idUf" data-rec="id-uf" name="estado">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                        <div class="col-md-9">
+                            <select id="idMunicipio" data-rec="id-municipio" name="municipio">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="materia" class="col-md-3 col-form-label">Matéria</label>
+                        <div class="col-md-9">
+                            <select id="idMateria" data-rec="id-materia" name="materia"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="preco" class="col-md-3 col-form-label">Preço por hora</label>
+                        <div class="col-md-3">
+                            <input type="number" data-rec="preco-hora" step="0.01" min="0" max="327.67"
+                                class="form-control" id="preco" name="preco">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="na" class="col-md-3 col-form-label">Mínimo de alunos</label>
+                        <div class="col-md-3">
+                            <input type="number" data-rec="numero-alunos-min" step="1" min="0" max="64"
+                                class="form-control" id="numAMin" name="na">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="na2" class="col-md-3 col-form-label">Máximo de alunos</label>
+                        <div class="col-md-3">
+                            <input type="number" data-rec="numero-alunos-max" step="1" min="0" max="64"
+                                class="form-control" id="numAMax" name="na2">
+                        </div>
+                    </div>
+
+                    <form action="http://localhost:8080/app/foto/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label for="na2" class="col-md-3 col-form-label">Trocar foto</label>
+                            <div class="col-md-6">
+                                <input type="file" id="tf">
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" id="funciona">Trocar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer" style="position:relative">
+
+                    <div id="drp">
+                        <p id="respostaPerfil" class="trans torrada"></p>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="desc" class="col-md-3 col-form-label">Descrição</label>
-                <div class="col-md-9">
-                    <textarea name="desc" data-rec="descricao-apresentacao" id="descricao"></textarea>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="estado" class="col-md-3 col-form-label">UF</label>
-                <div class="col-md-9">
-                    <select id="idUf" data-rec="id-uf" name="estado">
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="municipio" class="col-md-3 col-form-label">Município</label>
-                <div class="col-md-9">
-                    <select id="idMunicipio" data-rec="id-municipio" name="municipio">
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="materia" class="col-md-3 col-form-label">Matéria</label>
-                <div class="col-md-9">
-                    <select id="idMateria" data-rec="id-materia" name="materia"></select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="preco" class="col-md-3 col-form-label">Preço por hora</label>
-                <div class="col-md-3">
-                    <input type="number" data-rec="preco-hora" step="0.01" min="0" max="327.67" class="form-control" id="preco" name="preco">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="na" class="col-md-3 col-form-label">Mínimo de alunos</label>
-                <div class="col-md-3">
-                    <input type="number" data-rec="numero-alunos-min" step="1" min="0" max="64" class="form-control" id="numAMin" name="na">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="na2" class="col-md-3 col-form-label">Máximo de alunos</label>
-                <div class="col-md-3">
-                    <input type="number" data-rec="numero-alunos-max" step="1" min="0" max="64" class="form-control" id="numAMax" name="na2">
-                </div>
-            </div>
-
-            <form action="http://localhost:8080/app/foto/upload" method="post" enctype="multipart/form-data">
-            <div class="form-group row">
-                <label for="na2" class="col-md-3 col-form-label">Trocar foto</label>
-                <div class="col-md-6">
-                    <input type="file" id="tf">
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" id="funciona">Trocar</button>
-                </div>
-            </div>
-            </form>
-
-          </div>
-          <div class="modal-footer" style="position:relative">
-
-            <div id="drp">
-              <p id="respostaPerfil" class="trans torrada"></p>
-            </div>
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
-
-          </div>
         </div>
-      </div>
     </div>
 
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="js/mensagens.js"></script>
+    <script src="js/mensagens.js"></script>
 
     <script>
-      let headerProf = document.querySelector("#headerProf");
-      let headerAluno = document.querySelector("#headerAluno");
+        let headerProf = document.querySelector("#headerProf");
+        let headerAluno = document.querySelector("#headerAluno");
 
-      const w=22; // Largura da estrela
-      const aj=1/5;
-      const me=4; // Margem entre estrelas
-      const dpfp="img/empty-profile.png";
-      const sc=document.querySelector("#seuCom");
-      const pg=document.querySelector("#pg");
-      const btnConv=document.querySelector("#conversar");
-      const forms=document.querySelectorAll("#modalProf input:not(#tf),#modalProf select,#modalProf textarea");
-      const btnEd=document.querySelector("#botaoEditar");
-      const ts=document.querySelector("#respostaPerfil");
-      const tc=document.querySelector("#respCom");
-      const inMin=document.querySelector("#numAMin");
-      const inMax=document.querySelector("#numAMax");
-      const ew=document.querySelector("#ew");
-      const porFavor=document.querySelector("#funciona");
+        const w = 22; // Largura da estrela
+        const aj = 1 / 5;
+        const me = 4; // Margem entre estrelas
+        const dpfp = "img/empty-profile.png";
+        const sc = document.querySelector("#seuCom");
+        const pg = document.querySelector("#pg");
+        const btnConv = document.querySelector("#conversar");
+        const forms = document.querySelectorAll("#modalProf input:not(#tf),#modalProf select,#modalProf textarea");
+        const btnEd = document.querySelector("#botaoEditar");
+        const ts = document.querySelector("#respostaPerfil");
+        const tc = document.querySelector("#respCom");
+        const inMin = document.querySelector("#numAMin");
+        const inMax = document.querySelector("#numAMax");
+        const ew = document.querySelector("#ew");
+        const porFavor = document.querySelector("#funciona");
 
-      porFavor.addEventListener("click",function (e) {
-        e.preventDefault();
-      })
-
-      let selUf = document.querySelector("#idUf");
-      let selMun = document.querySelector("#idMunicipio");
-      let prim=true;
-
-      let to;
-      function torrada(el,msg,suc){
-        clearTimeout(to);
-        el.innerHTML="<span class=\""+(suc? "sucesso": "erro2")+"\">"+msg+"</span>";
-        el.classList.remove("trans");
-        to=setTimeout(function () {
-          el.classList.add("trans");
-        },3000);
-      }
-
-      function comida(url,sel,nome="nome",id="id",cb=function(){}){
-        fete(url,function (xml) {
-          const v=xmlGetAll(xml,nome);
-          const v2=xmlGetAll(xml,id);
-          sel.innerHTML="";
-          for(let i=0; i<v.length; i++){
-            let o=document.createElement("option");
-            o.textContent=v[i];
-            o.setAttribute("value",v2[i]);
-            sel.appendChild(o);
-          }
-          cb();
-        });
-      }
-      function qs(id){
-        return document.querySelector("#"+id);
-      }
-      function atMun(){
-        comida("http://localhost:8080/app/listar/municipio?uf="+selUf.options[selUf.selectedIndex].textContent,selMun,"nome","id",function () {
-          if(prim){
-            prim=false;
-            megafete();
-          }
-        });
-      }
-
-      comida("http://localhost:8080/app/listar/uf",selUf,"sigla","id",function () {
-        atMun();
-        selUf.addEventListener("change",atMun);
-      });
-      comida("http://localhost:8080/app/listar/materia",qs("idMateria"));
-
-      btnEd.addEventListener("click",function () {
-        if(inMax.value<inMin.value){
-          torrada(ts,"Erro: O número máximo de alunos é menor que o mínimo",false);
-          return;
-        }
-        let str="http://localhost:8080/app/professor/editar?";
-        for(let i=0; i<forms.length; i++){
-          if(forms[i].value==""){
-            torrada(ts,"Erro: Há campos não preenchidos",false);
-            return;
-          }
-          if(i!=0) str+="&";
-          str+=forms[i].id+"="+forms[i].value;
-        }
-        str+="&titulo=&premium=&dataPremium=";
-        fete(str,function () {
-          torrada(ts,"Dados editados com sucesso",true);
+        porFavor.addEventListener("click", function (e) {
+            e.preventDefault();
         })
-      });
 
-      function xmlget(xml,nome){
-        return xml.querySelector(nome).textContent;
-      }
-      function xmlGetAll(xml,nome){
-        let v=xml.querySelectorAll(nome);
-        let ret=[];
-        for(let i=0; i<v.length; i++){
-          ret[i]=v[i].textContent;
+        let selUf = document.querySelector("#idUf");
+        let selMun = document.querySelector("#idMunicipio");
+        let prim = true;
+
+        let to;
+        function torrada(el, msg, suc) {
+            clearTimeout(to);
+            el.innerHTML = "<span class=\"" + (suc ? "sucesso" : "erro2") + "\">" + msg + "</span>";
+            el.classList.remove("trans");
+            to = setTimeout(function () {
+                el.classList.add("trans");
+            }, 3000);
         }
-        return ret;
-      }
-      function setInput(nome,val){
-        let el=document.querySelector("[data-rec='"+nome+"']");
-        el.value=val;
-      }
-      function setInput2(xml,nome){
-        setInput(nome,xmlget(xml,nome));
-      }
-      function htmlset(xml,nome,id=nome,inp=false){
-        let ret=xmlget(xml,nome);
-        document.querySelector("#"+id).textContent=ret;
-        if(inp) setInput(nome,ret);
-      }
-      function pau(){
-        pg.src="img/ha.png";
-        document.querySelector("#cont").classList.add("erro");
-        document.querySelector("#nome").textContent="Professor não encontrado";
-        document.querySelector("#descricao-apresentacao").innerHTML="Não era para você estar vendo isso. Mas já que você está, você pode tentar <a href='feed.html'>procurar um outro professor</a>.";
-      }
 
-      function fete(url,f){
-        fetch(url, {  method: "POST", credentials: 'include' })
-        .then(re => re.arrayBuffer())
-        .then(buffer => {
-          let decoder = new TextDecoder("iso-8859-1");
-          let text = decoder.decode(buffer);
-          parser = new DOMParser();
-          xml = parser.parseFromString(text, "text/xml");
-          console.log(xml);
-          f(xml);
+        function comida(url, sel, nome = "nome", id = "id", cb = function () { }) {
+            fete(url, function (xml) {
+                const v = xmlGetAll(xml, nome);
+                const v2 = xmlGetAll(xml, id);
+                sel.innerHTML = "";
+                for (let i = 0; i < v.length; i++) {
+                    let o = document.createElement("option");
+                    o.textContent = v[i];
+                    o.setAttribute("value", v2[i]);
+                    sel.appendChild(o);
+                }
+                cb();
+            });
+        }
+        function qs(id) {
+            return document.querySelector("#" + id);
+        }
+        function atMun() {
+            comida("http://localhost:8080/app/listar/municipio?uf=" + selUf.options[selUf.selectedIndex].textContent, selMun, "nome", "id", function () {
+                if (prim) {
+                    prim = false;
+                    megafete();
+                }
+            });
+        }
+
+        comida("http://localhost:8080/app/listar/uf", selUf, "sigla", "id", function () {
+            atMun();
+            selUf.addEventListener("change", atMun);
         });
-      }
+        comida("http://localhost:8080/app/listar/materia", qs("idMateria"));
 
-      function zeroAEsquerda(x){
-        return (x<10? "0": "")+x;
-      }
-      function dateFormat(dt){
-        return zeroAEsquerda(dt.getDate())+"/"+zeroAEsquerda(dt.getMonth()+1)+"/"+dt.getFullYear();
-      }
-      function parsePedro(dt){
-        return dt.getFullYear()+"-"+
-          zeroAEsquerda(dt.getMonth()+1)+"-"+
-          zeroAEsquerda(dt.getDate())+" "+
-          zeroAEsquerda(dt.getHours())+":"+
-          zeroAEsquerda(dt.getMinutes())+":"+
-          zeroAEsquerda(dt.getSeconds());
-      }
-
-      function megafete(){
-        fete("http://localhost:8080/app/consultar/logado",function (xml) {
-          let idprof=null;
-          let URL =new URLSearchParams(location.search);
-          if (URL.get("id") != null) {
-              idprof = URL.get("id");
-          }
-
-          let idu, cargou;
-          let erro=xml.querySelector("erro");
-          if(erro!=null && erro.querySelector("mensagem").textContent=="Nenhum usuário logado"){
-            idu=null;
-            cargou=null;
-          } else{
-            idu=xmlget(xml, "id");
-            cargou=xmlget(xml, "cargo");
-            if (cargou == "PROFESSOR" && idprof==null)
-              idprof = idu;
-          }
-          if(idprof==null){
-            pau();
-            return;
-          }
-
-          if(cargou==null){
-            btnConv.classList.add("hidden");
-            document.querySelector("#faca-login-conv").classList.remove("hidden");
-          }
-          if(cargou=="PROFESSOR" && idprof==idu){
-            headerAluno.classList.add("none");
-            btnConv.textContent="Editar perfil";
-            btnConv.addEventListener("click",function () {
-              $('#modalProf').modal("toggle");
-            });
-          }
-          else{
-            headerProf.classList.add("none");
-            btnConv.addEventListener("click",function () {
-              console.log("mensagemm");
-            });
-          }
-
-          fete("http://localhost:8080/app/professor/consultar?id="+idprof,function (xml) {
-            let e=xml.querySelector("erro");
-            if(e!=null){
-              pau();
-              return;
+        btnEd.addEventListener("click", function () {
+            if (inMax.value < inMin.value) {
+                torrada(ts, "Erro: O número máximo de alunos é menor que o mínimo", false);
+                return;
             }
-
-            let ph=+xmlget(xml,"preco-hora");
-            let eph=document.querySelector("#preco-hora");
-            let dec=Math.round((ph%1)*100);
-            let st=Math.floor(ph)+","+zeroAEsquerda(dec);
-            eph.textContent=st;
-            setInput2(xml,"preco-hora");
-
-            htmlset(xml,"descricao-apresentacao",undefined,true);
-            htmlset(xml,"nome",undefined,true);
-            setInput2(xml,"numero-alunos-min");
-            setInput2(xml,"numero-alunos-max");
-
-            let nota=+xmlget(xml,"avaliacao");
-            let nav=+xmlget(xml,"numero-avaliacoes");
-            let ap=document.querySelector("#avProf");
-            makeAv(ap,nota,true,nav);
-
-            let idm=xmlget(xml,"id-municipio");
-            setInput("id-municipio",idm);
-            fete("http://localhost:8080/app/consultar/municipio?id="+idm,function (xml) {
-              htmlset(xml,"nome","nome-mun");
-              htmlset(xml,"uf");
-            });
-
-            let idma=xmlget(xml,"id-materia");
-            fete("http://localhost:8080/app/consultar/materia?id="+idma,function (xml) {
-              htmlset(xml,"nome","nome-mat");
-            });
-
-            let ft=xmlget(xml,"foto");
-            if(ft=="null"){
-              pg.src=dpfp;
+            let str = "http://localhost:8080/app/professor/editar?";
+            for (let i = 0; i < forms.length; i++) {
+                if (forms[i].value == "") {
+                    torrada(ts, "Erro: Há campos não preenchidos", false);
+                    return;
+                }
+                if (i != 0) str += "&";
+                str += forms[i].id + "=" + forms[i].value;
             }
-            else{
-              pg.src="foto/consultar?idProf="+idprof;
-            }
+            str += "&titulo=&premium=&dataPremium=";
+            fete(str, function () {
+                torrada(ts, "Dados editados com sucesso", true);
+            })
+        });
 
-            let xc=xml.querySelector("comentarios");
-            let ida=xmlGetAll(xc,"id-aluno");
-            let tx=xmlGetAll(xc,"texto");
-            let dt=xmlGetAll(xc,"data");
-            let podecom=cargou=="ALUNO";
-            for(let i=0; i<ida.length; i++){
-              let cond=+ida[i]==idu;
-              if(cond){
-                podecom=false;
-              }
-              fete("http://localhost:8080/app/aluno/consultar?id="+ida[i],function (xml) {
-                let na=xmlget(xml,"nome");
-                fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno="+ida[i]+"&idProf="+idprof,function (x2) {
-                  let elava=x2.querySelector("avaliacao");
-                  let ava=elava==null? null: +elava.textContent;
-                  showComm(dpfp,na,ava,tx[i],dateFormat(new Date(+dt[i])),cond? 0: 1);
+        function xmlget(xml, nome) {
+            return xml.querySelector(nome).textContent;
+        }
+        function xmlGetAll(xml, nome) {
+            let v = xml.querySelectorAll(nome);
+            let ret = [];
+            for (let i = 0; i < v.length; i++) {
+                ret[i] = v[i].textContent;
+            }
+            return ret;
+        }
+        function setInput(nome, val) {
+            let el = document.querySelector("[data-rec='" + nome + "']");
+            el.value = val;
+        }
+        function setInput2(xml, nome) {
+            setInput(nome, xmlget(xml, nome));
+        }
+        function htmlset(xml, nome, id = nome, inp = false) {
+            let ret = xmlget(xml, nome);
+            document.querySelector("#" + id).textContent = ret;
+            if (inp) setInput(nome, ret);
+        }
+        function pau() {
+            pg.src = "img/ha.png";
+            document.querySelector("#cont").classList.add("erro");
+            document.querySelector("#nome").textContent = "Professor não encontrado";
+            document.querySelector("#descricao-apresentacao").innerHTML = "Não era para você estar vendo isso. Mas já que você está, você pode tentar <a href='feed.html'>procurar um outro professor</a>.";
+        }
+
+        function fete(url, f) {
+            fetch(url, { method: "POST", credentials: 'include' })
+                .then(re => re.arrayBuffer())
+                .then(buffer => {
+                    let decoder = new TextDecoder("iso-8859-1");
+                    let text = decoder.decode(buffer);
+                    parser = new DOMParser();
+                    xml = parser.parseFromString(text, "text/xml");
+                    console.log(xml);
+                    f(xml);
                 });
-              });
-            }
+        }
 
-            let btncom=document.querySelector("#comentar");
-            let nma;
-            if(podecom){
-              fete("http://localhost:8080/app/aluno/consultar?id="+idu,function (xml) {
-                nma=xmlget(xml,"nome");
-                sc.appendChild(makeComm(dpfp,nma,0,null,dateFormat(new Date())));
-              });
-            }
-            else{
-              ew.classList.add("hidden");
-              const fl=document.querySelector("#faca-login");
-              fl.classList.remove("hidden");
-              if(cargou=="ALUNO"){
-                fl.textContent="Você já comentou nesse professor.";
-              }
-            }
+        function zeroAEsquerda(x) {
+            return (x < 10 ? "0" : "") + x;
+        }
+        function dateFormat(dt) {
+            return zeroAEsquerda(dt.getDate()) + "/" + zeroAEsquerda(dt.getMonth() + 1) + "/" + dt.getFullYear();
+        }
+        function parsePedro(dt) {
+            return dt.getFullYear() + "-" +
+                zeroAEsquerda(dt.getMonth() + 1) + "-" +
+                zeroAEsquerda(dt.getDate()) + " " +
+                zeroAEsquerda(dt.getHours()) + ":" +
+                zeroAEsquerda(dt.getMinutes()) + ":" +
+                zeroAEsquerda(dt.getSeconds());
+        }
 
-            btncom.addEventListener("click",function () {
-              if(cargou=="ALUNO"){
-                let nota=document.querySelector("#seuCom .div-av").av;
-                if(nota!=0){
-                  let tval=document.querySelector("#seuCom textarea").value;
-                  let dta=new Date();
-                  fete("http://localhost:8080/app/apresentacao/comentar?idProf="+idprof+"&data="+parsePedro(dta)+"&comentario="+encodeURIComponent(tval),function () {
-                    fete("http://localhost:8080/app/apresentacao/avaliar?idProf="+idprof+"&nota="+nota,function () {
-                      seuCom.innerHTML="";
-                      ew.classList.add("hidden");
-                      showComm(dpfp,nma,nota,tval,dateFormat(dta),0);
+        function megafete() {
+            fete("http://localhost:8080/app/consultar/logado", function (xml) {
+                let idprof = null;
+                let URL = new URLSearchParams(location.search);
+                if (URL.get("id") != null) {
+                    idprof = URL.get("id");
+                }
+
+                let idu, cargou;
+                let erro = xml.querySelector("erro");
+                if (erro != null && erro.querySelector("mensagem").textContent == "Nenhum usuário logado") {
+                    idu = null;
+                    cargou = null;
+                } else {
+                    idu = xmlget(xml, "id");
+                    cargou = xmlget(xml, "cargo");
+                    if (cargou == "PROFESSOR" && idprof == null)
+                        idprof = idu;
+                }
+                if (idprof == null) {
+                    pau();
+                    return;
+                }
+
+                if (cargou == null) {
+                    btnConv.classList.add("hidden");
+                    document.querySelector("#faca-login-conv").classList.remove("hidden");
+                }
+                if (cargou == "PROFESSOR" && idprof == idu) {
+                    headerAluno.classList.add("none");
+                    btnConv.textContent = "Editar perfil";
+                    btnConv.addEventListener("click", function () {
+                        $('#modalProf').modal("toggle");
                     });
-                  });
                 }
-                else{
-                  torrada(tc,"Por favor dê uma avaliação",false);
+                else {
+                    headerProf.classList.add("none");
+                    btnConv.addEventListener("click", function () {
+                        console.log("mensagemm");
+                    });
                 }
-              }
-              else{
-                torrada(tc,"wpufquwfbquefn",true);
-              }
+
+                fete("http://localhost:8080/app/professor/consultar?id=" + idprof, function (xml) {
+                    let e = xml.querySelector("erro");
+                    if (e != null) {
+                        pau();
+                        return;
+                    }
+
+                    let ph = +xmlget(xml, "preco-hora");
+                    let eph = document.querySelector("#preco-hora");
+                    let dec = Math.round((ph % 1) * 100);
+                    let st = Math.floor(ph) + "," + zeroAEsquerda(dec);
+                    eph.textContent = st;
+                    setInput2(xml, "preco-hora");
+
+                    htmlset(xml, "descricao-apresentacao", undefined, true);
+                    htmlset(xml, "nome", undefined, true);
+                    setInput2(xml, "numero-alunos-min");
+                    setInput2(xml, "numero-alunos-max");
+
+                    let nota = +xmlget(xml, "avaliacao");
+                    let nav = +xmlget(xml, "numero-avaliacoes");
+                    let ap = document.querySelector("#avProf");
+                    makeAv(ap, nota, true, nav);
+
+                    let idm = xmlget(xml, "id-municipio");
+                    setInput("id-municipio", idm);
+                    fete("http://localhost:8080/app/consultar/municipio?id=" + idm, function (xml) {
+                        htmlset(xml, "nome", "nome-mun");
+                        htmlset(xml, "uf");
+                    });
+
+                    let idma = xmlget(xml, "id-materia");
+                    fete("http://localhost:8080/app/consultar/materia?id=" + idma, function (xml) {
+                        htmlset(xml, "nome", "nome-mat");
+                    });
+
+                    let ft = xmlget(xml, "foto");
+                    if (ft == "null") {
+                        pg.src = dpfp;
+                    }
+                    else {
+                        pg.src = "foto/consultar?idProf=" + idprof;
+                    }
+
+                    let xc = xml.querySelector("comentarios");
+                    let ida = xmlGetAll(xc, "id-aluno");
+                    let tx = xmlGetAll(xc, "texto");
+                    let dt = xmlGetAll(xc, "data");
+                    let podecom = cargou == "ALUNO";
+                    for (let i = 0; i < ida.length; i++) {
+                        let cond = +ida[i] == idu;
+                        if (cond) {
+                            podecom = false;
+                        }
+                        fete("http://localhost:8080/app/aluno/consultar?id=" + ida[i], function (xml) {
+                            let na = xmlget(xml, "nome");
+                            fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno=" + ida[i] + "&idProf=" + idprof, function (x2) {
+                                let elava = x2.querySelector("avaliacao");
+                                let ava = elava == null ? null : +elava.textContent;
+                                showComm(dpfp, na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
+                            });
+                        });
+                    }
+
+                    let btncom = document.querySelector("#comentar");
+                    let nma;
+                    if (podecom) {
+                        fete("http://localhost:8080/app/aluno/consultar?id=" + idu, function (xml) {
+                            nma = xmlget(xml, "nome");
+                            sc.appendChild(makeComm(dpfp, nma, 0, null, dateFormat(new Date())));
+                        });
+                    }
+                    else {
+                        ew.classList.add("hidden");
+                        const fl = document.querySelector("#faca-login");
+                        fl.classList.remove("hidden");
+                        if (cargou == "ALUNO") {
+                            fl.textContent = "Você já comentou nesse professor.";
+                        }
+                    }
+
+                    btncom.addEventListener("click", function () {
+                        if (cargou == "ALUNO") {
+                            let nota = document.querySelector("#seuCom .div-av").av;
+                            if (nota != 0) {
+                                let tval = document.querySelector("#seuCom textarea").value;
+                                let dta = new Date();
+                                fete("http://localhost:8080/app/apresentacao/comentar?idProf=" + idprof + "&data=" + parsePedro(dta) + "&comentario=" + encodeURIComponent(tval), function () {
+                                    fete("http://localhost:8080/app/apresentacao/avaliar?idProf=" + idprof + "&nota=" + nota, function () {
+                                        seuCom.innerHTML = "";
+                                        ew.classList.add("hidden");
+                                        showComm(dpfp, nma, nota, tval, dateFormat(dta), 0);
+                                    });
+                                });
+                            }
+                            else {
+                                torrada(tc, "Por favor dê uma avaliação", false);
+                            }
+                        }
+                        else {
+                            torrada(tc, "wpufquwfbquefn", true);
+                        }
+                    });
+                });
             });
-          });
-        });
-      }
-
-      function setAv(el,x){
-        el.av=x;
-        if(el.nota){
-          let arr=Math.round(x*10)/10;
-          if(arr%1==0){
-            arr+=".0";
-          }
-          el.nota.innerHTML=arr;
         }
 
-        let pi=Math.floor(x);
-        let pd=x-pi;
-        let i=0;
-        for(; i<pi; i++){
-          setEst(el.ests[i],1);
+        function setAv(el, x) {
+            el.av = x;
+            if (el.nota) {
+                let arr = Math.round(x * 10) / 10;
+                if (arr % 1 == 0) {
+                    arr += ".0";
+                }
+                el.nota.innerHTML = arr;
+            }
+
+            let pi = Math.floor(x);
+            let pd = x - pi;
+            let i = 0;
+            for (; i < pi; i++) {
+                setEst(el.ests[i], 1);
+            }
+
+            if (i < 5) {
+                setEst(el.ests[i], pd);
+                i++;
+                for (; i < 5; i++) {
+                    setEst(el.ests[i], 0);
+                }
+            }
         }
 
-        if(i<5){
-          setEst(el.ests[i],pd);
-          i++;
-          for(; i<5; i++){
-            setEst(el.ests[i],0);
-          }
-        }
-      }
-
-      function setEst(est,qtd){
-        let w2;
-        if(qtd==0){
-          w2=0;
-        }
-        else if(qtd==1){
-          w2=w;
-        }
-        else{
-          w2=w*aj+qtd*w*(1-2*aj);
-        }
-        est.style.width=w2+"px";
-      }
-
-      function makeAv(ret,x=0,nota=false,num=-1,edit=false){
-        ret.className="fr div-av";
-        let av=document.createElement("div");
-        av.className="av fr";
-
-        ret.ests=[];
-        for(let i=0; i<5; i++){
-          let d=document.createElement("div");
-          let img=document.createElement("img");
-          img.src="img/est.png";
-          d.appendChild(img);
-          ret.ests[i]=document.createElement("div");
-          d.appendChild(ret.ests[i]);
-          av.appendChild(d);
+        function setEst(est, qtd) {
+            let w2;
+            if (qtd == 0) {
+                w2 = 0;
+            }
+            else if (qtd == 1) {
+                w2 = w;
+            }
+            else {
+                w2 = w * aj + qtd * w * (1 - 2 * aj);
+            }
+            est.style.width = w2 + "px";
         }
 
-        if(nota){
-          ret.nota=document.createElement("strong");
-          ret.nota.className="nprof";
-          ret.appendChild(ret.nota);
-        }
-        ret.appendChild(av);
-        if(num!=-1){
-          let sn=document.createElement("span");
-          sn.className="numAval";
-          ret.appendChild(sn);
-          sn.appendChild(document.createTextNode("("));
-          ret.num=document.createElement("span");
-          ret.num.innerHTML=num;
-          sn.appendChild(ret.num);
-          sn.appendChild(document.createTextNode(")"));
-        }
+        function makeAv(ret, x = 0, nota = false, num = -1, edit = false) {
+            ret.className = "fr div-av";
+            let av = document.createElement("div");
+            av.className = "av fr";
 
-        if(edit){
-          av.addEventListener("mousemove",function (e) {
-            let x=e.pageX-av.offsetLeft;
-            let lt=w+me;
-            let cheias=Math.floor(x/lt);
-            //let ult=x%lt;
-            setAv(ret,x<0? 1: Math.min(cheias+1,5));
-          });
-        }
+            ret.ests = [];
+            for (let i = 0; i < 5; i++) {
+                let d = document.createElement("div");
+                let img = document.createElement("img");
+                img.src = "img/est.png";
+                d.appendChild(img);
+                ret.ests[i] = document.createElement("div");
+                d.appendChild(ret.ests[i]);
+                av.appendChild(d);
+            }
 
-        setAv(ret,x);
-      }
+            if (nota) {
+                ret.nota = document.createElement("strong");
+                ret.nota.className = "nprof";
+                ret.appendChild(ret.nota);
+            }
+            ret.appendChild(av);
+            if (num != -1) {
+                let sn = document.createElement("span");
+                sn.className = "numAval";
+                ret.appendChild(sn);
+                sn.appendChild(document.createTextNode("("));
+                ret.num = document.createElement("span");
+                ret.num.innerHTML = num;
+                sn.appendChild(ret.num);
+                sn.appendChild(document.createTextNode(")"));
+            }
 
-      function makeComm(img,nome,av,txt,data){
-        let d=document.createElement("div");
-        d.className="fc2";
+            if (edit) {
+                av.addEventListener("mousemove", function (e) {
+                    let x = e.pageX - av.offsetLeft;
+                    let lt = w + me;
+                    let cheias = Math.floor(x / lt);
+                    //let ult=x%lt;
+                    setAv(ret, x < 0 ? 1 : Math.min(cheias + 1, 5));
+                });
+            }
 
-        let r=document.createElement("div");
-        r.className="fr";
-        let im=document.createElement("img");
-        im.src=img;
-        im.className="pfp";
-        r.appendChild(im);
-
-        let c=document.createElement("div");
-        c.className="fc2";
-
-        let dnd=document.createElement("div");
-        dnd.className="fr tc";
-        let dnome=document.createElement("h4");
-        dnome.textContent=nome;
-        dnd.appendChild(dnome);
-        let ddata=document.createElement("span");
-        ddata.textContent=data;
-        dnd.appendChild(ddata);
-        c.appendChild(dnd);
-
-        let dav=document.createElement("div");
-        if(av!=-1){
-          makeAv(dav,av,false,-1,txt==null);
-        }
-        else{
-          dav.textContent="Sem avaliação";
-        }
-        c.appendChild(dav);
-        r.appendChild(c);
-        d.appendChild(r);
-
-        if(txt==null){
-          let ta=document.createElement("textarea");
-          ta.placeholder="Escreva seu comentário";
-          d.appendChild(ta);
-        }
-        else{
-          let p=document.createElement("p");
-          p.textContent=txt;
-          d.appendChild(p);
+            setAv(ret, x);
         }
 
-        return d;
-      }
+        function makeComm(img, nome, av, txt, data) {
+            let d = document.createElement("div");
+            d.className = "fc2";
 
-      function showComm(img,nome,av,txt,data,ord=1){
-        let co=makeComm(img,nome,av,txt,data);
-        co.style.order=ord;
-        coms.appendChild(co);
-      }
+            let r = document.createElement("div");
+            r.className = "fr";
+            let im = document.createElement("img");
+            im.src = img;
+            im.className = "pfp";
+            r.appendChild(im);
+
+            let c = document.createElement("div");
+            c.className = "fc2";
+
+            let dnd = document.createElement("div");
+            dnd.className = "fr tc";
+            let dnome = document.createElement("h4");
+            dnome.textContent = nome;
+            dnd.appendChild(dnome);
+            let ddata = document.createElement("span");
+            ddata.textContent = data;
+            dnd.appendChild(ddata);
+            c.appendChild(dnd);
+
+            let dav = document.createElement("div");
+            if (av != -1) {
+                makeAv(dav, av, false, -1, txt == null);
+            }
+            else {
+                dav.textContent = "Sem avaliação";
+            }
+            c.appendChild(dav);
+            r.appendChild(c);
+            d.appendChild(r);
+
+            if (txt == null) {
+                let ta = document.createElement("textarea");
+                ta.placeholder = "Escreva seu comentário";
+                d.appendChild(ta);
+            }
+            else {
+                let p = document.createElement("p");
+                p.textContent = txt;
+                d.appendChild(p);
+            }
+
+            return d;
+        }
+
+        function showComm(img, nome, av, txt, data, ord = 1) {
+            let co = makeComm(img, nome, av, txt, data);
+            co.style.order = ord;
+            coms.appendChild(co);
+        }
     </script>
 </body>
 
