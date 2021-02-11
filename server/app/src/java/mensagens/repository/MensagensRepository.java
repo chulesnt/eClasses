@@ -178,4 +178,38 @@ public class MensagensRepository {
 		ps.close();
 		return mensagens;
 	}
+	
+	public List quemAlunoFalou(String idAluno) throws SQLException{
+		List ids = new LinkedList<>();
+		
+		Long idAlunoParsed = Long.parseLong(idAluno);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT DISTINCT \"id-prof\" FROM mensagem WHERE \"id-aluno\" = ? AND comentario = false");
+		ps.setLong(1, idAlunoParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			ids.add(rs.getLong("id-prof"));
+		}
+		rs.close();
+		ps.close();
+		return ids;
+	}
+	
+	public List quemProfFalou(String idProf) throws SQLException{
+		List ids = new LinkedList<>();
+		
+		Long idProfParsed = Long.parseLong(idProf);
+		
+		PreparedStatement ps = c.prepareStatement("SELECT DISTINCT \"id-aluno\" FROM mensagem WHERE \"id-prof\" = ? AND comentario = false");
+		ps.setLong(1, idProfParsed);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			ids.add(rs.getLong("id-aluno"));
+		}
+		rs.close();
+		ps.close();
+		return ids;
+	}
 }

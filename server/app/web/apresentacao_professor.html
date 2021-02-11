@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/mensagens.css">
 
     <style>
       .fc{
@@ -193,9 +194,9 @@
                 <div class="col-11">
                     <h2>eClasses</h2>
                 </div>
-                <div class="col-1">
-                    <a href="index.html"><img src="img/btn-voltar.png" id="btn-voltar" class="mt-1"></a>
-                </div>
+				<div class="col-1">
+					<button class="btn-primary" onclick="handleChatButtonClick()">Mensagens</button>
+				</div>
             </div>
         </div>
     </header>
@@ -221,7 +222,7 @@
                       </p>
                       <hr>
                       <div>
-                        <button class="btn btn-primary" id="conversar">Conversar</button>
+                        <button class="btn btn-primary" id="conversar" onclick="handleMensagemButtonClick()">Conversar</button>
                         <p class="dim hidden" id="faca-login-conv">Faça login para conversar com o professor</p>
                       </div>
                     </div>
@@ -239,17 +240,35 @@
         </div>
     </main>
 
-    <footer class="bg-secondary">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <b>Desenvolvido por:</b>
-                    <p>Matheus Guimarães | Pedro Augusto Gandra | Pedro Henrique Pereira | Samuel Pedro Fernandes |
-                        Thiago Lepesqueur | Vitor Fitzherbert</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<!-- Parte das Mensagens -->
+	<div class="msg-background" onclick="closeAll()" style="display: none;"></div>
+
+	<div class="msg-container" style="display: none;">
+		<div class="msg-header">
+			<img src="img/voltar.png" onclick="handleChatButtonClick()">
+			<div class='msg-photo'>
+			</div>
+			<h4>Professor Nome</h4>
+		</div>
+		<div class="msg-content">
+		
+		</div>
+		<div class="msg-input-container">
+			<input type="text" class="msg-input" placeholder="Insira sua mensagem">
+			<img src="img/send.png" class="send-icon" onclick="enviarMensagem()">
+		</div>
+	</div>
+
+	<div class="chat-container" style="display: none;">
+		<h2>Conversas</h2>
+		<div class="chat-item" onclick=`() => {console.log("cu")}`>
+			<div class='msg-photo'>
+			</div>
+			<h6>Professor Nome</h6>
+		</div>
+	</div>
+	<!-- Parte das Mensagens -->
+	
 
     <div class="modal fade" id="modalProf" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -337,6 +356,7 @@
 
     <script src="lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="js/mensagens.js"></script>
 
     <script>
       const w=22; // Largura da estrela
