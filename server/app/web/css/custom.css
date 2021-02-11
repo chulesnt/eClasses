@@ -15,7 +15,7 @@ main {
 }
 
 footer {
-    min-height: 100px;
+    min-height: 80px;
 }
 
 #btn-voltar {
@@ -53,4 +53,8 @@ footer {
 .bloco1, .bloco2{
     justify-content: center;
     text-align: center;
+}
+
+.fot {
+  margin-top: 10px;
 }
