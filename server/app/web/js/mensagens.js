@@ -121,7 +121,7 @@ function openChats(cargo){
             parser = new DOMParser();
             xmlDoc = parser.parseFromString(text, "text/xml");
             let xml = xmlDoc.querySelectorAll("prof");
-            console.log(xml);
+            //console.log(xml);
             criaAlunoChatItems(xml)
         });
     }
@@ -135,7 +135,7 @@ function openChats(cargo){
             parser = new DOMParser();
             xmlDoc = parser.parseFromString(text, "text/xml");
             let xml = xmlDoc.querySelectorAll("aluno");
-            console.log(xml);
+            //console.log(xml);
             criaProfChatItems(xml)
         });
     }
