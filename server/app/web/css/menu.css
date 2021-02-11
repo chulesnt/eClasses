@@ -1,5 +1,5 @@
 h2 {
-    font-size: 2.5em;
+    font-size: 2.7em;
 }
 
 .black {
@@ -21,10 +21,11 @@ body {
 
 .btns-nav {
     margin: 1em 0;
+    font-size: 1.2rem;
 }
 
 .item-nav {
-    padding-left: 1em;
+    padding-left: 2.5em;
     color: #9998ec;
 }
 
