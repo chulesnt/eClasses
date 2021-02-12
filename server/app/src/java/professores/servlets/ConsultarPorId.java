@@ -31,6 +31,7 @@ public class ConsultarPorId extends HttpServlet {
 			c.close();
 		} catch (SQLException | ClassNotFoundException ex) {
 			res.setStatus(500);
+                        System.out.println(ex);
 			out.println("<erro><mensagem>Erro na interação com o servidor</mensagem></erro>");
 		}
 	}

@@ -1,0 +1,212 @@
+.fc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fc2 {
+    display: flex;
+    flex-direction: column;
+}
+
+#pg {
+    width: 128px;
+}
+
+.nome {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.av img {
+    width: 22px;
+    position: relative;
+    z-index: 1;
+    display: block;
+}
+
+.av>div {
+    position: relative;
+}
+
+.av>div {
+    margin-right: 4px;
+}
+
+.av>div>div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ffff00;
+}
+
+.nprof {
+    margin-right: 10px;
+}
+
+.numAval {
+    margin-left: 6px;
+    font-size: 14px;
+}
+
+.local {
+    height: 22px;
+}
+
+.mat {
+    height: 24px;
+}
+
+.ap {
+    margin-bottom: 41px;
+}
+
+.ap>* {
+    max-width: 490px;
+}
+
+.ap hr {
+    width: 100%;
+    margin-top: 27px;
+    margin-bottom: 27px;
+}
+
+.ap p,
+.ap button {
+    margin: 0;
+}
+
+.dim {
+    font-style: italic;
+    color: #7f7f7f;
+}
+
+#faca-login {
+    margin-bottom: 36px;
+}
+
+.coment .pfp {
+    width: 64px;
+    margin-right: 20px;
+}
+
+#seuCom textarea {
+    resize: vertical;
+    max-width: 600px;
+    height: 121px;
+    padding: 0px 4px;
+    margin-top: 18px;
+}
+
+#coms {
+    margin-bottom: -36px;
+}
+
+#coms>* {
+    margin-bottom: 36px;
+}
+
+#coms p {
+    margin-top: 14px;
+    margin-bottom: 0;
+}
+
+#coms p:empty {
+    margin-top: 7px;
+}
+
+.coment h4 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.tc {
+    margin-bottom: 10px;
+    align-items: baseline;
+}
+
+.tc span {
+    font-size: 14px;
+    margin-left: 14px;
+}
+
+#ew {
+    margin: 18px 0 40px 0;
+}
+
+#ew button {
+    margin: 0 24px 0 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.trans {
+    opacity: 0;
+}
+
+.floatL {
+    float: left;
+}
+
+#drp {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: none
+}
+
+#respostaPerfil {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    max-width: 260px;
+}
+
+.torrada {
+    transition: opacity 152ms linear;
+    border-radius: 6px;
+    padding: 6px 10px;
+    background-color: #efefef;
+    border: 1px solid #9f9f9f;
+    margin: 0;
+}
+
+.sucesso {
+    color: #007f00;
+}
+
+.erro2 {
+    color: #9b0000;
+}
+
+.erro>:not(#main),
+.erro #div {
+    display: none;
+}
+
+#modalProf textarea {
+    display: block;
+    width: 342px;
+    resize: vertical;
+    height: 77px;
+    padding: 2px 4px;
+}
+
+#modalProf .form-group>* {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}

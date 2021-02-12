@@ -26,100 +26,98 @@
 
     <main>
         <div class="container">
-          <h2 class="tituloform">Cadastro como professor</h2>
+            <h2 class="tituloform">Cadastro como professor</h2>
             <div class="row">
                 <!-- Form de cadastro -->
                 <div class="col-12 col-sm-6">
-                  <div class="toast toastErro">
-                  </div>
+                    <div class="toast toastErro">
+                    </div>
 
-                  <div class="toast toastSucesso">
-                  </div>
+                    <div class="toast toastSucesso">
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="nome-prof" class="col-md-3 col-form-label">Nome</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="nome-prof" name="nome-prof">
-                            </div>
+                    <div class="form-group row">
+                        <label for="nome-prof" class="col-md-3 col-form-label">Nome</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="nome-prof" name="nome-prof">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-3 col-form-label">E-mail</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="email" name="email">
-                            </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-md-3 col-form-label">E-mail</label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" id="email" name="email">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="senha" class="col-md-3 col-form-label">Senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="senha" name="senha">
-                            </div>
+                    <div class="form-group row">
+                        <label for="senha" class="col-md-3 col-form-label">Senha</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="senha" name="senha">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="confirma-senha" class="col-md-3 col-form-label">Confirmar senha</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" id="confirma-senha" name="confirma-senha">
-                            </div>
+                    <div class="form-group row">
+                        <label for="confirma-senha" class="col-md-3 col-form-label">Confirmar senha</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="confirma-senha" name="confirma-senha">
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="estado" class="col-md-3 col-form-label">UF</label>
-                            <div class="col-md-9">
-                                <select onchange="carregarMunicipio()" id="estado" name="estado">
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="estado" class="col-md-3 col-form-label">UF</label>
+                        <div class="col-md-9">
+                            <select onchange="carregarMunicipio()" id="estado" name="estado">
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="municipio" class="col-md-3 col-form-label">Município</label>
-                            <div class="col-md-9">
-                                <select id="municipio" name="municipio">
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="municipio" class="col-md-3 col-form-label">Município</label>
+                        <div class="col-md-9">
+                            <select id="municipio" name="municipio">
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="materia" class="col-md-3 col-form-label">Matéria</label>
-                            <div class="col-md-9">
-                                <select id="materia" name="materia">
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="materia" class="col-md-3 col-form-label">Matéria</label>
+                        <div class="col-md-9">
+                            <select id="materia" name="materia">
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <a href="login.html">Já tem uma conta? Entre agora!</a>
-                            <div class="ml-auto col-md-3">
-                                <button class="btn btn-primary"
-                                    onclick="inserir()">Cadastrar</button>
-                            </div>
+                    <div class="form-group row">
+                        <a href="login.html">Já tem uma conta? Entre agora!</a>
+                        <div class="ml-auto col-md-3">
+                            <button class="btn btn-primary" onclick="inserir()">Cadastrar</button>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-    let selUf = document.querySelector("#estado");
-    let selMunicipio = document.querySelector("#municipio");
-    let selMateria = document.querySelector("#materia");
+        let selUf = document.querySelector("#estado");
+        let selMunicipio = document.querySelector("#municipio");
+        let selMateria = document.querySelector("#materia");
 
-      window.onload = function() {
-        carregarUf();
-        carregarMaterias();
-      };
-
-
-
+        window.onload = function () {
+            carregarUf();
+            carregarMaterias();
+        };
     </script>
+
+    <script src="lib/jquery/jquery-3.5.1.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <script src="js/utils/limpaInputs.js"></script>
     <script src="js/professor/inserir.js"></script>
     <script src="js/respostas/toastsCadastro.js"></script>
     <script src="js/preencherLocais.js"></script>
     <script src="js/carregarLocais.js"></script>
-    <script src="lib/jquery/jquery-3.5.1.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
