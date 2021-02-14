@@ -125,7 +125,6 @@ function fete(url, f) {
             let text = decoder.decode(buffer);
             parser = new DOMParser();
             xml = parser.parseFromString(text, "text/xml");
-            console.log(xml);
             f(xml);
         });
 }
@@ -183,7 +182,6 @@ function megafete() {
         else {
             headerProf.classList.add("none");
             btnConv.addEventListener("click", function () {
-                console.log("mensagemm");
             });
         }
 
