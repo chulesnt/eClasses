@@ -73,8 +73,6 @@ public class GerarFeed extends HttpServlet {
 					out.println("<senha>" + r.get(i).getSenha() + "</senha>");
 					out.println("<nome>" + r.get(i).getNome() + "</nome>");
 					out.println("<descricaoApresentacao>" + r.get(i).getDescricaoApresentacao() + "</descricaoApresentacao>");
-					out.println("<tituloApresentacao>" + r.get(i).getTituloApresentacao() + "</tituloApresentacao>");
-					out.println("<premium>" + r.get(i).isPremium() + "</premium>");
 					out.println("<avaliacao>" + r.get(i).getAvaliacao() + "</avaliacao>");
 					out.println("<precoHora>" + r.get(i).getPrecoHora() + "</precoHora>");
 					out.println("<numeroAvaliacoes>" + r.get(i).getNumeroAvaliacoes() + "</numeroAvaliacoes>");
@@ -83,7 +81,6 @@ public class GerarFeed extends HttpServlet {
 					out.println("<materia>" + cr.getMateria(r.get(i).getIdMateria()) + "</materia>");
 					out.println("<numeroAlunosMin>" + r.get(i).getNumeroAlunosMin() + "</numeroAlunosMin>");
 					out.println("<numeroAlunosMax>" + r.get(i).getNumeroAlunosMax() + "</numeroAlunosMax>");
-					out.println("<dataFimPremium>" + r.get(i).getDataFimPremium() + "</dataFimPremium>");
 					out.println("<foto>" + r.get(i).getFoto() + "</foto>");
 					out.println("</professor>");
 				}

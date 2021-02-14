@@ -26,28 +26,27 @@ public class ProfessoresRepository {
 	public boolean cadastrar(String email, String senha, String nome, String idMunicipio, String idUf, String idMateria) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException, ParseException{
 		String hashedSenha = Hasher.hash(senha);
 		
-		Boolean premium = false;
-		
 		String desc = "";
-		String titulo = "";
 		float avaliacao = 0;
 		int numAval = 0;
 		float preco = 0;
+		int numeroMin = 1;
+		int numeroMax = 50;
 		
 		
-		PreparedStatement ps = c.prepareStatement("INSERT INTO professor (\"email-prof\", senha, nome, \"id-municipio\", \"id-uf\", \"id-materia\", premium, \"descricao_apresentacao\", \"titulo_apresentacao\", avaliacao, \"numero-avaliacoes\", \"preco-hora\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		PreparedStatement ps = c.prepareStatement("INSERT INTO professor (\"email-prof\", senha, nome, \"id-municipio\", \"id-uf\", \"id-materia\", \"descricao_apresentacao\", avaliacao, \"numero-avaliacoes\", \"preco-hora\", \"numero-alunos-min\", \"numero-alunos-max\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		ps.setString(1, email);
 		ps.setString(2, hashedSenha);
 		ps.setString(3, nome);
 		ps.setInt(4, Integer.parseInt(idMunicipio));
 		ps.setInt(5, Integer.parseInt(idUf));
 		ps.setInt(6, Integer.parseInt(idMateria));
-		ps.setBoolean(7, premium);
-		ps.setString(8, desc);
-		ps.setString(9, titulo);
-		ps.setFloat(10, avaliacao);
-		ps.setInt(11, numAval);
-		ps.setFloat(12, preco);
+		ps.setString(7, desc);
+		ps.setFloat(8, avaliacao);
+		ps.setInt(9, numAval);
+		ps.setFloat(10, preco);
+		ps.setInt(11, numeroMin);
+		ps.setInt(12, numeroMax);
 		
 		
 		return ps.executeUpdate() != 0;
@@ -69,18 +68,14 @@ public class ProfessoresRepository {
 		return false;
 	}
 	
-	public boolean editar(String idProf, String nome, String idMunicipio, String idUf, String desc, String titulo, String premium, String preco, String	idMateria, String numAMin, String numAMax, String dataPremium) throws SQLException, ParseException {
+	public boolean editar(String idProf, String nome, String idMunicipio, String idUf, String desc, String preco, String	idMateria, String numAMin, String numAMax, String link) throws SQLException, ParseException {
 		int adcs = 0;
 		int cont = 1;
-		boolean[] pars = new boolean[11];
+		boolean[] pars = new boolean[10];
 		
 		
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		Date dataUtil = null;
-		java.sql.Date dataSql = null;
-		
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 10; i++) {
 			pars[i] = false;
 		}
 		
@@ -115,22 +110,18 @@ public class ProfessoresRepository {
 			adcs++;
 			pars[3] = true;
 		}
-		if (!"".equals(titulo)) {
+
+		pars[4] = true;
+		
+		if (!"".equals(link)) {
 			if (adcs > 0) {
 				query += ",";
 			}
-			query += " \"titulo_apresentacao\"= ?";
-			adcs++;
-			pars[4] = true;
-		}
-		if (!"".equals(premium)) {
-			if (adcs > 0) {
-				query += ",";
-			}
-			query += " \"premium\"= ?";
+			query += " \"link-video\"= ?";
 			adcs++;
 			pars[5] = true;
 		}
+			
 		if (!"".equals(preco)) {
 			if (adcs > 0) {
 				query += ",";
@@ -163,15 +154,6 @@ public class ProfessoresRepository {
 			adcs++;
 			pars[9] = true;
 		}
-		if (!"".equals(dataPremium)) {
-			dataUtil = formato.parse(dataPremium);
-			dataSql = new java.sql.Date(dataUtil.getTime());
-			if (adcs > 0) {
-				query += ",";
-			}
-			query += " \"data-fim-premium\"= ?";
-			pars[10] = true;
-		}
 		
 
 		query += " WHERE \"id-prof\" = ?";
@@ -197,14 +179,10 @@ public class ProfessoresRepository {
 			ps.setString(cont, desc);
 			cont++;
 		}
-		if (pars[4]) {
-			ps.setString(cont, titulo);
-			cont++;
-		}
 		if (pars[5]) {
-			ps.setBoolean(cont, Boolean.parseBoolean(premium));
+			ps.setString(cont, link);
 			cont++;
-		}
+		}	
 		if (pars[6]) {
 			ps.setFloat(cont, Float.parseFloat(preco));
 			cont++;
@@ -219,10 +197,6 @@ public class ProfessoresRepository {
 		}
 		if (pars[9]) {
 			ps.setInt(cont, Integer.parseUnsignedInt(numAMax));
-			cont++;
-		}
-		if (pars[10]) {
-			ps.setDate(cont, dataSql);
 			cont++;
 		}
 		
@@ -269,16 +243,14 @@ public class ProfessoresRepository {
 		xml += "<id-municipio>" + rs.getInt("id-municipio") + "</id-municipio>";
 		xml += "<id-uf>" + rs.getInt("id-uf") + "</id-uf>";
 		xml += "<descricao-apresentacao>" + rs.getString("descricao_apresentacao") + "</descricao-apresentacao>";
-		xml += "<titulo-apresentacao>" + rs.getString("titulo_apresentacao") + "</titulo-apresentacao>";
 		xml += "<avaliacao>" + rs.getFloat("avaliacao") + "</avaliacao>";
-		xml += "<premium>" + rs.getBoolean("premium") + "</premium>";
 		xml += "<numero-avaliacoes>" + rs.getInt("numero-avaliacoes") + "</numero-avaliacoes>";
 		xml += "<preco-hora>" + rs.getFloat("preco-hora") + "</preco-hora>";
 		xml += "<id-materia>" + rs.getInt("id-materia") + "</id-materia>";
 		xml += "<numero-alunos-min>" + rs.getInt("numero-alunos-min") + "</numero-alunos-min>";
 		xml += "<numero-alunos-max>" + rs.getInt("numero-alunos-max") + "</numero-alunos-max>";
-		xml += "<data-fim-premium>" + rs.getDate("data-fim-premium") + "</data-fim-premium>";
 		xml += "<foto>" + rs.getString("foto") + "</foto>";
+		xml += "<link>" + rs.getString("link-video") + "</link>";
 		
 		ps = c.prepareStatement("SELECT * FROM mensagem WHERE \"id-prof\" = ? AND comentario = ?");
 		ps.setLong(1, idParsed);

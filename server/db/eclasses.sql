@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS aluno
   "id-preferencia-local" Integer,
   "preferencia-numero-alunos" Integer,
   "assinante" Boolean NOT NULL,
-  "data-fim-assinatura" Date
+  "data-fim-assinatura" Date,
+  "foto" Character varying(255)
 );
 
 
@@ -55,19 +56,17 @@ CREATE TABLE IF NOT EXISTS professor
   "email-prof" Character varying(255) NOT NULL UNIQUE,
   "senha" Character varying(255) NOT NULL,
   "nome" Character varying(255) NOT NULL,
-  "descricao_apresentacao" Character varying(1023) NOT NULL,
-  "titulo_apresentacao" Character varying(50) NOT NULL,
-  "premium" Boolean NOT NULL,
+  "descricao_apresentacao" Character varying(4095) NOT NULL,
   "avaliacao" Numeric(6,4) NOT NULL,
   "numero-avaliacoes" Integer NOT NULL,
   "id-municipio" Integer NOT NULL,
   "id-uf" Integer NOT NULL,
   "preco-hora" Numeric(6,2) NOT NULL,
   "id-materia" Integer NOT NULL,
-  "numero-alunos-min" Integer,
-  "numero-alunos-max" Integer,
-  "data-fim-premium" Date,
-  "foto" Character varying(255)
+  "numero-alunos-min" Integer NOT NULL,
+  "numero-alunos-max" Integer NOT NULL,
+  "foto" Character varying(255),
+  "link-video" Character varying(511)
 );
 
 
@@ -101,17 +100,6 @@ CREATE TABLE IF NOT EXISTS alunoPreferenciasMaterias
 );
 
 
--- Table admin
-
-DROP TABLE IF EXISTS admin;
-CREATE TABLE IF NOT EXISTS admin
-(
-  "id-admin" SERIAL NOT NULL,
-  "usuario" Character varying(30) NOT NULL,
-  "senha" Character varying(255) NOT NULL
-);
-
-
 -- Table agenda-aluno
 
 DROP TABLE IF EXISTS agendaAluno;
@@ -121,18 +109,6 @@ CREATE TABLE IF NOT EXISTS agendaAluno
   "texto" Character varying(511) NOT NULL,
   "id-aluno" Bigint NOT NULL
 );
-
-
--- Table agenda-prof
-
-DROP TABLE IF EXISTS agendaProf;
-CREATE TABLE IF NOT EXISTS agendaProf
-(
-  "dia" Date NOT NULL,
-  "texto" Character varying(511) NOT NULL,
-  "id-prof" Bigint NOT NULL
-);
-
 
 -- Table mensagem
 DROP TABLE IF EXISTS mensagem;
@@ -144,8 +120,24 @@ CREATE TABLE IF NOT EXISTS mensagem
   "id-prof" Bigint NOT NULL,
   "aluno-enviou" Boolean NOT NULL,
   "comentario" Boolean NOT NULL,
-  "data-horario" Timestamp NOT NULL
+  "data-horario" Timestamp NOT NULL,
+  "id-denuncia" Integer
 );
+
+-- Table denuncia
+DROP TABLE IF EXISTS denuncia;
+CREATE TABLE IF NOT EXISTS denuncia
+(
+  "id-denuncia" SERIAL NOT NULL,
+  "motivo" Character varying(255) NOT NULL
+);
+
+
+-- Inserts denuncias
+
+Insert INTO denuncia (motivo) values ('Comentário inapropriado');
+Insert INTO denuncia (motivo) values ('Aluno não contactou o professor');
+
 
 
 

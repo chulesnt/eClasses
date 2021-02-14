@@ -1,23 +1,18 @@
 package professores.model;
 
-import java.util.Date;
 
 public class ProfessorModel {
 	private long idProf;
-	private String emailProf, senha, nome, descricaoApresentacao, tituloApresentacao, foto;
-	private boolean premium;
+	private String emailProf, senha, nome, descricaoApresentacao, foto;
 	private double avaliacao, precoHora;
 	private int numeroAvaliacoes, idMunicipio, idUf, idMateria, numeroAlunosMin, numeroAlunosMax;
-	private Date dataFimPremium;
 
-	public ProfessorModel(long idProf, String emailProf, String senha, String nome, String descricaoApresentacao, String tituloApresentacao, boolean premium, double avaliacao, double precoHora, int numeroAvaliacoes, int idMunicipio, int idUf, int idMateria, int numeroAlunosMin, int numeroAlunosMax, Date dataFimPremium, String foto) {
+	public ProfessorModel(long idProf, String emailProf, String senha, String nome, String descricaoApresentacao, double avaliacao, double precoHora, int numeroAvaliacoes, int idMunicipio, int idUf, int idMateria, int numeroAlunosMin, int numeroAlunosMax, String foto) {
 		this.idProf = idProf;
 		this.emailProf = emailProf;
 		this.senha = senha;
 		this.nome = nome;
 		this.descricaoApresentacao = descricaoApresentacao;
-		this.tituloApresentacao = tituloApresentacao;
-		this.premium = premium;
 		this.avaliacao = avaliacao;
 		this.precoHora = precoHora;
 		this.numeroAvaliacoes = numeroAvaliacoes;
@@ -26,7 +21,6 @@ public class ProfessorModel {
 		this.idMateria = idMateria;
 		this.numeroAlunosMin = numeroAlunosMin;
 		this.numeroAlunosMax = numeroAlunosMax;
-		this.dataFimPremium = dataFimPremium;
 		this.foto = foto;
 	}
 	
@@ -68,22 +62,6 @@ public class ProfessorModel {
 
 	public void setDescricaoApresentacao(String descricaoApresentacao) {
 		this.descricaoApresentacao = descricaoApresentacao;
-	}
-
-	public String getTituloApresentacao() {
-		return tituloApresentacao;
-	}
-
-	public void setTituloApresentacao(String tituloApresentacao) {
-		this.tituloApresentacao = tituloApresentacao;
-	}
-
-	public boolean isPremium() {
-		return premium;
-	}
-
-	public void setPremium(boolean premium) {
-		this.premium = premium;
 	}
 
 	public double getAvaliacao() {
@@ -148,14 +126,6 @@ public class ProfessorModel {
 
 	public void setNumeroAlunosMax(int numeroAlunosMax) {
 		this.numeroAlunosMax = numeroAlunosMax;
-	}
-
-	public Date getDataFimPremium() {
-		return dataFimPremium;
-	}
-
-	public void setDataFimPremium(Date dataFimPremium) {
-		this.dataFimPremium = dataFimPremium;
 	}
 	
 	public String getFoto(){

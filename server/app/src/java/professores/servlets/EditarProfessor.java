@@ -34,16 +34,14 @@ public class EditarProfessor extends HttpServlet {
 				String uf = req.getParameter("idUf");
 				String municipio = req.getParameter("idMunicipio");
 				String desc = req.getParameter("descricao");
-				String titulo = req.getParameter("titulo");
-				String premium = req.getParameter("premium");
 				String preco = req.getParameter("preco");
 				String idMateria = req.getParameter("idMateria");
 				String numAMin = req.getParameter("numAMin");
 				String numAMax = req.getParameter("numAMax");
-				String dataPremium = req.getParameter("dataPremium");
+				String link = req.getParameter("link");
 
 				try {
-					boolean sucesso = r.editar(id, nome, municipio, uf, desc, titulo, premium, preco, idMateria, numAMin, numAMax, dataPremium);
+					boolean sucesso = r.editar(id, nome, municipio, uf, desc, preco, idMateria, numAMin, numAMax, link);
 					if(sucesso) {
 						res.setStatus(200);
 						out.println("<sucesso><mensagem>Dados alterados com sucesso</mensagem></sucesso>");

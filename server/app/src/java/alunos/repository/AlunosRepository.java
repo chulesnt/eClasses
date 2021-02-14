@@ -347,7 +347,6 @@ public class AlunosRepository {
 					rs.getString("nome"),
 					rs.getString("descricao_apresentacao"),
 					rs.getString("titulo_apresentacao"),
-					rs.getBoolean("premium"),
 					rs.getDouble("avaliacao"),
 					rs.getDouble("preco-hora"),
 					rs.getInt("numero-avaliacoes"),
@@ -356,7 +355,6 @@ public class AlunosRepository {
 					rs.getInt("id-materia"),
 					rs.getInt("numero-alunos-min"),
 					rs.getInt("numero-alunos-max"),
-					rs.getDate("data-fim-premium"),
 					rs.getString("foto")
 			);
 			profs.add(pm);
