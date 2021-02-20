@@ -346,7 +346,6 @@ public class AlunosRepository {
 					rs.getString("senha"),
 					rs.getString("nome"),
 					rs.getString("descricao_apresentacao"),
-					rs.getString("titulo_apresentacao"),
 					rs.getDouble("avaliacao"),
 					rs.getDouble("preco-hora"),
 					rs.getInt("numero-avaliacoes"),
