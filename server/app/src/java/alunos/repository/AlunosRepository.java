@@ -363,4 +363,12 @@ public class AlunosRepository {
 		return profs;
 	}
 	
+	public boolean inserirFoto(String idAluno, String foto) throws SQLException{
+		PreparedStatement ps = c.prepareStatement("UPDATE aluno SET foto = ? WHERE \"id-aluno\" = ?");
+		Long idParsed = Long.parseLong(idAluno);
+		ps.setString(1, foto);
+		ps.setLong(2, idParsed);
+		return ps.executeUpdate() != 0;
+	}
+	
 }

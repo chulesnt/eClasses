@@ -1,5 +1,6 @@
-package professores.servlets;
+package alunos.servlets;
 
+import alunos.repository.AlunosRepository;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,11 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import professores.repository.ProfessoresRepository;
 import utils.Conector;
 
-@WebServlet(name = "UploadFoto", urlPatterns = {"/foto/upload"})
-public class UploadFoto extends HttpServlet {
+@WebServlet(name = "UploadFotoAluno", urlPatterns = {"/aluno/foto/upload"})
+public class UploadFotoAluno extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -27,17 +27,17 @@ public class UploadFoto extends HttpServlet {
 		
 		try {
 			c = Conector.getConnection();
-			ProfessoresRepository pr = new ProfessoresRepository(c);
+			AlunosRepository pr = new AlunosRepository(c);
 			
-			String idProf = null, fileName = null;
+			String idAluno = null, fileName = null;
 			
 			if (ServletFileUpload.isMultipartContent(req)) {
             try {
                 List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(req);
 				
 				for (FileItem item : multiparts) {
-                    if ("idProf".equals(item.getFieldName())) {
-						idProf = item.getString();
+                    if ("idAluno".equals(item.getFieldName())) {
+						idAluno = item.getString();
                     }
                 }
 				
@@ -53,14 +53,17 @@ public class UploadFoto extends HttpServlet {
 							out.println("<erro><mensagem>Tipo não permitido</mensagem></erro>");
 							return;
 						}
-						fileName = "upload" + idProf + ".jpg";
+						fileName = "upload-al-" + idAluno + ".jpg";
 						File img = new File(req.getServletContext().getRealPath("uploads")+ File.separator + fileName);
 						if(img.exists()) img.delete();
-						System.out.println(img);
                         item.write(img);
-						if(pr.inserirFoto(idProf, fileName)){
+						if(pr.inserirFoto(idAluno, fileName)){
 							res.setStatus(200);
 							out.println("<sucesso><mensagem>Upload realizado com sucesso</mensagem></sucesso>");
+						}
+						else{
+							res.setStatus(500);
+							out.println("<erro><mensagem>Não foi possível fazer o upload da foto</mensagem></erro>");
 						}
                     }
                 }
