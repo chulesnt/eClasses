@@ -31,5 +31,9 @@ function inserir() {
       produzirToastServer(xmlDoc);
       limpaInputs();
     });
+
+    setTimeout(function(){
+      window.location.href = "http://localhost:8080/app/login.html";
+    }, 2000);
   }
 }
