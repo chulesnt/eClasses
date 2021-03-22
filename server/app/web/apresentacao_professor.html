@@ -62,11 +62,11 @@
                         <div id="avProf" style="margin-bottom:15px"></div>
                         <p style="margin-bottom: 15px">R$ <span id="preco-hora"></span>&nbsp;por hora</p>
                         <p class="fr" style="margin-bottom: 15px">
-                            <img src="img/local.png" alt="local" class="local">&nbsp;
+                            <img src="img/local.png" alt="local" class="local" data-toggle="tooltip" data-placement="bottom" title="Local">&nbsp;
                             <span id="nome-mun"></span>,&nbsp;<span id="uf"></span>
                         </p>
                         <p class="fr">
-                            <img src="img/livros.png" alt="matéria" class="mat">&nbsp;
+                            <img src="img/livros.png" alt="matéria" class="mat" data-toggle="tooltip" data-placement="bottom" title="Matéria">&nbsp;
                             <span id="nome-mat"></span>
                         </p>
                         <hr>
@@ -226,6 +226,9 @@
     <script src="js/professor/apresentacao_prof.js"></script>
 
     <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     </script>
 </body>
 

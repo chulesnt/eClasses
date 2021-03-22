@@ -52,4 +52,4 @@ function carregarPreferenciaLocal() {
       xmlDoc = parser.parseFromString(text, "text/xml");
       preencherPreferenciaLocal(xmlDoc);
     });
-  }
+}

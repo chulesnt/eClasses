@@ -67,7 +67,7 @@
                     <div class="form-group row">
                         <label for="estado" class="col-md-3 col-form-label">UF</label>
                         <div class="col-md-9">
-                            <select onchange="carregarMunicipio()" id="estado" name="estado">
+                            <select id="estado" name="estado" onchange="carregarMunicipio()" >
                             </select>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="form-group row">
                         <label for="municipio" class="col-md-3 col-form-label">Município</label>
                         <div class="col-md-9">
-                            <select id="municipio" name="municipio">
+                            <select id="municipio" name="municipio" onfocus="carregarMunicipio()" >
                             </select>
                         </div>
                     </div>

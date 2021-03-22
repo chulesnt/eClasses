@@ -150,13 +150,13 @@
                     </h3>
                     <div class="card-body">
                         <dl id="listaPreferencias" class="row">
-                            <dt class="col-6">Preço limite</dt>
+                            <dt class="col-6" data-toggle="tooltip" data-placement="left" title="Preço/aula máximo que você deseja pagar">Preço limite</dt>
                             <dd class="col-6" id="preco">R$ </dd>
-                            <dt class="col-6">Localidade</dt>
+                            <dt class="col-6" data-toggle="tooltip" data-placement="left" title="Lugar de origem do professor">Localidade</dt>
                             <dd class="col-6" id="local"></dd>
-                            <dt class="col-6">Nº máximo de alunos</dt>
+                            <dt class="col-6" data-toggle="tooltip" data-placement="left" title="Máximo de alunos presentes na mesma aula com você">Nº máximo de alunos</dt>
                             <dd class="col-6" id="numero-alunos"></dd>
-                            <dt class="col-12 center">Materias</dt>
+                            <dt class="col-12 center" data-toggle="tooltip" data-placement="bottom" title="Matérias que você deseja buscar">Matérias</dt>
                         </dl>
                     </div>
                     <div class="card-footer">
@@ -207,7 +207,7 @@
                                     </div>
                                 </div>
 
-                                <p class="col-12 center afast"><strong>Materias</strong></p>
+                                <p class="col-12 center afast"><strong>Matérias</strong></p>
                                 <div class="form-group row">
                                     <div class="col-5 centralize">
                                         <select id="materiasAlt" name="materias">
@@ -319,7 +319,12 @@
         window.onload = function () {
             consultarLogado();
         };
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     </script>
+    
     <script src="js/aluno/editarPerfil.js"></script>
     <script src="js/aluno/consultarLogado.js"></script>
     <script src="js/aluno/alterarSenha.js"></script>
