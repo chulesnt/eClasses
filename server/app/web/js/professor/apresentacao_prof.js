@@ -17,9 +17,77 @@ const inMax = document.querySelector("#numAMax");
 const ew = document.querySelector("#ew");
 const porFavor = document.querySelector("#funciona");
 
-porFavor.addEventListener("click", function (e) {
-    e.preventDefault();
+const photoContainer = document.querySelector(".photo-container");
+const defaultPhotoUpload = document.querySelector("#default-photo-upload")
+const uploadPreview = document.querySelector("#upload-preview")
+const btnUpload = document.querySelector("#botaoUpload");
+const idUpload = document.querySelector("#id-upload")
+const resUpload = document.querySelector("#respostaUpload")
+
+function defaultUploadActive(){
+    defaultPhotoUpload.click()
+}
+
+btnUpload.addEventListener('click', (e) => {
+    if(defaultPhotoUpload.files[0]){
+        sendMultipartFormData({
+            foto: defaultPhotoUpload.files[0],
+            idProf: idUpload.value
+        })
+    }
+    else{
+        torrada(resUpload, "Insira uma imagem primeiro", false)
+    }
 })
+
+defaultPhotoUpload.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+        if(file.type != "image/jpeg" && file.type != "image/jpg" && file.type != "image/png"){
+            torrada(resUpload, "Só são aceitas imagens .png ou .jpg", false)
+            defaultPhotoUpload.value = null
+            uploadPreview.src = "";
+            return;
+        }
+        if(file.size > 5000000){
+            torrada(resUpload, "Imagem muito pesada", false)
+            defaultPhotoUpload.value = null
+            uploadPreview.src = "";
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(){
+            const result = reader.result;
+            uploadPreview.src = result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+function sendMultipartFormData(data){
+    const XHR = new XMLHttpRequest()
+    const FD  = new FormData();
+
+    for(key in data) {
+        FD.append(key, data[key]);
+    }
+
+    XHR.addEventListener('load', (e) => {
+        if(e.target.status == 200) torrada(resUpload, "Foto alterada com sucesso!", true)
+        else torrada(resUpload, "Não foi possível alterar a foto", false)
+    });
+
+    XHR.addEventListener(' error', (e) => {
+        torrada(resUpload, "Não foi possível alterar a foto", false)
+    });
+
+    XHR.open('POST', 'http://localhost:8080/app/foto/upload');
+    XHR.send(FD);
+}
+
+// porFavor.addEventListener("click", function (e) {
+//     e.preventDefault();
+// })
 
 let selUf = document.querySelector("#idUf");
 let selMun = document.querySelector("#idMunicipio");
@@ -178,8 +246,15 @@ function megafete() {
             btnConv.addEventListener("click", function () {
                 $('#modalProf').modal("toggle");
             });
+            photoContainer.addEventListener('click', (e) => {
+                $('#modalPhoto').modal('toggle')
+            })
+            idUpload.value = idprof
         }
         else {
+            photoContainer.classList.add('not-hoverable')
+            document.querySelector(".photo-text").style.display = 'none'
+            document.querySelector(".photo-text-container").style.display = 'none'
             headerProf.classList.add("none");
             btnConv.addEventListener("click", function () {
             });

@@ -53,8 +53,14 @@
         <div class="container" id="cont">
             <div class="row fc ap" id="main">
                 <div class="col-12 fc">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                    <div class="photo-container">
+                        <div class="photo-text-container"></div>
+                        <div class="photo-text">
+                            <p>Alterar foto</p>
+                        </div>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                         alt="h" id="pg" style="margin-bottom:24px">
+                    </div>
                     <h3 id="nome" class="nome"></h3>
                     <p id="descricao-apresentacao" class="text-center"></p>
                     <div id="div" class="fc">
@@ -192,7 +198,7 @@
                         </div>
                     </div>
 
-                    <form action="http://localhost:8080/app/foto/upload" method="post" enctype="multipart/form-data">
+                    <!-- <form action="http://localhost:8080/app/foto/upload" method="post" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label for="na2" class="col-md-3 col-form-label">Trocar foto</label>
                             <div class="col-md-6">
@@ -202,7 +208,7 @@
                                 <button type="submit" id="funciona">Trocar</button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
                 </div>
                 <div class="modal-footer" style="position:relative">
@@ -213,6 +219,42 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="botaoEditar">Editar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPhoto" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alterar Foto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="photo-upload-container">
+                        <div class="photo-upload-field">
+                            <p>Selecione um arquivo</p>
+                            <img src="" id="upload-preview">
+                        </div>
+                        <button onClick="defaultUploadActive()" class="btn btn-primary" id="custom-photo-upload">Escolher imagem</button>
+                        <input type="file" id="default-photo-upload" name="foto" hidden>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="position:relative; flex-wrap: nowrap">
+
+                    <div id="drp2">
+                        <p id="respostaUpload" class="trans torrada"></p>
+                    </div>
+
+                    <input type="text" id="id-upload" name="idProf" hidden>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="botaoUpload">Alterar</button>
 
                 </div>
             </div>
