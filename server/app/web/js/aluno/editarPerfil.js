@@ -87,9 +87,6 @@ function reqPreferencias() {
         xmlDoc = parser.parseFromString(text, "text/xml");
       });
 
-
-
-
     url = "http://localhost:8080/app/aluno/editar?nome="
     +"&idUf="
     +"&idMunicipio="
