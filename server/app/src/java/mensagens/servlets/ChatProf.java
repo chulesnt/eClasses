@@ -45,6 +45,7 @@ public class ChatProf extends HttpServlet {
 					out.println("<aluno>");
 					out.println("<idAluno>" + r.get(i) + "</idAluno>");
 					out.println("<nome>" + rs.getString("nome") + "</nome>");
+					out.println("<foto>" + rs.getString("foto") + "</foto>");
 					out.println("</aluno>");
 				}
 				out.println("</alunos>");

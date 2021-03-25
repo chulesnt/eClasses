@@ -90,8 +90,19 @@
 }
 
 .coment .pfp {
+    position: relative;
     width: 64px;
+    height: 64px;
     margin-right: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.coment .pfp > img{
+    width: 100%;
+    position: absolute;
 }
 
 #seuCom textarea {

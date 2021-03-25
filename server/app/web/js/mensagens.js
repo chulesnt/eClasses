@@ -82,8 +82,11 @@ function updateContatoAluno(id){
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(text, "text/xml");
         let f = document.querySelector(".msg-photo");
-        f.style.display = 'none';
+        f.style.display = '';
         let n = document.querySelector(".msg-header > h4");
+        if(xmlDoc.querySelector("foto").textContent != "null"){
+            f.innerHTML = `<img src="aluno/foto/consultar?idAluno=` + xmlDoc.querySelector("id").textContent + `">`;
+        } else f.innerHTML = `<img src="img/empty-profile.png">`;
         n.innerHTML = xmlDoc.querySelector("nome").textContent;
     });
 }
@@ -162,6 +165,11 @@ function criaProfChatItems(xml){
     let str = "<h2>Conversas</h2>";
     for(let i = 0; i < xml.length; i++){
         str += `<div class="chat-item" onclick="openMensagens(` + xml[i].querySelector("idAluno").textContent + `)">`
+        str += `<div class='msg-photo'>`;
+        if(xml[i].querySelector("foto").textContent != "null"){
+            str += `<img src="aluno/foto/consultar?idAluno=` + xml[i].querySelector("idAluno").textContent + `">`;
+        } else str += `<img src="img/empty-profile.png">`;
+        str += `</div>`;
         str += `<h6>` + xml[i].querySelector("nome").textContent + `</h6>`;
         str += `</div>`;
     }

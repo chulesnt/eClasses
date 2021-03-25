@@ -325,7 +325,10 @@ function megafete() {
                     fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno=" + ida[i] + "&idProf=" + idprof, function (x2) {
                         let elava = x2.querySelector("avaliacao");
                         let ava = elava == null ? null : +elava.textContent;
-                        showComm(dpfp, na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
+                        fete("http://localhost:8080/app/aluno/consultar?id=" + ida[i], function(x3){
+                            if(xmlget(x3, "foto") != "null") showComm("aluno/foto/consultar?idAluno=" + ida[i], na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
+                            else showComm(dpfp, na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
+                        });
                     });
                 });
             }
@@ -335,7 +338,8 @@ function megafete() {
             if (podecom) {
                 fete("http://localhost:8080/app/aluno/consultar?id=" + idu, function (xml) {
                     nma = xmlget(xml, "nome");
-                    sc.appendChild(makeComm(dpfp, nma, 0, null, dateFormat(new Date())));
+                    if(xmlget(xml, "foto") != "null") sc.appendChild(makeComm("aluno/foto/consultar?idAluno=" + idu, nma, 0, null, dateFormat(new Date())));
+                    else sc.appendChild(makeComm(dpfp, nma, 0, null, dateFormat(new Date())));
                 });
             }
             else {
@@ -357,7 +361,10 @@ function megafete() {
                             fete("http://localhost:8080/app/apresentacao/avaliar?idProf=" + idprof + "&nota=" + nota, function () {
                                 seuCom.innerHTML = "";
                                 ew.classList.add("hidden");
-                                showComm(dpfp, nma, nota, tval, dateFormat(dta), 0);
+                                fete("http://localhost:8080/app/aluno/consultar?id=" + idu, function(x3){
+                                    if(xmlget(x3, "foto") != "null") showComm("aluno/foto/consultar?idAluno=" + idu, nma, nota, tval, dateFormat(dta), 0);
+                                    else showComm(dpfp, nma, nota, tval, dateFormat(dta), 0);
+                                });
                             });
                         });
                     }
@@ -465,10 +472,12 @@ function makeComm(img, nome, av, txt, data) {
 
     let r = document.createElement("div");
     r.className = "fr";
+    let imContainer = document.createElement("div");
+    imContainer.className = "pfp";
     let im = document.createElement("img");
     im.src = img;
-    im.className = "pfp";
-    r.appendChild(im);
+    imContainer.appendChild(im)
+    r.appendChild(imContainer);
 
     let c = document.createElement("div");
     c.className = "fc2";
