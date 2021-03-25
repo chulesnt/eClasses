@@ -42,6 +42,16 @@
                     <h3 id="nome" class="card-header bg-primary text-white">
 
                     </h3>
+
+                    <div class="photo-container" style="align-self: center; margin: 10px 0;">
+                        <div class="photo-text-container"></div>
+                        <div class="photo-text">
+                            <p>Alterar foto</p>
+                        </div>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                        alt="h" id="pg" style="margin-bottom:24px">
+                    </div>
+
                     <div class="card-body">
                         <dl id="listaDados" class="row">
                             <dt class="col-6">E-mail</dt>
@@ -233,7 +243,41 @@
                     </div>
                 </div>
 
-
+                <div class="modal fade" id="modalPhoto" tabindex="-1" role="dialog" aria-labelledby="modalAluno" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Alterar Foto</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+            
+                                <div class="photo-upload-container">
+                                    <div class="photo-upload-field">
+                                        <p>Selecione um arquivo</p>
+                                        <img src="" id="upload-preview">
+                                    </div>
+                                    <button onClick="defaultUploadActive()" class="btn btn-primary" id="custom-photo-upload">Escolher imagem</button>
+                                    <input type="file" id="default-photo-upload" name="foto" hidden>
+                                </div>
+            
+                            </div>
+                            <div class="modal-footer" style="position:relative; flex-wrap: nowrap">
+            
+                                <div id="drp2">
+                                    <p id="respostaUpload" class="trans torrada"></p>
+                                </div>
+            
+                                <input type="text" id="id-upload" name="idAluno" hidden>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" id="botaoUpload">Alterar</button>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -314,6 +358,11 @@
         document.querySelector("#abrirPreferencias").addEventListener("click", function () { abrirPreferencias() });
         document.querySelector("#botaoPreferencias").addEventListener("click", function () { reqPreferencias() });
         document.querySelector("#add").addEventListener("click", function () { addMateria() });
+
+        const photoContainer = document.querySelector(".photo-container")
+        photoContainer.addEventListener('click', (e) => {
+            $('#modalPhoto').modal('toggle')
+        })
 
 
         window.onload = function () {

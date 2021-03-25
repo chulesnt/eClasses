@@ -35,6 +35,12 @@ function consultarLogado() {
             let text = decoder.decode(buffer);
             parser = new DOMParser();
             xmlDoc = parser.parseFromString(text, "text/xml");
+
+            let foto = xmlDoc.querySelector("foto").textContent
+
+            const idUpload = document.querySelector("#id-upload")
+            idUpload.value = idAluno
+
             var aluno = xmlDoc.getElementsByTagName("aluno")[0];
             campoNome.innerHTML = aluno.getElementsByTagName("nome")[0].childNodes[0].nodeValue;
             campoEmail.innerHTML = aluno.getElementsByTagName("email")[0].childNodes[0].nodeValue;
@@ -117,6 +123,12 @@ function consultarLogado() {
                   listaPreferencias.appendChild(dd);
               });
             }
+
+            // Atualizar foto
+            let photo = document.querySelector(".photo-container > img")
+            if(foto != "null"){
+              photo.src = "aluno/foto/consultar?idAluno=" + idAluno
+            } else photo.src = "img/empty-profile.png"
 
           });
       }

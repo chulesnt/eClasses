@@ -183,3 +183,86 @@ function abrirPreferencias() {
         add();
       }, 500);
 }
+
+const defaultPhotoUpload = document.querySelector("#default-photo-upload")
+const uploadPreview = document.querySelector("#upload-preview")
+const btnUpload = document.querySelector("#botaoUpload");
+const idUpload = document.querySelector("#id-upload")
+const resUpload = document.querySelector("#respostaUpload")
+
+let photoPrev = ""
+
+function defaultUploadActive(){
+    defaultPhotoUpload.click()
+}
+
+btnUpload.addEventListener('click', (e) => {
+    if(defaultPhotoUpload.files[0]){
+        sendMultipartFormData({
+            foto: defaultPhotoUpload.files[0],
+            idAluno: idUpload.value
+        })
+    }
+    else{
+        torrada(resUpload, "Insira uma imagem primeiro", false)
+    }
+})
+
+defaultPhotoUpload.addEventListener("change", function(){
+  const file = this.files[0];
+  if(file){
+      if(file.type != "image/jpeg" && file.type != "image/jpg" && file.type != "image/png"){
+          torrada(resUpload, "Só são aceitas imagens .png ou .jpg", false)
+          defaultPhotoUpload.value = null
+          uploadPreview.src = "";
+          return;
+      }
+      if(file.size > 5000000){
+          torrada(resUpload, "Imagem muito pesada", false)
+          defaultPhotoUpload.value = null
+          uploadPreview.src = "";
+          return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(){
+          const result = reader.result;
+          uploadPreview.src = result;
+          photoPrev = result
+      }
+      reader.readAsDataURL(file);
+  }
+});
+
+function sendMultipartFormData(data){
+  const XHR = new XMLHttpRequest()
+  const FD  = new FormData();
+
+  for(key in data) {
+      FD.append(key, data[key]);
+  }
+
+  XHR.addEventListener('load', (e) => {
+      if(e.target.status == 200){
+        document.querySelector(".photo-container > img").src = photoPrev
+        torrada(resUpload, "Foto alterada com sucesso!", true)
+      }
+      else torrada(resUpload, "Não foi possível alterar a foto", false)
+  });
+
+  XHR.addEventListener(' error', (e) => {
+      torrada(resUpload, "Não foi possível alterar a foto", false)
+  });
+
+  XHR.open('POST', 'http://localhost:8080/app/aluno/foto/upload');
+  XHR.send(FD);
+}
+
+let to;
+function torrada(el, msg, suc) {
+    clearTimeout(to);
+    el.innerHTML = "<span class=\"" + (suc ? "sucesso" : "erro2") + "\">" + msg + "</span>";
+    el.classList.remove("trans");
+    to = setTimeout(function () {
+        el.classList.add("trans");
+    }, 3000);
+}

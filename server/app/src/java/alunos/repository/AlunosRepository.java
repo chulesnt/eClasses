@@ -281,6 +281,7 @@ public class AlunosRepository {
 		xml += "<preferencia-numero-alunos>" + rs.getInt("preferencia-numero-alunos") + "</preferencia-numero-alunos>";
 		xml += "<assinante>" + rs.getBoolean("assinante") + "</assinante>";
 		xml += "<data-fim-assinatura>" + rs.getDate("data-fim-assinatura") + "</data-fim-assinatura>";
+		xml += "<foto>" + rs.getString("foto") + "</foto>";
 		
 		ps = c.prepareStatement("SELECT * FROM alunopreferenciasmaterias WHERE \"id-aluno\" = ?");
 		ps.setLong(1, idParsed);

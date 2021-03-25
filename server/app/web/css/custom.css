@@ -58,3 +58,127 @@ footer {
 .fot {
   margin-top: 10px;
 }
+
+
+.photo-container:hover, .photo-text-container:hover, .photo-text:hover{
+    cursor: pointer;
+}
+
+.photo-container:hover .photo-text-container{
+    opacity: 0.4;
+}
+
+.photo-container:hover .photo-text{
+    opacity: 1;
+}
+
+.photo-container{
+    position: relative;
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#pg {
+    position: absolute;
+    width: 100%;
+}
+
+.photo-text-container{
+    opacity: 0;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transition: 0.3s ease;
+}
+
+.photo-text{
+    opacity: 0;
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #007bff;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.photo-text > p{
+    padding: 5px;
+    margin: 0;
+}
+
+.photo-upload-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-upload-field{
+    border-radius: 50%;
+    width: 164px;
+    height: 164px;
+    border: 2px dashed #007bff;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    color: #6c757d;
+    position: relative;
+}
+
+.photo-upload-field > img{
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.photo-upload-field > p{
+    z-index: 1;
+    position: absolute;
+    align-self: center;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    max-width: 100%;
+}
+
+.not-hoverable:hover{
+    cursor: default;
+}
+
+.trans {
+    opacity: 0;
+}
+
+.torrada {
+    transition: opacity 152ms linear;
+    border-radius: 6px;
+    padding: 6px 10px;
+    background-color: #efefef;
+    border: 1px solid #9f9f9f;
+    margin: 0;
+}
+
+.sucesso {
+    color: #007f00;
+}
+
+.erro2 {
+    color: #9b0000;
+}
+
+.erro>:not(#main),
+.erro #div {
+    display: none;
+}

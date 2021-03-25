@@ -24,6 +24,8 @@ const btnUpload = document.querySelector("#botaoUpload");
 const idUpload = document.querySelector("#id-upload")
 const resUpload = document.querySelector("#respostaUpload")
 
+let photoPrev = ""
+
 function defaultUploadActive(){
     defaultPhotoUpload.click()
 }
@@ -59,6 +61,7 @@ defaultPhotoUpload.addEventListener("change", function(){
         reader.onload = function(){
             const result = reader.result;
             uploadPreview.src = result;
+            photoPrev = result
         }
         reader.readAsDataURL(file);
     }
@@ -73,7 +76,10 @@ function sendMultipartFormData(data){
     }
 
     XHR.addEventListener('load', (e) => {
-        if(e.target.status == 200) torrada(resUpload, "Foto alterada com sucesso!", true)
+        if(e.target.status == 200){
+            document.querySelector(".photo-container > img").src = photoPrev
+            torrada(resUpload, "Foto alterada com sucesso!", true)
+        }
         else torrada(resUpload, "Não foi possível alterar a foto", false)
     });
 
