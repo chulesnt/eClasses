@@ -6,6 +6,10 @@ main {
     margin: 30px 0px;
 }
 
+#index-main {
+    margin-top: 0;
+}
+
 .img-inicio {
     width: 18em;
 }
@@ -184,7 +188,7 @@ footer {
 }
 
 .carousel-item {
-    height: 32rem;
+    min-height: 52.5rem;
     background-color: #000;
     color: white;
     position: relative;
@@ -195,7 +199,7 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 3rem;
 }
 
 .overlay-image {
@@ -207,4 +211,12 @@ footer {
     background-position: center;
     background-size: cover;
     opacity: 0.5;
+}
+
+#carousel-inicio {
+    width: 100%;
+    min-height: 52.5rem;
+    border-style: solid;
+    border-width: 1px;;
+    border-color: black;
 }
