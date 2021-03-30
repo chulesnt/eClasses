@@ -120,4 +120,31 @@ public class ConsultasRepository {
 		xml += "</aluno-avalia-prof>";
 		return xml;
 	}
+	
+	public String contarUsuarios() throws SQLException {
+		String xml = "<usuarios>";
+		int contAlunos = 0;
+		int contProfs = 0;
+		
+		PreparedStatement ps1 = c.prepareStatement("SELECT * FROM aluno");
+		ResultSet rs1 = ps1.executeQuery();
+		
+		while(rs1.next()) {
+			contAlunos++;
+		}
+		
+		PreparedStatement ps2 = c.prepareStatement("SELECT * FROM professor");
+		ResultSet rs2 = ps2.executeQuery();
+		
+		while(rs2.next()) {
+			contProfs++;
+		}
+		
+		xml += "<alunos>" + contAlunos + "</alunos>";
+		xml += "<professores>" + contProfs + "</professores>";
+		
+		xml+= "</usuarios>";
+		
+		return xml;
+	}
 }
