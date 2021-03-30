@@ -203,6 +203,10 @@ footer {
     padding-bottom: 10vh;
 }
 
+.carousel-control-prev{
+    z-index:0;
+}
+
 .overlay-image {
     position: absolute;
     bottom: 0;
@@ -231,5 +235,7 @@ footer {
 }
 
 .slidea {
+    position: relative;
+    z-index:1;
 	font-size: 2.3vh;
 }
