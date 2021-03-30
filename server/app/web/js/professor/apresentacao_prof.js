@@ -14,8 +14,9 @@ const ts = document.querySelector("#respostaPerfil");
 const tc = document.querySelector("#respCom");
 const inMin = document.querySelector("#numAMin");
 const inMax = document.querySelector("#numAMax");
+const inVideo = document.querySelector("#link");
+const plink = document.querySelector("#linkv");
 const ew = document.querySelector("#ew");
-const porFavor = document.querySelector("#funciona");
 
 const photoContainer = document.querySelector(".photo-container");
 const defaultPhotoUpload = document.querySelector("#default-photo-upload")
@@ -23,8 +24,6 @@ const uploadPreview = document.querySelector("#upload-preview")
 const btnUpload = document.querySelector("#botaoUpload");
 const idUpload = document.querySelector("#id-upload")
 const resUpload = document.querySelector("#respostaUpload")
-
-let photoPrev = ""
 
 function defaultUploadActive(){
     defaultPhotoUpload.click()
@@ -61,7 +60,6 @@ defaultPhotoUpload.addEventListener("change", function(){
         reader.onload = function(){
             const result = reader.result;
             uploadPreview.src = result;
-            photoPrev = result
         }
         reader.readAsDataURL(file);
     }
@@ -76,10 +74,7 @@ function sendMultipartFormData(data){
     }
 
     XHR.addEventListener('load', (e) => {
-        if(e.target.status == 200){
-            document.querySelector(".photo-container > img").src = photoPrev
-            torrada(resUpload, "Foto alterada com sucesso!", true)
-        }
+        if(e.target.status == 200) torrada(resUpload, "Foto alterada com sucesso!", true)
         else torrada(resUpload, "Não foi possível alterar a foto", false)
     });
 
@@ -90,10 +85,6 @@ function sendMultipartFormData(data){
     XHR.open('POST', 'http://localhost:8080/app/foto/upload');
     XHR.send(FD);
 }
-
-// porFavor.addEventListener("click", function (e) {
-//     e.preventDefault();
-// })
 
 let selUf = document.querySelector("#idUf");
 let selMun = document.querySelector("#idMunicipio");
@@ -156,6 +147,7 @@ btnEd.addEventListener("click", function () {
         str += forms[i].id + "=" + forms[i].value;
     }
     str += "&titulo=&premium=&dataPremium=";
+    console.log(str);
     fete(str, function () {
         torrada(ts, "Dados editados com sucesso", true);
     })
@@ -310,6 +302,65 @@ function megafete() {
                 pg.src = "foto/consultar?idProf=" + idprof;
             }
 
+            let xlink=xmlget(xml,"link");
+            //console.log(xlink);
+            if(xlink=="null" || xlink==""){
+                link.value="";
+            }
+            else{
+                link.value=xlink;
+                let ok=true,https=false;
+                if(xlink.startsWith("http")){
+                    let ind=4;
+                    if(xlink[ind]=="s"){
+                        ind++;
+                        https=true;
+                    }
+                    if(xlink[ind]==":" && xlink[ind+1]=="/" && xlink[ind+2]=="/"){
+                        ok=false;
+                    }
+                }
+                if(ok){
+                    xlink="http://"+xlink;
+                }
+
+                let ind2=https? 8: 7;
+                if(xlink.substring(ind2,ind2+4)=="www."){
+                    ind2+=4;
+                }
+                //console.log(xlink+" "+xlink.substring(ind2,ind2+18));
+                let ok2=true;
+                if(xlink.substring(ind2,ind2+12)=="youtube.com/"){
+                    ind2+=12;
+                    if(xlink.substring(ind2,ind2+8)=="watch?v="){
+                        let fim=xlink.lastIndexOf("&");
+                        if(fim==-1) fim=xlink.length;
+                        xlink=xlink.substring(0,ind2)+"embed/"+xlink.substring(ind2+8,fim);
+                        ok2=false;
+                    }
+                    else if(xlink.substring(ind2,ind2+6)=="embed/"){
+                        ok2=false;
+                    }
+                }
+                if(ok2){
+                    const a=document.createElement("a");
+                    a.textContent="Link do vídeo";
+                    plink.appendChild(a);
+                    plink.style.marginTop="8px";
+                    a.href=xlink;
+                }
+                else{
+                    const ifr=document.createElement("iframe");
+                    ifr.src=xlink;
+                    ifr.style.width="448px";
+                    ifr.style.height="252px";
+                    ifr.setAttribute("allow","accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+                    ifr.setAttribute("allowfullscreen","");
+                    plink.appendChild(ifr);
+                    plink.style.marginTop="15px";
+                }
+            }
+
             let xc = xml.querySelector("comentarios");
             let ida = xmlGetAll(xc, "id-aluno");
             let tx = xmlGetAll(xc, "texto");
@@ -325,10 +376,7 @@ function megafete() {
                     fete("http://localhost:8080/app/consultar/alunoavaliaprof?idAluno=" + ida[i] + "&idProf=" + idprof, function (x2) {
                         let elava = x2.querySelector("avaliacao");
                         let ava = elava == null ? null : +elava.textContent;
-                        fete("http://localhost:8080/app/aluno/consultar?id=" + ida[i], function(x3){
-                            if(xmlget(x3, "foto") != "null") showComm("aluno/foto/consultar?idAluno=" + ida[i], na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
-                            else showComm(dpfp, na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
-                        });
+                        showComm(dpfp, na, ava, tx[i], dateFormat(new Date(+dt[i])), cond ? 0 : 1);
                     });
                 });
             }
@@ -338,8 +386,7 @@ function megafete() {
             if (podecom) {
                 fete("http://localhost:8080/app/aluno/consultar?id=" + idu, function (xml) {
                     nma = xmlget(xml, "nome");
-                    if(xmlget(xml, "foto") != "null") sc.appendChild(makeComm("aluno/foto/consultar?idAluno=" + idu, nma, 0, null, dateFormat(new Date())));
-                    else sc.appendChild(makeComm(dpfp, nma, 0, null, dateFormat(new Date())));
+                    sc.appendChild(makeComm(dpfp, nma, 0, null, dateFormat(new Date())));
                 });
             }
             else {
@@ -361,10 +408,7 @@ function megafete() {
                             fete("http://localhost:8080/app/apresentacao/avaliar?idProf=" + idprof + "&nota=" + nota, function () {
                                 seuCom.innerHTML = "";
                                 ew.classList.add("hidden");
-                                fete("http://localhost:8080/app/aluno/consultar?id=" + idu, function(x3){
-                                    if(xmlget(x3, "foto") != "null") showComm("aluno/foto/consultar?idAluno=" + idu, nma, nota, tval, dateFormat(dta), 0);
-                                    else showComm(dpfp, nma, nota, tval, dateFormat(dta), 0);
-                                });
+                                showComm(dpfp, nma, nota, tval, dateFormat(dta), 0);
                             });
                         });
                     }
@@ -472,12 +516,10 @@ function makeComm(img, nome, av, txt, data) {
 
     let r = document.createElement("div");
     r.className = "fr";
-    let imContainer = document.createElement("div");
-    imContainer.className = "pfp";
     let im = document.createElement("img");
     im.src = img;
-    imContainer.appendChild(im)
-    r.appendChild(imContainer);
+    im.className = "pfp";
+    r.appendChild(im);
 
     let c = document.createElement("div");
     c.className = "fc2";
